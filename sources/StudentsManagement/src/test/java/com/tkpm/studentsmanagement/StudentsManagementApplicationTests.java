@@ -1,4 +1,4 @@
-package com.tkpm.studentsmanagement.StudentsManagement;
+package com.tkpm.studentsmanagement;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
