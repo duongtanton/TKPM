@@ -16,7 +16,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ./app/logs/log_%d{dd-MM-yyyy}.log
+                /app/logs/log_%d{dd-MM-yyyy}.log
             </fileNamePattern>
             <maxHistory>10</maxHistory>
             <totalSizeCap>100MB</totalSizeCap>
@@ -25,8 +25,7 @@
 
     <springProfile name="dev">
         <root level="info">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="SAVE-TO-FILE" />
+            <appender-ref ref="STDOUT"/>
         </root>
         <logger name="com.lankydan.service.MyServiceImpl" additivity="false" level="info">
             <appender-ref ref="STDOUT" />

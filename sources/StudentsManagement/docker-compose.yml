@@ -11,7 +11,8 @@ services:
         "spring.datasource.username" : "scwnbjdt_students_management",
         "spring.datasource.password" : "user@123",
         "spring.datasource.driver-class-name" : "com.mysql.cj.jdbc.Driver",
-        "spring.jpa.hibernate.ddl-auto" : "update"
+        "spring.jpa.hibernate.ddl-auto" : "update",
+        "spring.profiles.active" : "prod"  
         }'
     volumes:
       - /home/ec2-user/StudentsManagement/logs:/app/logs
