@@ -10319,3 +10319,75 @@ Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Could not parse
 	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:710)
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
 	... 48 common frames omitted
+22-05-2023 23:48:29.964 [restartedMain] INFO  c.t.studentsmanagement.Application.logStarting - Starting Application using Java 17.0.7 with PID 23192 (E:\Desktop\TKPM\sources\StudentsManagement\target\classes started by ADMIN in E:\Desktop\TKPM\sources\StudentsManagement)
+22-05-2023 23:48:29.968 [restartedMain] INFO  c.t.studentsmanagement.Application.logStartupProfileInfo - The following 1 profile is active: "dev"
+22-05-2023 23:48:30.227 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor.logTo - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+22-05-2023 23:48:30.227 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor.logTo - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+22-05-2023 23:48:30.825 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate.registerRepositoriesIn - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+22-05-2023 23:48:30.886 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate.registerRepositoriesIn - Finished Spring Data repository scanning in 51 ms. Found 1 JPA repository interfaces.
+22-05-2023 23:48:31.243 [restartedMain] ERROR o.a.c.core.AprLifecycleListener.log - An incompatible version [1.2.31] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+22-05-2023 23:48:31.570 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 8080 (http)
+22-05-2023 23:48:31.587 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-8080"]
+22-05-2023 23:48:31.589 [restartedMain] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+22-05-2023 23:48:31.590 [restartedMain] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/10.1.8]
+22-05-2023 23:48:31.663 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+22-05-2023 23:48:31.664 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 1436 ms
+22-05-2023 23:48:31.865 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper.logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: default]
+22-05-2023 23:48:31.958 [restartedMain] INFO  org.hibernate.Version.logVersion - HHH000412: Hibernate ORM core version 6.1.7.Final
+22-05-2023 23:48:32.361 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource.getConnection - HikariPool-1 - Starting...
+22-05-2023 23:48:32.505 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool.checkFailFast - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@419bb420
+22-05-2023 23:48:32.509 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource.getConnection - HikariPool-1 - Start completed.
+22-05-2023 23:48:32.566 [restartedMain] WARN  org.hibernate.dialect.Dialect.checkVersion - HHH000511: The 5.5.0 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 5.7.0. Check the community dialects project for available legacy versions.
+22-05-2023 23:48:32.574 [restartedMain] INFO  SQL dialect.logSelectedDialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+22-05-2023 23:48:33.301 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator.initiateService - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+22-05-2023 23:48:33.310 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory - Initialized JPA EntityManagerFactory for persistence unit 'default'
+22-05-2023 23:48:33.634 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+22-05-2023 23:48:34.045 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer.startServer - LiveReload server is running on port 35729
+22-05-2023 23:48:34.072 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-8080"]
+22-05-2023 23:48:34.102 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 8080 (http) with context path ''
+22-05-2023 23:48:34.111 [restartedMain] INFO  c.t.studentsmanagement.Application.logStarted - Started Application in 4.575 seconds (process running for 5.028)
+22-05-2023 23:48:42.480 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+22-05-2023 23:48:42.480 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+22-05-2023 23:48:42.483 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 3 ms
+22-05-2023 23:48:44.566 [http-nio-8080-exec-5] INFO  c.t.s.controller.HomeController.index - Hello
+22-05-2023 23:48:53.542 [http-nio-8080-exec-10] INFO  c.t.s.controller.HomeController.index - Hello
+22-05-2023 23:50:27.831 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener.onApplicationEvent - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+22-05-2023 23:50:27.841 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol.log - Pausing ProtocolHandler ["http-nio-8080"]
+22-05-2023 23:50:27.843 [Thread-5] INFO  o.a.catalina.core.StandardService.log - Stopping service [Tomcat]
+22-05-2023 23:50:27.844 [Thread-5] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Destroying Spring FrameworkServlet 'dispatcherServlet'
+22-05-2023 23:50:27.846 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol.log - Stopping ProtocolHandler ["http-nio-8080"]
+22-05-2023 23:50:27.851 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol.log - Destroying ProtocolHandler ["http-nio-8080"]
+22-05-2023 23:50:27.853 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean.destroy - Closing JPA EntityManagerFactory for persistence unit 'default'
+22-05-2023 23:50:27.857 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource.close - HikariPool-1 - Shutdown initiated...
+22-05-2023 23:50:27.881 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource.close - HikariPool-1 - Shutdown completed.
+22-05-2023 23:50:27.944 [restartedMain] INFO  c.t.studentsmanagement.Application.logStarting - Starting Application using Java 17.0.7 with PID 23192 (E:\Desktop\TKPM\sources\StudentsManagement\target\classes started by ADMIN in E:\Desktop\TKPM\sources\StudentsManagement)
+22-05-2023 23:50:27.946 [restartedMain] INFO  c.t.studentsmanagement.Application.logStartupProfileInfo - The following 1 profile is active: "dev"
+22-05-2023 23:50:28.097 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate.registerRepositoriesIn - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+22-05-2023 23:50:28.110 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate.registerRepositoriesIn - Finished Spring Data repository scanning in 12 ms. Found 1 JPA repository interfaces.
+22-05-2023 23:50:28.215 [restartedMain] ERROR o.a.c.core.AprLifecycleListener.log - An incompatible version [1.2.31] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+22-05-2023 23:50:28.279 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 8080 (http)
+22-05-2023 23:50:28.281 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-8080"]
+22-05-2023 23:50:28.282 [restartedMain] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+22-05-2023 23:50:28.283 [restartedMain] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/10.1.8]
+22-05-2023 23:50:28.319 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring embedded WebApplicationContext
+22-05-2023 23:50:28.321 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 372 ms
+22-05-2023 23:50:28.351 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper.logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: default]
+22-05-2023 23:50:28.355 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource.getConnection - HikariPool-2 - Starting...
+22-05-2023 23:50:28.359 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool.checkFailFast - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7c0238d5
+22-05-2023 23:50:28.360 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource.getConnection - HikariPool-2 - Start completed.
+22-05-2023 23:50:28.361 [restartedMain] WARN  org.hibernate.dialect.Dialect.checkVersion - HHH000511: The 5.5.0 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 5.7.0. Check the community dialects project for available legacy versions.
+22-05-2023 23:50:28.363 [restartedMain] INFO  SQL dialect.logSelectedDialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+22-05-2023 23:50:28.413 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator.initiateService - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+22-05-2023 23:50:28.414 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory - Initialized JPA EntityManagerFactory for persistence unit 'default'
+22-05-2023 23:50:28.467 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+22-05-2023 23:50:28.571 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer.startServer - LiveReload server is running on port 35729
+22-05-2023 23:50:28.579 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol.log - Starting ProtocolHandler ["http-nio-8080"]
+22-05-2023 23:50:28.584 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 8080 (http) with context path ''
+22-05-2023 23:50:28.588 [restartedMain] INFO  c.t.studentsmanagement.Application.logStarted - Started Application in 0.67 seconds (process running for 119.505)
+22-05-2023 23:50:28.590 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener.onApplicationEvent - Condition evaluation unchanged
+22-05-2023 23:51:52.887 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/].log - Initializing Spring DispatcherServlet 'dispatcherServlet'
+22-05-2023 23:51:52.887 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Initializing Servlet 'dispatcherServlet'
+22-05-2023 23:51:52.887 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet.initServletBean - Completed initialization in 0 ms
+22-05-2023 23:51:57.032 [http-nio-8080-exec-4] WARN  o.t.s.p.AbstractStandardFragmentInsertionTagProcessor.computeFragment - [THYMELEAF][http-nio-8080-exec-4][layouts/alternative-layout] Deprecated unwrapped fragment expression "fragments/alternative-header :: alternative-header" found in template layouts/alternative-layout, line 12, col 10. Please use the complete syntax of fragment expressions instead ("~{fragments/alternative-header :: alternative-header}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+22-05-2023 23:51:57.039 [http-nio-8080-exec-4] WARN  o.t.s.p.AbstractStandardFragmentInsertionTagProcessor.computeFragment - [THYMELEAF][http-nio-8080-exec-4][layouts/alternative-layout] Deprecated unwrapped fragment expression "fragments/alternative-footer :: alternative-footer" found in template layouts/alternative-layout, line 17, col 14. Please use the complete syntax of fragment expressions instead ("~{fragments/alternative-footer :: alternative-footer}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+22-05-2023 23:52:00.520 [http-nio-8080-exec-2] INFO  c.t.s.controller.HomeController.index - Hello
