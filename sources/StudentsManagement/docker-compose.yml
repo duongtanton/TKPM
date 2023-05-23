@@ -1,6 +1,16 @@
 version: "3.8"
 
 services:
+  nginx:
+      image: nginx
+      ports:
+        - 80:80
+        - 443:443
+      volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+  depends_on:
+   - app
+
   app:
     image: tonduong/students-management:latest
     ports:
@@ -15,19 +25,3 @@ services:
         }'
     volumes:
       - /home/ec2-user/StudentsManagement/logs:/app/logs
-    depends_on:
-      - nginx 
-    networks:
-      - mynetwork
-  
-  nginx:
-    image: nginx
-    ports:
-      - "8081:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    networks:
-      - mynetwork
-
-networks:
-  mynetwork:
