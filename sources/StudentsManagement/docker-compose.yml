@@ -14,9 +14,9 @@ services:
         "spring.jpa.hibernate.ddl-auto" : "update"
         }'
     volumes:
-      - E:/Desktop/TKPM/sources/logs:/app/logs
+      - /home/ec2-user/StudentsManagement/logs:/app/logs
     depends_on:
-        - nginx 
+      - nginx 
     networks:
       - mynetwork
   
@@ -28,8 +28,6 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
     networks:
       - mynetwork
-    depends_on:
-        - nginx 
 
 networks:
   mynetwork:
