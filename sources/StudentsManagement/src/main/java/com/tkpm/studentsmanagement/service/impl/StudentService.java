@@ -1,7 +1,11 @@
 package com.tkpm.studentsmanagement.service.impl;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tkpm.studentsmanagement.dto.StudentDTO;
@@ -20,5 +24,54 @@ public class StudentService implements IStudentService {
     public StudentDTO create(StudentDTO student) {
         StudentEntity studentEntity = modelMapper.map(student, StudentEntity.class);
         return modelMapper.map(studentRepositoty.save(studentEntity), StudentDTO.class);
+    }
+
+    @Override
+    public List<StudentDTO> findAll(Pageable pageable) {
+        List<StudentEntity> listStudentEntity = studentRepositoty.findAll(pageable);
+        return modelMapper.map(listStudentEntity, new TypeToken<List<StudentDTO>>() {
+        }.getType());
+    }
+
+    @Override
+    public List<StudentDTO> findAll() {
+        List<StudentEntity> listStudentEntity = studentRepositoty.findAll();
+        return modelMapper.map(listStudentEntity, new TypeToken<List<StudentDTO>>() {
+        }.getType());
+    }
+
+    @Override
+    public Integer totalPages(Pageable pageable) {
+        Long count = studentRepositoty.count();
+        Integer totalPages = (int) Math.ceil((double) count / pageable.getPageSize());
+        return totalPages;
+    }
+
+    @Override
+    public Boolean delete(List<Long> ids) {
+        try {
+            studentRepositoty.deleteAllById(ids);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public StudentDTO findById(Long id) {
+        StudentEntity studentEntity = studentRepositoty.findById(id).orElse(null);
+        return modelMapper.map(studentRepositoty.save(studentEntity), StudentDTO.class);
+    }
+
+    @Override
+    public Boolean update(StudentDTO studentDTO) {
+        StudentEntity studentEntity = studentRepositoty.findById(studentDTO.getId()).orElse(null);
+        try {
+            studentEntity.setName(studentDTO.getName());
+            studentRepositoty.save(studentEntity);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
