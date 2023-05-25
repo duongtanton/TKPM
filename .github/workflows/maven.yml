@@ -51,5 +51,5 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           cd /home/ec2-user/StudentsManagement
-          docker-compose down
+          docker-compose down --rmi 'all'
           docker-compose up -d
