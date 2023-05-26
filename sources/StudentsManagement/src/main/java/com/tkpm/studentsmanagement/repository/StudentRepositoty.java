@@ -9,5 +9,7 @@ import com.tkpm.studentsmanagement.entity.StudentEntity;
 
 public interface StudentRepositoty extends CrudRepository<StudentEntity, Long> {
     List<StudentEntity> findAll(Pageable pageable);
+
     List<StudentEntity> findAll();
+
 }

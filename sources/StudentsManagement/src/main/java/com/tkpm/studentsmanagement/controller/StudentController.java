@@ -2,13 +2,18 @@ package com.tkpm.studentsmanagement.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -17,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +31,14 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import com.tkpm.studentsmanagement.dto.DeleteRequest;
 import com.tkpm.studentsmanagement.dto.SimpleRequest;
 import com.tkpm.studentsmanagement.dto.SimpleResponse;
@@ -35,6 +47,7 @@ import com.tkpm.studentsmanagement.service.IStudentService;
 import com.tkpm.studentsmanagement.util.NotNullOrT;
 
 import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
@@ -42,13 +55,22 @@ import jakarta.servlet.http.HttpServletResponse;
 public class StudentController {
 
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
-    
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Autowired
     private IStudentService studentService;
 
     @GetMapping
-    public String index(Model model, SimpleRequest simpleRequest) {
+    public String index(Model model, SimpleRequest simpleRequest, @RequestParam(required = false,value = "student") String studentStr) {
         SimpleResponse<StudentDTO> simpleResponse = new SimpleResponse<StudentDTO>();
+        StudentDTO studentDTOSearch;
+        try {
+            studentDTOSearch = objectMapper.readValue(studentStr, StudentDTO.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
                 Sort.by("createdDate").descending());
@@ -91,8 +113,10 @@ public class StudentController {
     }
 
     @GetMapping("/export")
-    public void exportExcel(HttpServletResponse httpServletResponse) {
+    public void exportExcel(@RequestParam(value = "ids", required = false) Long[] ids,
+            HttpServletResponse httpServletResponse) {
         httpServletResponse.setContentType("application/octet-stream");
+
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
 
@@ -116,8 +140,12 @@ public class StudentController {
         _cell5.setCellValue("createdBy");
         Cell _cell6 = _row.createCell(5);
         _cell6.setCellValue("updatedBy");
-
-        List<StudentDTO> listStudentDTO = studentService.findAll();
+        List<StudentDTO> listStudentDTO;
+        if (ids != null) {
+            listStudentDTO = studentService.findAllById(Arrays.asList(ids));
+        } else {
+            listStudentDTO = studentService.findAll();
+        }
         for (StudentDTO studentDTO : listStudentDTO) {
             Row row = sheet.createRow(rowNum++);
             Cell cell1 = row.createCell(0);
@@ -153,6 +181,7 @@ public class StudentController {
 
     @GetMapping("/export-example")
     public void expordExcelExample(HttpServletResponse httpServletResponse) {
+
         httpServletResponse.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -205,4 +234,62 @@ public class StudentController {
 
     }
 
+    @PostMapping(value = "/import")
+    @ResponseBody
+    public Boolean importExcel(@RequestParam(value = "file") MultipartFile file,
+            HttpServletResponse httpServletResponse) {
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+
+        List<StudentDTO> listStudentDTO = new ArrayList<>();
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            for (Row row : sheet) {
+                Integer rowNum = row.getRowNum();
+                if (rowNum == 0) {
+                    continue;
+                } else {
+                    StudentDTO studentDTO = new StudentDTO();
+                    try {
+                        studentDTO.setId((long) row.getCell(0).getNumericCellValue());
+                    } catch (Exception e) {
+                        studentDTO.setId(null);
+                    }
+                    studentDTO.setName(row.getCell(1).getStringCellValue());
+                    Date parsedDate;
+                    try {
+                        parsedDate = dateFormatter.parse(row.getCell(2).getStringCellValue());
+                        studentDTO.setCreatedDate(new Timestamp(parsedDate.getTime()));
+                    } catch (ParseException e) {
+                        studentDTO.setCreatedDate(null);
+                    }
+                    try {
+                        parsedDate = dateFormatter.parse(row.getCell(3).getStringCellValue());
+                        studentDTO.setUpdatedDate(new Timestamp(parsedDate.getTime()));
+                    } catch (ParseException e) {
+                        studentDTO.setUpdatedDate(null);
+                    }
+                    try {
+                        studentDTO.setCreatedBy((long) row.getCell(4).getNumericCellValue());
+                    } catch (Exception e) {
+                        studentDTO.setCreatedBy(null);
+                    }
+                    try {
+                        studentDTO.setUpdatedBy((long) row.getCell(5).getNumericCellValue());
+                    } catch (Exception e) {
+                        studentDTO.setUpdatedBy(null);
+                    }
+                    listStudentDTO.add(studentDTO);
+                }
+            }
+            workbook.close();
+            studentService.create(listStudentDTO);
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
 }
