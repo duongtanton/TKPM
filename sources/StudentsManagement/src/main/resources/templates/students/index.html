@@ -45,7 +45,7 @@
         -moz-appearance: textfield;
       }
     </style>
-    
+
     <div class="row">
       <div class="col-md-12">
         <div class="card" style="margin-bottom: 0;">
@@ -54,47 +54,10 @@
               <h4 class="card-title">Search information</h4>
               <div class="row">
                 <div class="col-md-6 form-group row">
-                  <label for="fname" class="col-sm-3 text-end control-label col-form-label">First Name</label>
+                  <label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
                   <div class="col-sm-9">
-                    <input type="text" class="input-url form-control" id="fname" name="firstName"
+                    <input type="text" class="input-url form-control" id="fname" name="name"
                       placeholder="First Name Here" />
-                  </div>
-                </div>
-                <div class="col-md-6 form-group row">
-                  <label for="lname" class="col-sm-3 text-end control-label col-form-label">Last Name</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="input-url form-control" id="lname" name="lastName"
-                      placeholder="Last Name Here" />
-                  </div>
-                </div>
-                <div class="col-md-6 form-group row">
-                  <label for="email1" class="col-sm-3 text-end control-label col-form-label">Company</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="input-url form-control" id="email1" placeholder="Company Name Here" />
-                  </div>
-                </div>
-                <div class="col-md-6 form-group row">
-                  <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Contact No</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="input-url form-control" id="cono1" placeholder="Contact No Here" />
-                  </div>
-                </div>
-                <div class="col-md-6 form-group row">
-                  <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Contact No</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="input-url form-control" id="cono1" placeholder="Contact No Here" />
-                  </div>
-                </div>
-                <div class="col-md-6 form-group row">
-                  <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Contact No</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="input-url form-control" id="cono1" placeholder="Contact No Here" />
-                  </div>
-                </div>
-                <div class="col-md-6 form-group row">
-                  <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Contact No</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="input-url form-control" id="cono1" placeholder="Contact No Here" />
                   </div>
                 </div>
                 <div class="col-md-6 form-group row">
@@ -119,6 +82,18 @@
                         <span class="input-group-text h-100"><i class="mdi mdi-calendar"></i></span>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div class="col-md-6 form-group row">
+                  <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Created by</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="input-url form-control" id="cono1" name="createdBy" placeholder="" />
+                  </div>
+                </div>
+                <div class="col-md-6 form-group row">
+                  <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Updated by</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="input-url form-control" name="updatedBy" id="cono1" placeholder="" />
                   </div>
                 </div>
               </div>
@@ -305,7 +280,8 @@
           </div>
           <div class="modal-body">
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="validatedCustomFile" required />
+              <input type="file" class="custom-file-input" name="fileImport" id="validatedCustomFile"
+                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required />
               <label class="custom-file-label" for="validatedCustomFile"></label>
               <div class="invalid-feedback">
                 Example invalid custom file feedback
@@ -398,13 +374,14 @@
       </script>
       <script>
         $(document).ready(function () {
+
           $('.input-url').on('change', function () {
             const name = $(this).attr("name");
             const value = $(this).val();
-
             const currentUrl = window.location.href;
             const url = new URL(currentUrl);
             url.searchParams.set(name, value);
+            url.searchParams.set("student", JSON.stringify({ name: "Tonduong" }));
             const newUrl = url.href;
             window.history.pushState({ path: newUrl }, '', newUrl);
           });
@@ -547,14 +524,43 @@
             //handle import
             $("#modelImport").modal('show');
           });
+          $('#modelImport').on('hidden.bs.modal', function () {
+            $("#modelImport input[name='fileImport']").val("");
+          });
           $("#modelImport .btn-save").click(function () {
-            //handle delete
+            const file = $("#modelImport input[name='fileImport']").prop('files');
+            if (file?.length != 1) {
+              toastr.warning("You must select only one file.", "System Says");
+              return;
+            }
+            const data = new FormData();
+            data.append("file", file[0])
+            $.ajax({
+              type: 'POST',
+              method: 'POST',
+              url: "student/import",
+              data: data,
+              processData: false,
+              cache: false,
+              contentType: false,
+              success: function (res) {
+                window.location.reload();
+              },
+              error: () => {
+                toastr.error("Error system admin. Try later.", "System Says");
+              }
+            });
             $("#modelImport").modal('hide')
-            toastr.success("Import successfully!!", "System Says");
           })
 
           $(".btn-export").click(function () {
-            var win = window.open('/student/export', '_blank');
+            const ids = $("#zero_config input:checked:not(#mainCheckbox)").map((index, item) => Number.parseInt(item.getAttribute("name"))).toArray();
+
+            let url = '/student/export';
+            if (ids?.length != 0) {
+              url += "?ids=" + ids.join(",");
+            }
+            var win = window.open(url, '_blank');
             if (win) {
               //Browser has allowed it to be opened
               win.focus();

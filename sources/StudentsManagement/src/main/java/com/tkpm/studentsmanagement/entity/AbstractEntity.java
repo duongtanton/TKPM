@@ -45,8 +45,8 @@ public abstract class AbstractEntity {
 
     @PrePersist
     private void prePersist() {
-        this.updatedBy = null;
         this.updatedDate = null;
+        this.updatedBy = null;
     }
 
     public Long getId() {
