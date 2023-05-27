@@ -51,7 +51,7 @@
         <div class="card" style="margin-bottom: 0;">
           <form class="form-horizontal">
             <div class="card-body">
-              <h4 class="card-title">Search information</h4>
+              <h4 class="card-title">SEARCH INFOMATION</h4>
               <div class="row">
                 <div class="col-md-6 form-group row">
                   <label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
@@ -150,8 +150,8 @@
                 <td th:text="${student.getName()}" />
                 <td th:text="${student.getCreatedDate()}" />
                 <td th:text="${student.getUpdatedDate()}" />
-                <td th:text="${student.getCreatedBy()}" />
-                <td th:text="${student.getCreatedBy()}" />
+                <td th:text="${student.getCreatedBy()?.name}" />
+                <td th:text="${student.getUpdatedBy()?.name}" />
               </tr>
             </tbody>
           </table>
@@ -326,6 +326,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
       <script th:inline="javascript">
         const res = /*[[${res}]]*/ '';
+        console.log(res);
         $('#pagination-demo').twbsPagination({
           totalPages: res?.totalPages || 1,
           visiblePages: 5,
@@ -452,8 +453,8 @@
                   $("#modelEdit input[name=name]").val(student?.name)
                   $("#modelEdit input[name=createdDate]").val(student?.createdDate)
                   $("#modelEdit input[name=updatedDate]").val(student?.updatedDate)
-                  $("#modelEdit input[name=createdBy]").val(student?.createdBy)
-                  $("#modelEdit input[name=updatedBy]").val(student?.updatedBy)
+                  $("#modelEdit input[name=createdBy]").val(student?.createdBy?.name)
+                  $("#modelEdit input[name=updatedBy]").val(student?.updatedBy?.name)
                 } else {
                   toastr.error("Error system admin. Try later.", "System Says");
                 }

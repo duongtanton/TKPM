@@ -8,18 +8,22 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 // import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.tkpm.studentsmanagement.entity.UserEntity;
+
 @Configuration
 @EnableJpaAuditing
 public class AuditorConfiguration {
 
-    public class CustomAuditorAware implements AuditorAware<Long> {
+    public class CustomAuditorAware implements AuditorAware<UserEntity> {
 
         @Override
-        public Optional<Long> getCurrentAuditor() {
+        public Optional<UserEntity> getCurrentAuditor() {
             // String name =
             // SecurityContextHolder.getContext().getAuthentication().getName();
             // Handle sau do chua dang nhap
-            return Optional.of(Long.parseLong("1"));
+            UserEntity userEntity = new UserEntity();
+            userEntity.setId(Long.parseLong("1"));
+            return Optional.of(userEntity);
         }
     }
 
