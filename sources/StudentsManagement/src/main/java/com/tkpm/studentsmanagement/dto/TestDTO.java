@@ -2,17 +2,16 @@ package com.tkpm.studentsmanagement.dto;
 
 import java.util.List;
 
-public class TestDTO  extends AbstractDTO{
+public class TestDTO extends AbstractDTO {
     private Integer type; // using TestType
-    
+
     private Float score;
 
-    // relationship 
+    // relationship
     private List<StudentDTO> students;
-    
-    private List<ClassDTO> classes;
-    //end relationship 
 
+    private List<ClassDTO> classes;
+    // end relationship
 
     public Integer getType() {
         return this.type;
@@ -45,4 +44,15 @@ public class TestDTO  extends AbstractDTO{
     public void setClasses(List<ClassDTO> classes) {
         this.classes = classes;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " type='" + getType() + "'" +
+                ", score='" + getScore() + "'" +
+                ", students='" + getStudents() + "'" +
+                ", classes='" + getClasses() + "'" +
+                "}";
+    }
+
 }

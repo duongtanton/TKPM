@@ -28,4 +28,14 @@ public class SimpleRequest {
     public Integer getPerPage() {
         return perPage;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " currentPage='" + getCurrentPage() + "'" +
+            ", totalPages='" + getTotalPages() + "'" +
+            ", perPage='" + getPerPage() + "'" +
+            "}";
+    }
+
 }

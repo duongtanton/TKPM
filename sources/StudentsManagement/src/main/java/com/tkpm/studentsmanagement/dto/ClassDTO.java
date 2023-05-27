@@ -43,4 +43,14 @@ public class ClassDTO extends AbstractDTO {
     public void setTests(List<TestDTO> tests) {
         this.tests = tests;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " name='" + getName() + "'" +
+                ", numberOfPupils='" + getNumberOfPupils() + "'" +
+                ", students='" + getStudents() + "'" +
+                ", tests='" + getTests() + "'" +
+                "}";
+    }
 }

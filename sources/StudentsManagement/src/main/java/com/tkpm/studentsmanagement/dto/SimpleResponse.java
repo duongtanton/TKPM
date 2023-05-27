@@ -40,24 +40,34 @@ class Toast {
     public String getContext() {
         return context;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " code='" + getCode() + "'" +
+                ", title='" + getTitle() + "'" +
+                ", context='" + getContext() + "'" +
+                "}";
+    }
 }
 
 public class SimpleResponse<T> {
-    @Autowired
-    private Toast toast; 
     
+    @Autowired
+    private Toast toast;
+
     private Integer currentPage = 1;
     private Integer totalPages = 1;
     private Integer perPage = 10;
-    private List<T> listT; 
+    private List<T> listT;
 
     public void setListT(List<T> listT) {
         this.listT = listT;
     }
+
     public List<T> getListT() {
         return listT;
     }
-    
 
     public void setCurrentPage(Integer currentPage) {
         this.currentPage = currentPage;
@@ -82,4 +92,15 @@ public class SimpleResponse<T> {
     public Integer getPerPage() {
         return perPage;
     }
+    @Override
+    public String toString() {
+        return "{" +
+                " toast='" + toast.toString() + "'" +
+                ", currentPage='" + getCurrentPage() + "'" +
+                ", totalPages='" + getTotalPages() + "'" +
+                ", perPage='" + getPerPage() + "'" +
+                ", listT='" + getListT() + "'" +
+                "}";
+    }
+
 }
