@@ -2,6 +2,7 @@ package com.tkpm.studentsmanagement.dto;
 
 import java.sql.Timestamp;
 
+
 public class AbstractDTO {
     protected Long id;
 
@@ -9,9 +10,25 @@ public class AbstractDTO {
 
     protected Timestamp updatedDate;
 
-    protected Long createdBy;
+    protected UserDTO createdBy;
 
-    protected Long updatedBy;
+    protected UserDTO updatedBy;
+
+    public UserDTO getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public void setCreatedBy(UserDTO createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public UserDTO getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public void setUpdatedBy(UserDTO updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
     public Long getId() {
         return id;
@@ -36,21 +53,4 @@ public class AbstractDTO {
     public void setUpdatedDate(Timestamp updatedDate) {
         this.updatedDate = updatedDate;
     }
-
-    public Long getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Long getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(Long updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
 }

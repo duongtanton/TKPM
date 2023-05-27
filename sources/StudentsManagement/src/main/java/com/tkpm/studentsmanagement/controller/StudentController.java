@@ -69,7 +69,7 @@ public class StudentController {
         try {
             studentDTOSearch = objectMapper.readValue(studentStr, StudentDTO.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
 
         Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
@@ -270,12 +270,12 @@ public class StudentController {
                         studentDTO.setUpdatedDate(null);
                     }
                     try {
-                        studentDTO.setCreatedBy((long) row.getCell(4).getNumericCellValue());
+                        // studentDTO.setCreatedBy((long) row.getCell(4).getNumericCellValue());
                     } catch (Exception e) {
                         studentDTO.setCreatedBy(null);
                     }
                     try {
-                        studentDTO.setUpdatedBy((long) row.getCell(5).getNumericCellValue());
+                        // studentDTO.setUpdatedBy((long) row.getCell(5).getNumericCellValue());
                     } catch (Exception e) {
                         studentDTO.setUpdatedBy(null);
                     }

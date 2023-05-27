@@ -13,6 +13,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Temporal;
@@ -35,13 +37,15 @@ public abstract class AbstractEntity {
     @LastModifiedDate
     protected Timestamp updatedDate;
 
-    @Column(name = "createdBy")
+    @ManyToOne
+    @JoinColumn(name = "createdBy")
     @CreatedBy
-    protected Long createdBy;
+    private UserEntity createdBy;
 
-    @Column(name = "updatedBy")
+    @ManyToOne
+    @JoinColumn(name = "updatedBy")
     @LastModifiedBy
-    protected Long updatedBy;
+    private UserEntity updatedBy;
 
     @PrePersist
     private void prePersist() {
@@ -73,19 +77,19 @@ public abstract class AbstractEntity {
         this.updatedDate = updatedDate;
     }
 
-    public Long getCreatedBy() {
-        return createdBy;
+    public UserEntity getCreatedBy() {
+        return this.createdBy;
     }
 
-    public void setCreatedBy(Long createdBy) {
+    public void setCreatedBy(UserEntity createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Long getUpdatedBy() {
-        return updatedBy;
+    public UserEntity getUpdatedBy() {
+        return this.updatedBy;
     }
 
-    public void setUpdatedBy(Long updatedBy) {
+    public void setUpdatedBy(UserEntity updatedBy) {
         this.updatedBy = updatedBy;
     }
 }
