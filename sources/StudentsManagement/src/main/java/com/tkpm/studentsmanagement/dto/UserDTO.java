@@ -32,4 +32,12 @@ public class UserDTO extends AbstractDTO {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " name='" + getName() + "'" +
+            ", username='" + getUsername() + "'" +
+            ", password='" + getPassword() + "'" +
+            "}";
+    }
 }

@@ -63,13 +63,14 @@ public class StudentController {
     private IStudentService studentService;
 
     @GetMapping
-    public String index(Model model, SimpleRequest simpleRequest, @RequestParam(required = false,value = "student") String studentStr) {
+    public String index(Model model, SimpleRequest simpleRequest,
+            @RequestParam(required = false, value = "student") String studentStr) {
         SimpleResponse<StudentDTO> simpleResponse = new SimpleResponse<StudentDTO>();
         StudentDTO studentDTOSearch;
         try {
             studentDTOSearch = objectMapper.readValue(studentStr, StudentDTO.class);
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
 
         Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
@@ -89,26 +90,48 @@ public class StudentController {
     @PatchMapping
     @ResponseBody
     public Boolean update(StudentDTO student) {
-        return studentService.update(student);
+        Boolean updated = false;
+        try {
+            updated = studentService.update(student);
+        } catch (Exception e) {
+            logger.error(student.toString(), e);
+        }
+        return updated;
     }
 
     @GetMapping("/{id}")
     @ResponseBody
     public StudentDTO findById(@PathVariable("id") Long id) {
-        return studentService.findById(id);
+        StudentDTO studentDTO = null;
+        try {
+            studentDTO = studentService.findById(id);
+        } catch (Exception e) {
+            logger.error(id.toString(), e);
+        }
+        return studentDTO;
     }
 
     @PostMapping
     @ResponseBody
     public Boolean add(StudentDTO studentDTO) {
-        StudentDTO newStudentDTO = studentService.create(studentDTO);
+        StudentDTO newStudentDTO = null;
+        try {
+            newStudentDTO = studentService.create(studentDTO);
+        } catch (Exception e) {
+            logger.error(studentDTO.toString(), e);
+        }
         return newStudentDTO != null;
     }
 
     @DeleteMapping
     @ResponseBody
     public Boolean delete(DeleteRequest deleteRequest) {
-        Boolean deleted = studentService.delete(deleteRequest.getIds());
+        Boolean deleted = false;
+        try {
+            deleted = studentService.delete(deleteRequest.getIds());
+        } catch (Exception e) {
+            logger.error(deleteRequest.getIds().toString(), e);
+        }
         return deleted;
     }
 
@@ -171,12 +194,10 @@ public class StudentController {
             workbook.write(outputStream);
             workbook.close();
             outputStream.close();
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
+            logger.error(listStudentDTO.toString().toString(), e);
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        } 
     }
 
     @GetMapping("/export-example")
@@ -226,10 +247,8 @@ public class StudentController {
             workbook.write(outputStream);
             workbook.close();
             outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e){
+            logger.error("", e);
         }
 
     }
@@ -288,6 +307,7 @@ public class StudentController {
 
         } catch (IOException e) {
             e.printStackTrace();
+            logger.error(listStudentDTO.toString(), e);
             return false;
         }
 

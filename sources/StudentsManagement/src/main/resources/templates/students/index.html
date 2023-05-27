@@ -326,7 +326,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
       <script th:inline="javascript">
         const res = /*[[${res}]]*/ '';
-        console.log(res);
         $('#pagination-demo').twbsPagination({
           totalPages: res?.totalPages || 1,
           visiblePages: 5,
@@ -337,7 +336,7 @@
             const pageTo = page;
             const currentUrl = window.location.href;
             const url = new URL(currentUrl);
-            const prePage = url.searchParams.get("currentPage");
+            const prePage = url.searchParams.get("currentPage") || 1;
             url.searchParams.set("currentPage", pageTo)
             const newUrl = url.href;
             window.history.pushState({ path: newUrl }, '', newUrl);
