@@ -1,17 +1,14 @@
 package com.tkpm.studentsmanagement.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -76,10 +73,10 @@ public class UserEntity extends AbstractEntity {
     @OneToMany(mappedBy = "updatedBy")
     private List<OtpEntity> updatedOtps;
 
-    @ManyToMany( fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = {
             @JoinColumn(name = "roleId") })
-    private List<RoleEntity> roles = new ArrayList<>();
+    private List<RoleEntity> roles;
     // end relationship
 
     @PrePersist
@@ -93,7 +90,6 @@ public class UserEntity extends AbstractEntity {
             this.password = passwordEncoder.encode(password);
         }
     }
-
 
     public List<OtpEntity> getCreatedOtps() {
         return this.createdOtps;

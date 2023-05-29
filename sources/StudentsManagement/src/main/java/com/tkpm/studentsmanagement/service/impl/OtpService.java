@@ -20,7 +20,6 @@ public class OtpService implements IOtpService {
 
     @Override
     public OtpDTO save(OtpDTO otpDTO) {
-
         OtpEntity otpEntity = modelMapper.map(otpDTO, OtpEntity.class); 
         return modelMapper.map(otpRepositopy.save(otpEntity), OtpDTO.class);
     }

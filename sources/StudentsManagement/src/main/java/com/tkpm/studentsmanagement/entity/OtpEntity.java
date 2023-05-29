@@ -9,7 +9,8 @@ import jakarta.persistence.EntityListeners;
 @Entity(name = "otp")
 @EntityListeners(AuditingEntityListener.class) // listener auditing
 public class OtpEntity extends AbstractEntity {
-    @Column(name = "content")
+    
+    @Column(name = "content", columnDefinition = "text")
     private String content;
 
 
