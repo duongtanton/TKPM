@@ -449,8 +449,8 @@
                   $("#modelEdit").modal('show')
                   $("#modelEdit input[name=id]").val(student?.id)
                   $("#modelEdit input[name=name]").val(student?.name)
-                  $("#modelEdit input[name=createdDate]").val(student?.createdDate)
-                  $("#modelEdit input[name=updatedDate]").val(student?.updatedDate)
+                  $("#modelEdit input[name=createdDate]").val(new Date(student?.createdDate).toLocaleString())
+                  $("#modelEdit input[name=updatedDate]").val(new Date(student?.createdDate).toLocaleString())
                   $("#modelEdit input[name=createdBy]").val(student?.createdBy?.name)
                   $("#modelEdit input[name=updatedBy]").val(student?.updatedBy?.name)
                 } else {
