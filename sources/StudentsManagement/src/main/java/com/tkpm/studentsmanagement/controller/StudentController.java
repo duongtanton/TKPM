@@ -1,6 +1,5 @@
 package com.tkpm.studentsmanagement.controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -13,7 +12,6 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -22,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,10 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import com.tkpm.studentsmanagement.dto.DeleteRequest;
 import com.tkpm.studentsmanagement.dto.SimpleRequest;
 import com.tkpm.studentsmanagement.dto.SimpleResponse;
@@ -47,7 +41,6 @@ import com.tkpm.studentsmanagement.service.IStudentService;
 import com.tkpm.studentsmanagement.util.NotNullOrT;
 
 import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
@@ -65,11 +58,11 @@ public class StudentController {
     @GetMapping
     public String index(Model model, SimpleRequest simpleRequest,
             @RequestParam(required = false, value = "student") String studentStr) {
-        SimpleResponse<StudentDTO> simpleResponse = new SimpleResponse<StudentDTO>();
+        SimpleResponse<StudentDTO> simpleResponse = new SimpleResponse<>();
         StudentDTO studentDTOSearch;
         try {
             studentDTOSearch = objectMapper.readValue(studentStr, StudentDTO.class);
-        } catch (Exception e) {
+        } catch (Exception e) { 
             e.printStackTrace();
         }
 

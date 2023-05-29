@@ -1,6 +1,5 @@
 package com.tkpm.studentsmanagement.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -8,7 +7,6 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.tkpm.studentsmanagement.dto.StudentDTO;
 import com.tkpm.studentsmanagement.entity.StudentEntity;
