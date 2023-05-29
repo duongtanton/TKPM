@@ -9,7 +9,11 @@ import com.tkpm.studentsmanagement.entity.UserEntity;
 import com.tkpm.studentsmanagement.repository.UserRepository;
 import com.tkpm.studentsmanagement.service.IUserService;
 
+import jakarta.transaction.Transactional;
+
+
 @Service
+@Transactional
 public class UserService implements IUserService {
 
     @Autowired

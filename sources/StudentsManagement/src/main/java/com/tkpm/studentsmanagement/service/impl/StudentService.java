@@ -13,7 +13,10 @@ import com.tkpm.studentsmanagement.entity.StudentEntity;
 import com.tkpm.studentsmanagement.repository.StudentRepositoty;
 import com.tkpm.studentsmanagement.service.IStudentService;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class StudentService implements IStudentService {
     @Autowired
     private ModelMapper modelMapper;

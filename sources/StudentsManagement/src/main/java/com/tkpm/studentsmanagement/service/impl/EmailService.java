@@ -13,8 +13,10 @@ import com.tkpm.studentsmanagement.service.IEmailService;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class EmailService  implements IEmailService{
 
     @Autowired

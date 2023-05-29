@@ -45,14 +45,4 @@ public class TestDTO extends AbstractDTO {
         this.classes = classes;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " type='" + getType() + "'" +
-                ", score='" + getScore() + "'" +
-                ", students='" + getStudents() + "'" +
-                ", classes='" + getClasses() + "'" +
-                "}";
-    }
-
 }

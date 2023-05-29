@@ -14,7 +14,7 @@ public class OtpEntity extends AbstractEntity {
     private String content;
 
 
-    @Column(name = "used", columnDefinition = "boolean DEFAULT 0")
+    @Column(name = "used", columnDefinition = "BOOLEAN DEFAULT 0")
     private Boolean used;
 
     public String getContent() {
