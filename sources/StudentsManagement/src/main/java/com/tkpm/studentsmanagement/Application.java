@@ -8,9 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 // @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @SpringBootApplication
 public class Application {
@@ -24,12 +21,12 @@ public class Application {
 		return new ModelMapper();
 	}
 
-	@Bean
-	public ObjectMapper onObjectMapper(){
-		ObjectMapper objectMapper = new ObjectMapper();
-		// objectMapper.configure(SerializationFeature.FAIL_ON_SELF_REFERENCES, false);
-		return objectMapper;
-	}
+	// @Bean
+	// public ObjectMapper onObjectMapper(){
+	// 	ObjectMapper objectMapper = new ObjectMapper();
+	// 	// objectMapper.configure(SerializationFeature.FAIL_ON_SELF_REFERENCES, false);
+	// 	return objectMapper;
+	// }
 
 	@Value("${tkpm.app.secret.key}")
 	private String SECRET_KEY;

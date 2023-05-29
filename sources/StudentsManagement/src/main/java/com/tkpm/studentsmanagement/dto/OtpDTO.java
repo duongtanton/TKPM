@@ -1,6 +1,7 @@
 package com.tkpm.studentsmanagement.dto;
 
 public class OtpDTO extends AbstractDTO {
+    
     private String content;
     private Boolean used;
 

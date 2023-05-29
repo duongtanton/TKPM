@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tkpm.studentsmanagement.dto.OtpDTO;
@@ -24,6 +25,7 @@ import com.tkpm.studentsmanagement.service.impl.OtpService;
 import com.tkpm.studentsmanagement.service.impl.UserService;
 
 @Controller
+@RequestMapping()
 public class AuthenticationController {
 
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
@@ -72,7 +74,7 @@ public class AuthenticationController {
     //     return "redirect:/";
     // }
 
-    @GetMapping("forgot-password/{token}")
+    @GetMapping("/forgot-password/{token}")
     public String forgotPassword(@PathVariable("token") String token, Model model) {
         try {
             String decode_token = textEncryptor.decrypt(token);
@@ -92,7 +94,7 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("forgot-password/reset")
+    @PostMapping("/forgot-password/reset")
     public String resetPassword(String token, String password) {
         try {
             OtpDTO otpDTO = null;
@@ -111,7 +113,7 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("forgot-password")
+    @PostMapping("/forgot-password")
     public String forgotPassword(String username, String email) {
         UserDTO userDTO = userService.findByUsernameAndEmail(username, email);
         if (userDTO == null) {
@@ -121,8 +123,7 @@ public class AuthenticationController {
             OtpDTO otpDTO = new OtpDTO();
             otpDTO.setContent(objectMapper.writeValueAsString(userDTO));
             OtpDTO newOtpDTO = otpService.save(otpDTO);
-            String token = null;
-            token = textEncryptor.encrypt(objectMapper.writeValueAsString(newOtpDTO));
+            String token = textEncryptor.encrypt(objectMapper.writeValueAsString(newOtpDTO));
             String url = urlServer + "/forgot-password/" + token;
             emailService.sendEmail(email, "RESET PASSWORD", url);
         } catch (Exception e) {
@@ -133,6 +134,6 @@ public class AuthenticationController {
     }
     @GetMapping("/not-permission")
     public String notPermisson() {
-        return "auth/error403";
+        return "error403";
     }
 }

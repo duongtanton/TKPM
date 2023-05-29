@@ -57,7 +57,9 @@ public class SecurityConfiguration {
 
 		http
 				.authorizeHttpRequests((authorize) -> authorize
-						.requestMatchers("dist/**", "css/**", "src/**", "assets/**", "/not-permission").permitAll()
+						.requestMatchers("dist/**", "css/**", "src/**", "assets/**", "not-permission/**",
+								"forgot-password/**")
+						.permitAll()
 						.requestMatchers("/**").hasAnyAuthority("USER", "ADMIN"))
 				.formLogin(
 						form -> form
@@ -74,7 +76,7 @@ public class SecurityConfiguration {
 				.maximumSessions(this.maximumSession).expiredUrl("/login");
 
 		// http.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
-		// 		.authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+		// .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 		return http.build();
 	}
 
