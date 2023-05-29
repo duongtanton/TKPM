@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -37,43 +38,43 @@ public class UserEntity extends AbstractEntity {
     private String email;
 
     // relationship
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<ClassEntity> createdClasses;
 
-    @OneToMany(mappedBy = "updatedBy")
+    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
     private List<ClassEntity> updatedClasses;
 
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<Configuration> createdConfigurations;
 
-    @OneToMany(mappedBy = "updatedBy")
+    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
     private List<Configuration> updatedConfigurations;
 
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<StudentEntity> createdStudents;
 
-    @OneToMany(mappedBy = "updatedBy")
+    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
     private List<StudentEntity> updatedStudents;
 
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<TestEntity> createdTests;
 
-    @OneToMany(mappedBy = "updatedBy")
+    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
     private List<TestEntity> updatedTests;
 
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<TestEntity> createdUses;
 
-    @OneToMany(mappedBy = "updatedBy")
+    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
     private List<TestEntity> updatedUsers;
 
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<OtpEntity> createdOtps;
 
-    @OneToMany(mappedBy = "updatedBy")
+    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
     private List<OtpEntity> updatedOtps;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = {
             @JoinColumn(name = "roleId") })
     private List<RoleEntity> roles;

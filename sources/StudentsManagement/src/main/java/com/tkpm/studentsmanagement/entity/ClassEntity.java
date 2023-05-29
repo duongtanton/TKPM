@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -20,12 +21,11 @@ public class ClassEntity extends AbstractEntity {
     @Column(name = "numberOfPupils")
     private Integer numberOfPupils;
 
-
     // relationship
-    @ManyToMany(mappedBy = "classes")
+    @ManyToMany(mappedBy = "classes",fetch = FetchType.LAZY)
     private List<StudentEntity> students;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "test_class", joinColumns = @JoinColumn(name = "classId"), inverseJoinColumns = @JoinColumn(name = "testId"))
     private List<TestEntity> tests;
     // end relationship

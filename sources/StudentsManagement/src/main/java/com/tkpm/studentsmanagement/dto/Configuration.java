@@ -20,13 +20,4 @@ public class Configuration extends AbstractDTO{
     public void setValue(String value) {
         this.value = value;
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " name='" + getName() + "'" +
-            ", value='" + getValue() + "'" +
-            "}";
-    }
-    
 }

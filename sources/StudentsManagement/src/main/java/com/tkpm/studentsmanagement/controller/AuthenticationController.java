@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tkpm.studentsmanagement.dto.OtpDTO;
+import com.tkpm.studentsmanagement.dto.UserBasicDTO;
 import com.tkpm.studentsmanagement.dto.UserDTO;
 import com.tkpm.studentsmanagement.service.IEmailService;
 import com.tkpm.studentsmanagement.service.impl.OtpService;
@@ -48,6 +50,9 @@ public class AuthenticationController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Value("${tkpm.app.server.url}")
     private String urlServer;
     @Value("${tkpm.app.time.expired}")
@@ -61,17 +66,17 @@ public class AuthenticationController {
 
     // @PostMapping("login")
     // public String login(String username, String password) {
-    //     UserDTO userDTO = userService.findByUsername(username);
-    //     if (userDTO == null) {
-    //         // return username not match
+    // UserDTO userDTO = userService.findByUsername(username);
+    // if (userDTO == null) {
+    // // return username not match
 
-    //         return "auth/login";
-    //     }
-    //     if (!passwordEncoder.matches(password, userDTO.getPassword())) {
-    //         // return password not match
-    //         return "auth/login";
-    //     }
-    //     return "redirect:/";
+    // return "auth/login";
+    // }
+    // if (!passwordEncoder.matches(password, userDTO.getPassword())) {
+    // // return password not match
+    // return "auth/login";
+    // }
+    // return "redirect:/";`
     // }
 
     @GetMapping("/forgot-password/{token}")
@@ -79,15 +84,15 @@ public class AuthenticationController {
         try {
             String decode_token = textEncryptor.decrypt(token);
             OtpDTO otpDTO = objectMapper.readValue(decode_token, OtpDTO.class);
+            otpDTO = otpService.findByIdAndUsed(otpDTO.getId(), false);
             Timestamp currentTimestamp = Timestamp.from(Instant.now());
             Timestamp futureTimestamp = Timestamp
                     .from(currentTimestamp.toInstant().minus(this.timeExpired, ChronoUnit.MINUTES));
-
-            // if (otpDTO.getCreatedDate().after(futureTimestamp)) {
-            model.addAttribute("token", token);
-            return "auth/reset-password";
-            // }
-            // throw new Exception("Time invalid");
+            if (otpDTO.getCreatedDate().after(futureTimestamp)) {
+                model.addAttribute("token", token);
+                return "auth/reset-password";
+            }
+            throw new Exception("Time invalid");
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/login";
@@ -102,8 +107,8 @@ public class AuthenticationController {
             otpDTO = objectMapper.readValue(decode_token, OtpDTO.class);
             otpDTO.setUsed(true);
             otpService.save(otpDTO);
-            UserDTO userDTO = objectMapper.readValue(otpDTO.getContent(), UserDTO.class);
-            UserDTO userDTODb = userService.findByUsernameAndEmail(userDTO.getUsername(), userDTO.getEmail());
+            UserBasicDTO userBasicDTO = objectMapper.readValue(otpDTO.getContent(), UserBasicDTO.class);
+            UserDTO userDTODb = userService.findByUsernameAndEmail(userBasicDTO.getUsername(), userBasicDTO.getEmail());
             userDTODb.setPassword(password);
             userService.save(userDTODb);
             return "redirect:/login";
@@ -119,9 +124,15 @@ public class AuthenticationController {
         if (userDTO == null) {
             return "auth/login";
         }
+        UserBasicDTO userBasicDTO = new UserBasicDTO();
+        userBasicDTO.setEmail(userDTO.getEmail());
+        userBasicDTO.setId(userDTO.getId());
+        userBasicDTO.setName(userDTO.getName());
+        userBasicDTO.setUsername(userDTO.getUsername());
         try {
             OtpDTO otpDTO = new OtpDTO();
-            otpDTO.setContent(objectMapper.writeValueAsString(userDTO));
+            otpDTO.setContent(objectMapper.writeValueAsString(userBasicDTO));
+            otpDTO.setUsed(false);
             OtpDTO newOtpDTO = otpService.save(otpDTO);
             String token = textEncryptor.encrypt(objectMapper.writeValueAsString(newOtpDTO));
             String url = urlServer + "/forgot-password/" + token;
@@ -132,6 +143,7 @@ public class AuthenticationController {
         // handle error
         return "auth/login";
     }
+
     @GetMapping("/not-permission")
     public String notPermisson() {
         return "error403";
