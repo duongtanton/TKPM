@@ -8,6 +8,16 @@ public class UserDTO extends AbstractDTO {
 
     private String password;
 
+    private String email;
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -32,12 +42,4 @@ public class UserDTO extends AbstractDTO {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " name='" + getName() + "'" +
-            ", username='" + getUsername() + "'" +
-            ", password='" + getPassword() + "'" +
-            "}";
-    }
 }

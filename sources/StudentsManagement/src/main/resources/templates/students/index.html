@@ -121,7 +121,6 @@
 
     <div class="card">
       <div class="card-body">
-        <!-- <h5 class="card-title">Results</h5> -->
         <div class="table-responsive">
           <table id="zero_config" class="table table-striped table-bordered">
             <thead class="thead-light">
@@ -140,35 +139,35 @@
               </tr>
             </thead>
             <tbody class="customtable">
-              <tr th:each="student: ${res.getListT()}">
+              <tr th:each="student: ${res.listT}">
                 <th>
                   <label class="customcheckbox">
                     <input type="checkbox" th:name="${student.id}" class="listCheckbox" />
                     <span class="checkmark"></span>
                   </label>
                 </th>
-                <td th:text="${student.getName()}" />
-                <td th:text="${student.getCreatedDate()}" />
-                <td th:text="${student.getUpdatedDate()}" />
-                <td th:text="${student.getCreatedBy()?.name}" />
-                <td th:text="${student.getUpdatedBy()?.name}" />
+                <td th:text="${student.name}" />
+                <td th:text="${student.createdDate}" />
+                <td th:text="${student.updatedDate}" />
+                <td th:text="${student.createdBy?.name}" />
+                <td th:text="${student.updatedBy?.name}" />
               </tr>
             </tbody>
           </table>
           <div style="display: flex; justify-content: right; align-items: center;">
             <div class="total-rows">
               <select class="custom-select custom-select-lg mb-3" style="margin: 0 !important; padding: 4px 6px;">
-                <option th:selected="${res.getPerPage()} == 10" value="10">10</option>
-                <option th:selected="${res.getPerPage()} == 15" value="15">15</option>
-                <option th:selected="${res.getPerPage()} == 20" value="20">20</option>
-                <option th:selected="${res.getPerPage()} == 30" value="30">30</option>
-                <option th:selected="${res.getPerPage()} == 40" value="40">40</option>
-                <option th:selected="${res.getPerPage()} == 70" value="70">70</option>
-                <option th:selected="${res.getPerPage()} == 100" value="100">100</option>
+                <option th:selected="${res.perPage} == 10" value="10">10</option>
+                <option th:selected="${res.perPage} == 15" value="15">15</option>
+                <option th:selected="${res.perPage} == 20" value="20">20</option>
+                <option th:selected="${res.perPage} == 30" value="30">30</option>
+                <option th:selected="${res.perPage} == 40" value="40">40</option>
+                <option th:selected="${res.perPage} == 70" value="70">70</option>
+                <option th:selected="${res.perPage} == 100" value="100">100</option>
               </select>
             </div>
             <ul id="pagination-demo" class="pagination-sm" style="margin-bottom:0;"></ul>
-            <div> <span th:text="${res.getCurrentPage()}"></span>/<span th:text="${res.getTotalPages()}"></span></div>
+            <div> <span th:text="${res.currentPage}"></span>/<span th:text="${res.totalPages}"></span></div>
             <div class="go-to" style="display: flex; justify-content: right; align-items: center; margin: 0 4px;">
               <input class="form-control form-control-sm" type="number" style="width: 35px;">
               <button class="btn btn-primary">Go</button>

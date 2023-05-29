@@ -13,12 +13,8 @@ public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-    @Autowired
-    private IStudentService studentService;
-
     @GetMapping("/")
     public String index() {
-
         return "home";
     }
 }

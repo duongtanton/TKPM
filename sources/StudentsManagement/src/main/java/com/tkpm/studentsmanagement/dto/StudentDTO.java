@@ -77,18 +77,4 @@ public class StudentDTO extends AbstractDTO {
     public void setTests(List<TestDTO> tests) {
         this.tests = tests;
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " name='" + getName() + "'" +
-            ", birthDate='" + getBirthDate() + "'" +
-            ", sex='" + isSex() + "'" +
-            ", adress='" + getAdress() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", classes='" + getClasses() + "'" +
-            ", tests='" + getTests() + "'" +
-            "}";
-    }
-
 }

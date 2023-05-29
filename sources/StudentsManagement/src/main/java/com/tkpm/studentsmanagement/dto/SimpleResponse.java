@@ -2,16 +2,12 @@ package com.tkpm.studentsmanagement.dto;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 enum MESSAGE_CODE {
     ERROR,
     WARNING,
     SUCCESS
 }
 
-@Component
 class Toast {
     private MESSAGE_CODE code = MESSAGE_CODE.SUCCESS;
     private String title = "Admin says";
@@ -41,25 +37,24 @@ class Toast {
         return context;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " code='" + getCode() + "'" +
-                ", title='" + getTitle() + "'" +
-                ", context='" + getContext() + "'" +
-                "}";
-    }
 }
 
 public class SimpleResponse<T> {
-    
-    @Autowired
+
     private Toast toast;
 
     private Integer currentPage = 1;
     private Integer totalPages = 1;
     private Integer perPage = 10;
     private List<T> listT;
+
+    public Toast getToast() {
+        return this.toast;
+    }
+
+    public void setToast(Toast toast) {
+        this.toast = toast;
+    }
 
     public void setListT(List<T> listT) {
         this.listT = listT;
@@ -92,15 +87,4 @@ public class SimpleResponse<T> {
     public Integer getPerPage() {
         return perPage;
     }
-    @Override
-    public String toString() {
-        return "{" +
-                " toast='" + toast.toString() + "'" +
-                ", currentPage='" + getCurrentPage() + "'" +
-                ", totalPages='" + getTotalPages() + "'" +
-                ", perPage='" + getPerPage() + "'" +
-                ", listT='" + getListT() + "'" +
-                "}";
-    }
-
 }

@@ -1,18 +1,32 @@
 package com.tkpm.studentsmanagement.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Transient;
 
 @Entity(name = "user")
 @EntityListeners(AuditingEntityListener.class) // listener auditing
 public class UserEntity extends AbstractEntity {
+
+    @Transient
+    private static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Column(name = "name")
     private String name;
 
@@ -22,37 +36,96 @@ public class UserEntity extends AbstractEntity {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "email")
+    private String email;
+
     // relationship
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy")
     private List<ClassEntity> createdClasses;
 
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "updatedBy")
     private List<ClassEntity> updatedClasses;
 
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy")
     private List<Configuration> createdConfigurations;
 
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "updatedBy")
     private List<Configuration> updatedConfigurations;
 
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy")
     private List<StudentEntity> createdStudents;
 
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "updatedBy")
     private List<StudentEntity> updatedStudents;
 
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy")
     private List<TestEntity> createdTests;
 
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "updatedBy")
     private List<TestEntity> updatedTests;
 
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy")
     private List<TestEntity> createdUses;
 
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "updatedBy")
     private List<TestEntity> updatedUsers;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<OtpEntity> createdOtps;
+
+    @OneToMany(mappedBy = "updatedBy")
+    private List<OtpEntity> updatedOtps;
+
+    @ManyToMany( fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = {
+            @JoinColumn(name = "roleId") })
+    private List<RoleEntity> roles = new ArrayList<>();
     // end relationship
+
+    @PrePersist
+    private void prePersist() {
+        this.password = passwordEncoder.encode(this.password);
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        if (this.password != null) {
+            this.password = passwordEncoder.encode(password);
+        }
+    }
+
+
+    public List<OtpEntity> getCreatedOtps() {
+        return this.createdOtps;
+    }
+
+    public void setCreatedOtps(List<OtpEntity> createdOtps) {
+        this.createdOtps = createdOtps;
+    }
+
+    public List<OtpEntity> getUpdatedOtps() {
+        return this.updatedOtps;
+    }
+
+    public void setUpdatedOtps(List<OtpEntity> updatedOtps) {
+        this.updatedOtps = updatedOtps;
+    }
+
+    public List<RoleEntity> getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public List<ClassEntity> getCreatedClasses() {
         return this.createdClasses;
