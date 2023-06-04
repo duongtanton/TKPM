@@ -21,8 +21,8 @@ public class ClassRepositoryTests {
     @Test
     public void testAddNew(){
         ClassEntity classEntity = new ClassEntity();
-        classEntity.setName("TKPM");
-        classEntity.setNumberOfPupils(100);
+        classEntity.setName("20CTT5");
+        classEntity.setNumberOfPupils(75);
 
         ClassEntity savedClass = repo.save(classEntity);
 
