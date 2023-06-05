@@ -213,7 +213,7 @@
                 <input type="text" class="form-control" id="a-name" name="name"
                        placeholder="Enter Name Here" required/>
               </div>
-              <div class="error" hidden>Please enter name</div>
+              <div class="error name-error" hidden>Please enter name</div>
             </div>
           </div>
           <div class="row">
@@ -223,8 +223,8 @@
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="a-email" name="email"
                        placeholder="Enter Email Here" required/>
+                <div class="error email-error" hidden>Please enter email</div>
               </div>
-              <div class="error" hidden>Please enter email</div>
             </div>
           </div>
           <div class="row">
@@ -233,8 +233,8 @@
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="a-username" name="username"
                        placeholder="Enter Username Here" required/>
+                <div class="error username-error" hidden>Please enter username</div>
               </div>
-              <div class="error" hidden>Please enter username</div>
             </div>
           </div>
           <div class="row">
@@ -247,8 +247,8 @@
                   <input type="checkbox" id="a-default-password" value="12345678"/>
                   <label for="a-default-password">Use default password</label>
                 </div>
+                <div class="error password-error" hidden>Please enter password</div>
               </div>
-              <div class="error" hidden>Please enter password</div>
             </div>
           </div>
           <div class="row">
@@ -269,7 +269,7 @@
                   </label>
                   <label for="a-user" class="ms-4">User</label>
                 </div>
-                <div class="error" hidden>Please tick a role at least</div>
+                <div class="error roles-error" hidden>Please tick a role at least</div>
               </div>
             </div>
           </div>
@@ -527,7 +527,9 @@
           $("#modelAdd input:checkbox[name='roles']:checked").each(function () {
             this.checked = false;
           });
-          $("#modelAdd .error").attr("hidden","hidden");
+          $("#modelAdd .error").each(() => {
+            $(this).attr("hidden","hidden");
+          })
         });
         $("#modelAdd .btn-save").click(function () {
           //handle add
@@ -540,8 +542,24 @@
           $("#modelAdd input:checkbox[name='roles']:checked").each(function () {
             user.roles.push($(this).val());
           });
+          if(!user.name) {
+            $("#modelAdd .error.name-error").removeAttr("hidden");
+            return;
+          }
+          if(!user.email) {
+            $("#modelAdd .error.email-error").removeAttr("hidden");
+            return;
+          }
+          if(!user.username) {
+            $("#modelAdd .error.username-error").removeAttr("hidden");
+            return;
+          }
+          if(!user.password) {
+            $("#modelAdd .error.password-error").removeAttr("hidden");
+            return;
+          }
           if(user.roles.length === 0) {
-            $("#modelAdd .error").removeAttr("hidden");
+            $("#modelAdd .error.roles-error").removeAttr("hidden");
             return;
           }
           $.ajax({
@@ -552,13 +570,14 @@
             success: (added, message, obj) => {
               if (added) {
                 toastr.success("Save successfully!!", "System Says");
-                location.reload();
               } else {
                 toastr.error("Error system admin. Try later.", "System Says");
               }
+              location.reload();
             },
             error: () => {
               toastr.error("Error system admin. Try later.", "System Says");
+              location.reload();
             },
           });
           $("#modelAdd").modal('hide')

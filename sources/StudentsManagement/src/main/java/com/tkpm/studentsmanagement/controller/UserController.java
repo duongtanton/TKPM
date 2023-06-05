@@ -77,10 +77,12 @@ public class UserController {
         Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
                 Sort.by("createdDate").descending());
         UserSearchDTO userSearchDTO = new UserSearchDTO();
-        try {
-            userSearchDTO = objectMapper.readValue(userStr, UserSearchDTO.class);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(userStr != null && !userStr.isEmpty()) {
+            try {
+                userSearchDTO = objectMapper.readValue(userStr, UserSearchDTO.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         SimpleResponse<UserDTO> simpleResponse = userService.findAll(userSearchDTO, pageable);
         model.addAttribute("res", simpleResponse);
@@ -93,6 +95,7 @@ public class UserController {
         UserDTO userDTO = null;
         try {
             userDTO = userService.findById(id);
+            userDTO.setPassword(null);
         } catch (Exception e) {
             logger.error(id.toString(), e);
         }
@@ -111,9 +114,9 @@ public class UserController {
             OtpDTO otpDTO = new OtpDTO();
             otpDTO.setContent(objectMapper.writeValueAsString(userBasicDTO));
             otpDTO.setUsed(false);
-            otpService.save(otpDTO);
-            String token = textEncryptor.encrypt(objectMapper.writeValueAsString(otpDTO));
-            String url = urlServer + "/activate-account/" + token;
+            String token = textEncryptor.encrypt(objectMapper.writeValueAsString(otpService.save(otpDTO)));
+            String url = urlServer + "/user/activate-account/" + token;
+            emailService.sendEmail(userBasicDTO.getEmail(), "ACTIVATE ACCOUNT", url, "templates/email/activate-account-template.html");
         } catch (Exception exc) {
             exc.printStackTrace();
             return false;
@@ -146,6 +149,7 @@ public class UserController {
                 UserBasicDTO userBasicDTO = objectMapper.readValue(otpDTO.getContent(), UserBasicDTO.class);
                 UserDTO userDTO = userService.findByUsernameAndEmail(userBasicDTO.getUsername(), userBasicDTO.getEmail());
                 userService.activateAccount(userDTO);
+                otpService.markToUsed(otpDTO.getId());
                 return "auth/activate-account";
             }
             throw new Exception("Time invalid");
@@ -170,7 +174,6 @@ public class UserController {
     @GetMapping("/export")
     public void exportExcel(@RequestParam(value = "ids", required = false) Long[] ids,
                             HttpServletResponse httpServletResponse) {
-        System.out.println(List.of(ids));
         userService.exportExcel(ids,httpServletResponse);
     }
 }

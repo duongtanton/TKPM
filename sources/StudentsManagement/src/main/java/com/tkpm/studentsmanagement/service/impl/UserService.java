@@ -121,6 +121,12 @@ public class UserService implements IUserService {
     public UserDTO save(UserCreateDTO userCreateDTO, Long currentUserId) throws JsonProcessingException {
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(userCreateDTO, userDTO,"roles");
+        if(userRepository.findByUsername(userDTO.getUsername()) != null) {
+            throw new RuntimeException("Username already exists");
+        }
+        if(userRepository.findByEmail(userDTO.getEmail()) != null) {
+            throw new RuntimeException("Email already exists");
+        }
         List<RoleEntity> roleEntities = new ArrayList<>();
         for(String roleStr : userCreateDTO.getRoles()) {
             Role role = Role.lookup(roleStr);
