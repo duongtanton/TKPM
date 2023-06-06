@@ -11,5 +11,5 @@ public interface IClassService {
     public List<ClassDTO> getAll();
 
     public ClassDTO save(ClassDTO userDTO);
-    public Boolean delete(Long id);
+    public Boolean delete(List<Long> id);
 }

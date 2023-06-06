@@ -1,6 +1,7 @@
 package com.tkpm.studentsmanagement.controller;
 
 import com.tkpm.studentsmanagement.dto.ClassDTO;
+import com.tkpm.studentsmanagement.dto.DeleteRequest;
 import com.tkpm.studentsmanagement.entity.ClassEntity;
 import com.tkpm.studentsmanagement.service.IClassService;
 import org.slf4j.Logger;
@@ -27,12 +28,29 @@ public class ClassController {
        return "classes/class";
     }
 
-    @GetMapping("edit/{id}")
-    public String editClass(@PathVariable Long id, Model model, RedirectAttributes ra) {
-        ClassDTO classDTO = classService.findByClassId(id);
-        model.addAttribute("class", classDTO);
-        model.addAttribute("pageTitle", "Edit user (ID: " + id + ")");
-        return "classes/class_form";
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ClassDTO showClassById(@PathVariable Long id) {
+        ClassDTO classDTO = null;
+        try{
+            classDTO = classService.findByClassId(id);
+        }catch (Exception error) {
+            logger.error(id.toString(), error);
+        }
+        return classDTO;
+    }
+
+    @PostMapping("edit")
+    @ResponseBody
+    public ClassDTO editClass(ClassDTO classDTO) {
+        ClassDTO updatedClassDTO = null;
+        try {
+            updatedClassDTO = classService.save(classDTO);
+
+        } catch (Exception e) {
+            logger.error(classDTO.toString(), e);
+        }
+        return updatedClassDTO;
     }
 
     @GetMapping("new")
@@ -44,14 +62,20 @@ public class ClassController {
 
     @PostMapping("create")
     public String createClass(ClassDTO classDTO) {
+        logger.info(classDTO.getName());
         classService.save(classDTO);
         return "redirect:/class";
     }
 
-    @GetMapping("delete/{id}")
-    public String deleteClass(@PathVariable Long id) {
-        logger.info("Delete " + id);
-        classService.delete(id);
-        return "redirect:/class";
+    @PostMapping("delete")
+    @ResponseBody
+    public Boolean deleteClass(DeleteRequest deleteRequest) {
+        Boolean deleted = false;
+        try {
+            deleted = classService.delete(deleteRequest.getIds());
+        } catch (Exception e) {
+            logger.error(deleteRequest.getIds().toString(), e);
+        }
+        return deleted;
     }
 }

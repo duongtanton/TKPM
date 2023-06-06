@@ -57,13 +57,19 @@ public class ClassService implements IClassService {
             newClass.setId(classDTO.getId());
         }
         newClass.setName(classDTO.getName());
-        newClass.setNumberOfPupils(classDTO.getNumberOfPupils());
+        if(classDTO.getNumberOfPupils() != null) {
+            newClass.setNumberOfPupils(classDTO.getNumberOfPupils());
+        }
         return modelMapper.map(classRepository.save(newClass), ClassDTO.class);
     }
 
     @Override
-    public Boolean delete(Long classID) {
-        classRepository.deleteById(classID);
-        return true;
+    public Boolean delete(List<Long> listClassIds) {
+        try {
+            classRepository.deleteAllById(listClassIds);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

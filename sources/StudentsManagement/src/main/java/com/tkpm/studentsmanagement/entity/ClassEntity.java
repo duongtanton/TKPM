@@ -12,7 +12,7 @@ public class ClassEntity extends AbstractEntity {
     private String name;
 
     @Column(name = "numberOfPupils")
-    private Integer numberOfPupils;
+    private Integer numberOfPupils = 0;
 
     // relationship
     @OneToMany(mappedBy = "classEntity",fetch = FetchType.LAZY)
