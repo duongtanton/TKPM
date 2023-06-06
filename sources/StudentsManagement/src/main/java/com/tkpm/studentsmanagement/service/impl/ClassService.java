@@ -1,15 +1,19 @@
 package com.tkpm.studentsmanagement.service.impl;
 
 import com.tkpm.studentsmanagement.dto.ClassDTO;
+import com.tkpm.studentsmanagement.dto.StudentDTO;
 import com.tkpm.studentsmanagement.dto.UserDTO;
 import com.tkpm.studentsmanagement.entity.ClassEntity;
 import com.tkpm.studentsmanagement.entity.ClassStudentEntity;
+import com.tkpm.studentsmanagement.entity.StudentEntity;
 import com.tkpm.studentsmanagement.repository.ClassRepository;
 import com.tkpm.studentsmanagement.repository.ClassStudentRepository;
 import com.tkpm.studentsmanagement.service.IClassService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,6 +52,13 @@ public class ClassService implements IClassService {
             result.add(modelMapper.map(classEntity, ClassDTO.class) );
         });
         return result;
+    }
+
+    @Override
+    public List<ClassDTO> getAll(Pageable pageable) {
+        List<StudentEntity> listStudentEntity = classRepository.findAll(pageable);
+        return modelMapper.map(listStudentEntity, new TypeToken<List<StudentDTO>>() {
+        }.getType());
     }
 
     @Override
