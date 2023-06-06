@@ -3,17 +3,9 @@ package com.tkpm.studentsmanagement.entity;
 import java.sql.Date;
 import java.util.List;
 
+import groovy.transform.EqualsAndHashCode;
+import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity(name = "student")
 @EntityListeners(AuditingEntityListener.class) // listener auditing
@@ -36,9 +28,9 @@ public class StudentEntity extends AbstractEntity {
     private String email;
 
     // relationship
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "student_class", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "classId"))
-    private List<ClassEntity> classes;
+    @OneToMany(mappedBy = "studentEntity", cascade = CascadeType.ALL)
+//    @EqualsAndHashCode.E
+    private List<ClassStudentEntity> class_student;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "student_test", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "testId"))

@@ -9,10 +9,11 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="text-center"> <h2> Add Class Form </h2></div>
+    <div class="text-center"> <h2> [[${pageTitle}]] </h2></div>
 
     <form th:action="@{/class/create}" method="post" th:object="${class}"
         style="max-width: 500px; margin: 0 auto">
+        <input type="hidden" th:field="${class.id}">
         <div class="border border-secondary rounded p-3">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Name: </label>

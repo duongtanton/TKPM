@@ -2,15 +2,8 @@ package com.tkpm.studentsmanagement.entity;
 
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 
 @Entity(name = "class")
 @EntityListeners(AuditingEntityListener.class) // listener auditing
@@ -22,8 +15,8 @@ public class ClassEntity extends AbstractEntity {
     private Integer numberOfPupils;
 
     // relationship
-    @ManyToMany(mappedBy = "classes",fetch = FetchType.LAZY)
-    private List<StudentEntity> students;
+    @OneToMany(mappedBy = "classEntity",fetch = FetchType.LAZY)
+    private List<ClassStudentEntity> class_student;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "test_class", joinColumns = @JoinColumn(name = "classId"), inverseJoinColumns = @JoinColumn(name = "testId"))

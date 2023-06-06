@@ -3,7 +3,9 @@ package com.tkpm.studentsmanagement.service.impl;
 import com.tkpm.studentsmanagement.dto.ClassDTO;
 import com.tkpm.studentsmanagement.dto.UserDTO;
 import com.tkpm.studentsmanagement.entity.ClassEntity;
+import com.tkpm.studentsmanagement.entity.ClassStudentEntity;
 import com.tkpm.studentsmanagement.repository.ClassRepository;
+import com.tkpm.studentsmanagement.repository.ClassStudentRepository;
 import com.tkpm.studentsmanagement.service.IClassService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -19,6 +21,7 @@ import java.util.Optional;
 public class ClassService implements IClassService {
 
     @Autowired private ClassRepository classRepository;
+    @Autowired private ClassStudentRepository classStudentRepository;
     @Autowired private ModelMapper modelMapper;
     @Override
     public ClassDTO findByClassId(Long classId) {
@@ -50,8 +53,17 @@ public class ClassService implements IClassService {
     @Override
     public ClassDTO save(ClassDTO classDTO) {
         ClassEntity newClass = new ClassEntity();
+        if(classDTO.getId() != null) {
+            newClass.setId(classDTO.getId());
+        }
         newClass.setName(classDTO.getName());
         newClass.setNumberOfPupils(classDTO.getNumberOfPupils());
         return modelMapper.map(classRepository.save(newClass), ClassDTO.class);
+    }
+
+    @Override
+    public Boolean delete(Long classID) {
+        classRepository.deleteById(classID);
+        return true;
     }
 }
