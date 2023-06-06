@@ -3,6 +3,7 @@ package com.tkpm.studentsmanagement.dto;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -14,8 +15,10 @@ public class AbstractDTO {
 
     protected Timestamp updatedDate;
 
+    @JsonIgnore
     protected UserDTO createdBy;
 
+    @JsonIgnore
     protected UserDTO updatedBy;
 
     public UserDTO getCreatedBy() {

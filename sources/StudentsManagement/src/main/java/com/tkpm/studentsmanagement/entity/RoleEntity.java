@@ -2,6 +2,7 @@ package com.tkpm.studentsmanagement.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,6 +24,7 @@ public class RoleEntity {
     private String name;
 
     @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<UserEntity> users;
 
     public Long getId() {

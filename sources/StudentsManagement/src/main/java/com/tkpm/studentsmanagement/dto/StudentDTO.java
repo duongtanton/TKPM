@@ -1,5 +1,7 @@
 package com.tkpm.studentsmanagement.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -14,8 +16,10 @@ public class StudentDTO extends AbstractDTO {
 
     private String email;
 
+    @JsonIgnore
     private List<ClassDTO> classes;
 
+    @JsonIgnore
     private List<TestDTO> tests;
 
     public String getName() {

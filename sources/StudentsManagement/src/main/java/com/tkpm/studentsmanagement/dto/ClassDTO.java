@@ -1,5 +1,7 @@
 package com.tkpm.studentsmanagement.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class ClassDTO extends AbstractDTO {
@@ -8,7 +10,9 @@ public class ClassDTO extends AbstractDTO {
     private Integer numberOfPupils;
 
     // relationship
+    @JsonIgnore
     private List<StudentDTO> students;
+    @JsonIgnore
 
     private List<TestDTO> tests;
 

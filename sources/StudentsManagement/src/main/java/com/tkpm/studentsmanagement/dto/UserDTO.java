@@ -2,6 +2,7 @@ package com.tkpm.studentsmanagement.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tkpm.studentsmanagement.entity.ClassEntity;
 import com.tkpm.studentsmanagement.entity.OtpEntity;
 import com.tkpm.studentsmanagement.entity.RoleEntity;
@@ -21,30 +22,31 @@ public class UserDTO extends AbstractDTO {
     private Boolean isEnable;
 
     // relationship
+    @JsonIgnore
     private List<ClassEntity> createdClasses;
-
+    @JsonIgnore
     private List<ClassEntity> updatedClasses;
-
+    @JsonIgnore
     private List<Configuration> createdConfigurations;
-
+    @JsonIgnore
     private List<Configuration> updatedConfigurations;
-
+    @JsonIgnore
     private List<StudentEntity> createdStudents;
-
+    @JsonIgnore
     private List<StudentEntity> updatedStudents;
-
+    @JsonIgnore
     private List<TestEntity> createdTests;
-
+    @JsonIgnore
     private List<TestEntity> updatedTests;
-
+    @JsonIgnore
     private List<TestEntity> createdUses;
-
+    @JsonIgnore
     private List<TestEntity> updatedUsers;
-
+    @JsonIgnore
     private List<OtpEntity> createdOtps;
-
+    @JsonIgnore
     private List<OtpEntity> updatedOtps;
-
+    @JsonIgnore
     private List<RoleEntity> roles;
     // end relationship
 

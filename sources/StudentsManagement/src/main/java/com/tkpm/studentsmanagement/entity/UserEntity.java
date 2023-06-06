@@ -2,6 +2,7 @@ package com.tkpm.studentsmanagement.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -80,6 +81,7 @@ public class UserEntity extends AbstractEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "userId")}, inverseJoinColumns = {
             @JoinColumn(name = "roleId")})
+    @JsonManagedReference
     private List<RoleEntity> roles;
     // end relationship
 

@@ -3,6 +3,7 @@ package com.tkpm.studentsmanagement.entity;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
@@ -38,10 +39,12 @@ public class StudentEntity extends AbstractEntity {
     // relationship
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "student_class", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "classId"))
+    @JsonManagedReference
     private List<ClassEntity> classes;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "student_test", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "testId"))
+    @JsonManagedReference
     private List<TestEntity> tests;
     // end relationship
 
