@@ -54,12 +54,12 @@ public class ClassService implements IClassService {
         return result;
     }
 
-    @Override
-    public List<ClassDTO> getAll(Pageable pageable) {
-        List<StudentEntity> listStudentEntity = classRepository.findAll(pageable);
-        return modelMapper.map(listStudentEntity, new TypeToken<List<StudentDTO>>() {
-        }.getType());
-    }
+//    @Override
+//    public List<ClassDTO> getAll(Pageable pageable) {
+//        List<StudentEntity> listStudentEntity = classRepository.findAll(pageable);
+//        return modelMapper.map(listStudentEntity, new TypeToken<List<StudentDTO>>() {
+//        }.getType());
+//    }
 
     @Override
     public ClassDTO save(ClassDTO classDTO) {
@@ -72,6 +72,15 @@ public class ClassService implements IClassService {
             newClass.setNumberOfPupils(classDTO.getNumberOfPupils());
         }
         return modelMapper.map(classRepository.save(newClass), ClassDTO.class);
+    }
+    @Override
+    public List<ClassDTO> save(List<ClassDTO> listClass) {
+        List<ClassEntity> listStudentEntity = modelMapper.map(listClass, new TypeToken<List<ClassEntity>>() {
+        }.getType());
+        List<ClassDTO> listClassDTO = modelMapper.map(classRepository.saveAll(listStudentEntity),
+                new TypeToken<List<StudentDTO>>() {
+                }.getType());
+        return listClassDTO;
     }
 
     @Override

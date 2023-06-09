@@ -11,17 +11,17 @@ import org.springframework.data.repository.query.Param;
 import java.sql.Timestamp;
 
 public interface ClassRepository extends CrudRepository<ClassEntity, Long> {
-    @Query("SELECT * FROM class" +
-            "WHERE (:name IS NULL OR (LOWER(class.name) LIKE CONCAT('%',LOWER(:name),'%'))) " +
-            "AND (:createdDate IS NULL OR DATE(class.createdDate) = DATE(:createdDate)) " +
-            "AND (:updatedDate IS NULL OR DATE(class.updatedDate) = DATE(:updatedDate)) " +
-            "AND (:createdByEmail IS NULL OR class.createdBy.email = :createdByEmail) " +
-            "AND (:updatedByEmail IS NULL OR class.updatedBy.email = :updatedByEmail) ")
-    Page<ClassEntity> findAll(
-            @Param("name") String name,
-            @Param("createdDate") Timestamp createdDate,
-            @Param("updatedDate") Timestamp updatedDate,
-            @Param("createdByEmail") String createdByEmail,
-            @Param("updatedByEmail") String updatedByEmail,
-            Pageable pageable);
+//    @Query("SELECT * FROM class" +
+//            "WHERE (:name IS NULL OR (LOWER(class.name) LIKE CONCAT('%',LOWER(:name),'%'))) " +
+//            "AND (:createdDate IS NULL OR DATE(class.createdDate) = DATE(:createdDate)) " +
+//            "AND (:updatedDate IS NULL OR DATE(class.updatedDate) = DATE(:updatedDate)) " +
+//            "AND (:createdByEmail IS NULL OR class.createdBy.email = :createdByEmail) " +
+//            "AND (:updatedByEmail IS NULL OR class.updatedBy.email = :updatedByEmail) ")
+//    Page<ClassEntity> findAll(
+//            @Param("name") String name,
+//            @Param("createdDate") Timestamp createdDate,
+//            @Param("updatedDate") Timestamp updatedDate,
+//            @Param("createdByEmail") String createdByEmail,
+//            @Param("updatedByEmail") String updatedByEmail,
+//            Pageable pageable);
 }
