@@ -96,6 +96,7 @@ public class UserController {
         try {
             userDTO = userService.findById(id);
             userDTO.setPassword(null);
+            System.out.println(objectMapper.writeValueAsString(userDTO));
         } catch (Exception e) {
             logger.error(id.toString(), e);
         }

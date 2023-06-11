@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.BeanUtils;
@@ -31,7 +32,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-
 
 @Service
 @Transactional
@@ -66,8 +66,9 @@ public class UserService implements IUserService {
                 userSearchDTO.getCreatedBy(),
                 userSearchDTO.getUpdatedBy(),
                 pageable);
-        List<UserDTO> listT = modelMapper.map(userEntityPage.get().collect(Collectors.toList()), new TypeToken<List<UserDTO>>() {
-        }.getType());
+        List<UserDTO> listT = modelMapper.map(userEntityPage.get().collect(Collectors.toList()),
+                new TypeToken<List<UserDTO>>() {
+                }.getType());
 
         simpleResponse.setPerPage(pageable.getPageSize());
         simpleResponse.setCurrentPage(pageable.getPageNumber() + 1);
@@ -88,6 +89,9 @@ public class UserService implements IUserService {
     @Override
     public UserDTO findById(Long id) {
         UserEntity userEntity = userRepository.findById(id).orElse(null);
+        Hibernate.initialize(userEntity.getCreatedBy());
+        Hibernate.initialize(userEntity.getUpdatedBy());
+        Hibernate.initialize(userEntity.getRoles());
         return modelMapper.map(userEntity, UserDTO.class);
     }
 
@@ -120,15 +124,15 @@ public class UserService implements IUserService {
     @Override
     public UserDTO save(UserCreateDTO userCreateDTO, Long currentUserId) throws JsonProcessingException {
         UserDTO userDTO = new UserDTO();
-        BeanUtils.copyProperties(userCreateDTO, userDTO,"roles");
-        if(userRepository.findByUsername(userDTO.getUsername()) != null) {
+        BeanUtils.copyProperties(userCreateDTO, userDTO, "roles");
+        if (userRepository.findByUsername(userDTO.getUsername()) != null) {
             throw new RuntimeException("Username already exists");
         }
-        if(userRepository.findByEmail(userDTO.getEmail()) != null) {
+        if (userRepository.findByEmail(userDTO.getEmail()) != null) {
             throw new RuntimeException("Email already exists");
         }
         List<RoleEntity> roleEntities = new ArrayList<>();
-        for(String roleStr : userCreateDTO.getRoles()) {
+        for (String roleStr : userCreateDTO.getRoles()) {
             Role role = Role.lookup(roleStr);
             roleEntities.add(roleRepository.findByName(role.name()));
         }
@@ -179,7 +183,7 @@ public class UserService implements IUserService {
 
     @Override
     public Boolean disable(DisableRequest disableRequest) {
-        for(Long id : disableRequest.getIds()) {
+        for (Long id : disableRequest.getIds()) {
             UserEntity userEntity = userRepository.findById(id).orElse(null);
             if (userEntity == null || !userEntity.getEnable()) {
                 throw new RuntimeException("This account hasn't been activated yet");

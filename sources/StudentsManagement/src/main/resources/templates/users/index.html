@@ -500,9 +500,10 @@
         const url = new URL(currentUrl);
         const urlParams = new URLSearchParams(url.search);
         const params = Object.fromEntries(urlParams);
-        for (const name in params) {
-          if (Object.hasOwnProperty.call(params, name)) {
-            const value = params[name];
+        const user =JSON.parse(params?.user || "{}") ;
+        for (const name in user) {
+          if (Object.hasOwnProperty.call(user, name)) {
+            const value = user[name];
             $(`.input-url[name=${name}]`).val(value)
           }
         }
