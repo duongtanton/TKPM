@@ -380,7 +380,7 @@
             const currentUrl = window.location.href;
             const url = new URL(currentUrl);
             url.searchParams.set(name, value);
-            url.searchParams.set("student", JSON.stringify({ name: "Tonduong" }));
+            // url.searchParams.set("student", JSON.stringify({ name: "Tonduong" }));
             const newUrl = url.href;
             window.history.pushState({ path: newUrl }, '', newUrl);
           });

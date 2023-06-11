@@ -37,6 +37,9 @@ public class UserEntity extends AbstractEntity {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "isEnable")
+    private Boolean isEnable = false;
+
     // relationship
     @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<ClassEntity> createdClasses;
@@ -75,8 +78,8 @@ public class UserEntity extends AbstractEntity {
     private List<OtpEntity> updatedOtps;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = {
-            @JoinColumn(name = "roleId") })
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "userId")}, inverseJoinColumns = {
+            @JoinColumn(name = "roleId")})
     private List<RoleEntity> roles;
     // end relationship
 
@@ -162,6 +165,14 @@ public class UserEntity extends AbstractEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(Boolean enable) {
+        isEnable = enable;
     }
 
     public List<Configuration> getCreatedConfigurations() {
