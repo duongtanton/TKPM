@@ -1,5 +1,8 @@
 package com.tkpm.studentsmanagement;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import org.hibernate.Hibernate;
 import org.hibernate.collection.spi.PersistentBag;
 import org.hibernate.collection.spi.PersistentCollection;
@@ -33,10 +36,12 @@ public class Application {
 	@Bean
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
-		// modelMapper.getConfiguration().setPropertyCondition(new Condition<Object, Object>() {
-		// 	public boolean applies(MappingContext<Object, Object> context) {
-		// 		return Hibernate.isInitialized(context.getSource()) && context.getSource() != null;
-		// 	}
+		// modelMapper.getConfiguration().setPropertyCondition(new Condition<Object,
+		// Object>() {
+		// public boolean applies(MappingContext<Object, Object> context) {
+		// return Hibernate.isInitialized(context.getSource()) && context.getSource() !=
+		// null;
+		// }
 		// });
 		return modelMapper;
 	}
