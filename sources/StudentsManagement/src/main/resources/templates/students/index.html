@@ -535,6 +535,10 @@
             const student = {}
             student.id = $("#modelEdit input[name=id]").val()
             student.name = $("#modelEdit input[name=name]").val()
+            student.birthDate =  moment($("#modelAdd input[name='birthDate']").val()).format("yyyy-MM-DD");
+            student.sex = $("#modelAdd select[name='sex']").val();
+            student.address = $("#modelAdd input[name='address']").val();
+            student.email = $("#modelAdd input[name='email']").val();
             $.ajax({
               type: "PATCH",
               url: "/student",
