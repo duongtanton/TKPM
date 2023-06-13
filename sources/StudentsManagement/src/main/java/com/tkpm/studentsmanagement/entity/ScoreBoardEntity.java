@@ -41,7 +41,7 @@ public class ScoreBoardEntity extends AbstractEntity{
     private Double semester;
 
     @Column(name = "year")
-    private String year;
+    private Integer year;
 
     @Column(name = "isCompleted")
     private Boolean isCompleted;
@@ -138,11 +138,11 @@ public class ScoreBoardEntity extends AbstractEntity{
         this.semester = semester;
     }
 
-    public String getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -152,5 +152,25 @@ public class ScoreBoardEntity extends AbstractEntity{
 
     public void setCompleted(Boolean completed) {
         isCompleted = completed;
+    }
+
+    @Override
+    public String toString() {
+        return "ScoreBoardEntity{" +
+                "studentID=" + studentID +
+                ", classID=" + classID +
+                ", subjectID=" + subjectID +
+                ", exam15Min=" + exam15Min +
+                ", exam45Min=" + exam45Min +
+                ", examMiddle=" + examMiddle +
+                ", examFinal=" + examFinal +
+                ", averageScore=" + averageScore +
+                ", semester=" + semester +
+                ", year=" + year +
+                ", isCompleted=" + isCompleted +
+                ", students=" + students +
+                ", classes=" + classes +
+                ", subjects=" + subjects +
+                '}';
     }
 }

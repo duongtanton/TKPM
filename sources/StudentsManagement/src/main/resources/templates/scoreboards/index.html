@@ -75,34 +75,6 @@
 								</div>
 							</div>
 							<div class="col-md-6 form-group row">
-								<label for="fname" class="col-sm-3 text-end control-label col-form-label">Score 15 mins</label>
-								<div class="col-sm-9">
-									<input type="text" class="input-url form-control" id="fname" name="score15min"
-									       placeholder="15 minutes" />
-								</div>
-							</div>
-							<div class="col-md-6 form-group row">
-								<label for="fname" class="col-sm-3 text-end control-label col-form-label">Score 15 mins</label>
-								<div class="col-sm-9">
-									<input type="text" class="input-url form-control" id="fname" name="score45min"
-									       placeholder="45 minutes" />
-								</div>
-							</div>
-							<div class="col-md-6 form-group row">
-								<label for="fname" class="col-sm-3 text-end control-label col-form-label">Score middle exam</label>
-								<div class="col-sm-9">
-									<input type="text" class="input-url form-control" id="fname" name="scoreMiddleExam"
-									       placeholder="Middle score" />
-								</div>
-							</div>
-							<div class="col-md-6 form-group row">
-								<label for="fname" class="col-sm-3 text-end control-label col-form-label">Score final exam</label>
-								<div class="col-sm-9">
-									<input type="text" class="input-url form-control" id="fname" name="scoreFinalExam"
-									       placeholder="Final exam" />
-								</div>
-							</div>
-							<div class="col-md-6 form-group row">
 								<label for="cono1" class="col-sm-3 text-end control-label col-form-label">Created date</label>
 								<div class="col-sm-9">
 									<div class="input-group ">
@@ -239,7 +211,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">ADD STUDENT</h5>
+					<h5 class="modal-title">ADD SCOREBOARD</h5>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
@@ -248,6 +220,70 @@
 							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="fname" name="name" placeholder="Enter Name Here" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Class</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="classroom" placeholder="Enter Classroom" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Subject</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="subject" placeholder="Enter Subject" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">15 mins score</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="score15mins" placeholder="15 mins socre" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">45 mins score</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="score45mins" placeholder="45 mins score" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Mid-exam score</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="mid_exam_score" placeholder="Mid-exam score" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Final-exam score</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="final_exam_score" placeholder="Final-exam score" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Semester</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="semester" placeholder="Semester" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Year</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="year" placeholder="Year" />
 							</div>
 						</div>
 					</div>
@@ -469,12 +505,20 @@
           });
           $("#modelAdd .btn-save").click(function () {
             //handle add
-            const student = {}
-            student.name = $("#modelAdd input[name='name']").val();
+            const scoreboard = {}
+            scoreboard.studentId = $("#modelAdd input[name='name']").val();
+            scoreboard.classId = $("#modelAdd input[name='classroom']").val();
+            scoreboard.subjectId = $("#modelAdd input[name='subject']").val();
+            scoreboard.exam15Min = $("#modelAdd input[name='score15mins']").val();
+            scoreboard.exam45Min = $("#modelAdd input[name='score45mins']").val();
+            scoreboard.examMiddle = $("#modelAdd input[name='mid_exam_score']").val();
+            scoreboard.examFinal = $("#modelAdd input[name='final_exam_score']").val();
+            scoreboard.semester = $("#modelAdd input[name='semester']").val();
+            scoreboard.year = $("#modelAdd input[name='year']").val();
             $.ajax({
               type: "POST",
-              url: "/student",
-              data: student,
+              url: "/scoreboard",
+              data: scoreboard,
               success: (added, message, obj) => {
                 if (added) {
                   location.reload();
