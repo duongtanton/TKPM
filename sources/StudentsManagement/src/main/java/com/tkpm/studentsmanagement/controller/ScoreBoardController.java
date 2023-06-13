@@ -49,8 +49,8 @@ public class ScoreBoardController {
         simpleResponse.setCurrentPage(pageable.getPageNumber() + 1);
         simpleResponse.setTotalPages(totalPages);
 
-        List<ScoreBoardDTO> listScoreboards = scoreBoardService.findAll(pageable);
-        simpleResponse.setListT(listScoreboards);
+        List<ScoreBoardDTO> listT = scoreBoardService.findAll(pageable);
+        simpleResponse.setListT(listT);
         model.addAttribute("res", simpleResponse);
         return "scoreboards/index";
     }
