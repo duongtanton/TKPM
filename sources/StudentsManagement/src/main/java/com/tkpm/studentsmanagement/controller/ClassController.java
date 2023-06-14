@@ -39,6 +39,7 @@ public class ClassController {
 
     @GetMapping()
     public String showClassList(Model model) {
+        classService.autoCreateClass();
        List<ClassDTO> classDTOList = classService.getAll();
        model.addAttribute("listClasses", classDTOList);
        return "classes/class";

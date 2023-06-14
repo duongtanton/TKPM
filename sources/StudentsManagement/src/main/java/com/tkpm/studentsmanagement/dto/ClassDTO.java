@@ -5,7 +5,9 @@ import java.util.List;
 public class ClassDTO extends AbstractDTO {
     private String name;
 
-    private Integer numberOfPupils;
+    private Integer number_of_pupils;
+
+    private String school_year;
 
     // relationship
     private List<StudentDTO> students;
@@ -21,11 +23,19 @@ public class ClassDTO extends AbstractDTO {
     }
 
     public Integer getNumberOfPupils() {
-        return this.numberOfPupils;
+        return this.number_of_pupils;
     }
 
-    public void setNumberOfPupils(Integer numberOfPupils) {
-        this.numberOfPupils = numberOfPupils;
+    public void setNumberOfPupils(Integer number_of_pupils) {
+        this.number_of_pupils = number_of_pupils;
+    }
+
+    public String getSchoolYear() {
+        return school_year;
+    }
+
+    public void setSchoolYear(String school_year) {
+        this.school_year = school_year;
     }
 
     public List<StudentDTO> getStudents() {

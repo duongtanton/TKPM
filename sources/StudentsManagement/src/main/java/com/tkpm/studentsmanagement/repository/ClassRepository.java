@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface ClassRepository extends CrudRepository<ClassEntity, Long> {
 //    @Query("SELECT * FROM class" +
@@ -24,4 +25,7 @@ public interface ClassRepository extends CrudRepository<ClassEntity, Long> {
 //            @Param("createdByEmail") String createdByEmail,
 //            @Param("updatedByEmail") String updatedByEmail,
 //            Pageable pageable);
+@Query("SELECT c FROM class c WHERE c.name = :name AND c.school_year = :schoolYear")
+List<ClassEntity> findByNameAndSchoolYear(@Param("name") String name, @Param("schoolYear") String schoolYear);
+
 }
