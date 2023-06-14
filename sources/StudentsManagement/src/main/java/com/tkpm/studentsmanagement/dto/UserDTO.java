@@ -17,6 +17,9 @@ public class UserDTO extends AbstractDTO {
     private String password;
 
     private String email;
+
+    private Boolean isEnable;
+
     // relationship
     private List<ClassEntity> createdClasses;
 
@@ -181,4 +184,11 @@ public class UserDTO extends AbstractDTO {
         this.password = password;
     }
 
+    public Boolean getEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(Boolean enable) {
+        isEnable = enable;
+    }
 }

@@ -136,7 +136,7 @@ public class AuthenticationController {
             OtpDTO newOtpDTO = otpService.save(otpDTO);
             String token = textEncryptor.encrypt(objectMapper.writeValueAsString(newOtpDTO));
             String url = urlServer + "/forgot-password/" + token;
-            emailService.sendEmail(email, "RESET PASSWORD", url);
+            emailService.sendEmail(email, "RESET PASSWORD", url,"templates/email/reset-password-template.html");
         } catch (Exception e) {
             e.printStackTrace();
         }
