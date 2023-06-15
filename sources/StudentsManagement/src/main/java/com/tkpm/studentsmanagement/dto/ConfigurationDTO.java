@@ -1,9 +1,11 @@
 package com.tkpm.studentsmanagement.dto;
 
-public class Configuration extends AbstractDTO{
+public class ConfigurationDTO extends AbstractDTO{
     private String name;
 
     private String value;
+
+    private String description;
 
     public String getName() {
         return this.name;
@@ -19,5 +21,13 @@ public class Configuration extends AbstractDTO{
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
