@@ -31,7 +31,7 @@ import jakarta.persistence.TemporalType;
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler", "$$_hibernate_interceptor" }, ignoreUnknown = true)
 public abstract class AbstractEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @Column(name = "createdDate")
