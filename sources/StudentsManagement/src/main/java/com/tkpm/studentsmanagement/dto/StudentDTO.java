@@ -10,7 +10,7 @@ public class StudentDTO extends AbstractDTO {
 
     private Boolean sex; // male 1: female: 0
 
-    private String adress;
+    private String address;
 
     private String email;
 
@@ -46,12 +46,12 @@ public class StudentDTO extends AbstractDTO {
         this.sex = sex;
     }
 
-    public String getAdress() {
-        return this.adress;
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmail() {

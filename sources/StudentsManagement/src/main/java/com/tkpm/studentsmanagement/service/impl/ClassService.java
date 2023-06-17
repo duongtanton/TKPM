@@ -1,8 +1,11 @@
 package com.tkpm.studentsmanagement.service.impl;
 
 import com.tkpm.studentsmanagement.dto.ClassDTO;
+import com.tkpm.studentsmanagement.dto.ClassStudentDTO;
 import com.tkpm.studentsmanagement.dto.StudentDTO;
 import com.tkpm.studentsmanagement.entity.ClassEntity;
+import com.tkpm.studentsmanagement.entity.ClassStudentEntity;
+import com.tkpm.studentsmanagement.entity.StudentEntity;
 import com.tkpm.studentsmanagement.repository.ClassRepository;
 import com.tkpm.studentsmanagement.repository.ClassStudentRepository;
 import com.tkpm.studentsmanagement.service.IClassService;
@@ -28,6 +31,7 @@ public class ClassService implements IClassService {
     private static final Logger logger = LoggerFactory.getLogger(ClassService.class);
     @Autowired private ClassRepository classRepository;
     @Autowired private ClassStudentRepository classStudentRepository;
+    @Autowired private StudentService studentService;
     @Autowired private ModelMapper modelMapper;
     final Integer MAX_STUDENTS_IN_CLASS = 40;
     @Override
@@ -72,7 +76,9 @@ public class ClassService implements IClassService {
 
     @Override
     public ClassDTO findByClassName(String className) {
-        return null;
+        List<ClassEntity> classEntityList = classRepository.findByName(className);
+        if(classEntityList.size()>0) return modelMapper.map(classEntityList.get(0), ClassDTO.class);
+        return new ClassDTO();
     }
 
     @Override
@@ -85,6 +91,8 @@ public class ClassService implements IClassService {
         });
         return result;
     }
+
+
 
 //    @Override
 //    public List<ClassDTO> getAll(Pageable pageable) {
@@ -116,14 +124,35 @@ public class ClassService implements IClassService {
     }
 
     @Override
-    public boolean saveStudents(ClassDTO classDTO, List<StudentDTO> listStudentDTO) {
-//        //Validate class
-//        ClassEntity classToAddStudent = this.classRepository.findByNameAndSchoolYear(classDTO.getName());
-//        if(classToAddStudent == null) return false;
-//
-//        //Validate number of student in class
-//        if(listStudentDTO.size() > MAX_STUDENTS_IN_CLASS) return false;
+    public boolean saveStudents(ClassStudentDTO classStudentDTO) {
+        try {
+            ClassDTO classDTO = this.findByClassName(classStudentDTO.getClassName());
+            logger.info(classDTO.getName() + " " + classDTO.getNumberOfPupils());
+            logger.info(classDTO.getName() + " " + classDTO.getCreatedDate());
+            if (classDTO.getId() != null) {
+                //Create new student
+                StudentDTO newStudent = new StudentDTO();
+                newStudent.setName(classStudentDTO.getStudentName());
+                newStudent.setSex(classStudentDTO.getSex());
+                newStudent.setAddress(classStudentDTO.getAddress());
+                newStudent.setBirthDate(classStudentDTO.getBirthDate());
+                StudentDTO savedStudent = studentService.create(newStudent);
 
+                //Add student to the class
+                ClassStudentEntity classStudentEntity = new ClassStudentEntity();
+                classStudentEntity.setClassEntity(modelMapper.map(classDTO, ClassEntity.class));
+                classStudentEntity.setStudentEntity(modelMapper.map(savedStudent, StudentEntity.class));
+                classStudentEntity.setStatus(Boolean.TRUE);
+                this.classStudentRepository.save(classStudentEntity);
+
+                //Update number of student in class
+                classDTO.setNumberOfPupils(classDTO.getNumberOfPupils() + 1);
+                logger.info(classDTO.getNumberOfPupils().toString());
+                this.classRepository.save(modelMapper.map(classDTO, ClassEntity.class));
+            }
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
 
         return true;
     }

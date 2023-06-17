@@ -28,4 +28,5 @@ public interface ClassRepository extends CrudRepository<ClassEntity, Long> {
 @Query("SELECT c FROM class c WHERE c.name = :name AND c.school_year = :schoolYear")
 List<ClassEntity> findByNameAndSchoolYear(@Param("name") String name, @Param("schoolYear") String schoolYear);
 
+List<ClassEntity> findByName(@Param("name") String name);
 }

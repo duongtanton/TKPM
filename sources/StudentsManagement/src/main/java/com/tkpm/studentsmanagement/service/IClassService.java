@@ -2,6 +2,7 @@ package com.tkpm.studentsmanagement.service;
 
 
 import com.tkpm.studentsmanagement.dto.ClassDTO;
+import com.tkpm.studentsmanagement.dto.ClassStudentDTO;
 import com.tkpm.studentsmanagement.dto.StudentDTO;
 import org.springframework.data.domain.Pageable;
 
@@ -15,6 +16,6 @@ public interface IClassService {
 //    public List<ClassDTO> getAll(Pageable pageable);
 public ClassDTO save(ClassDTO userDTO);
     public List<ClassDTO> save(List<ClassDTO> userDTO);
-    public boolean saveStudents(ClassDTO classDTO, List<StudentDTO> listStudentDTO);
+    public boolean saveStudents(ClassStudentDTO classStudentDTO);
     public Boolean delete(List<Long> id);
 }

@@ -115,9 +115,9 @@
                         <button type="submit" class="btn btn-primary btn-add">
                             Add
                         </button>
-<!--                        <button type="submit" class="btn btn-primary btn-add-student">-->
-<!--                            Add Student-->
-<!--                        </button>-->
+                        <button type="submit" class="btn btn-primary btn-add-student">
+                            Add Student
+                        </button>
                         <button type="submit" class="btn btn-primary btn-edit">Edit</button>
                         <button type="submit" class="btn btn-primary btn-delete">Delete</button>
                         <button type="submit" class="btn btn-primary btn-import">
@@ -230,7 +230,7 @@
                             <div class="col-md-6 form-group row">
                                 <label for="fname4" class="col-sm-3 text-end control-label col-form-label">Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="fname4" name="name" placeholder="Enter Class Name Here" />
+                                    <input type="text" class="form-control" id="fname4" name="className" placeholder="Enter Class Name Here" />
                                 </div>
                             </div>
                         </div>
@@ -238,7 +238,7 @@
                             <div class="col-md-6 form-group row">
                                 <label for="SchoolYear1" class="col-sm-3 text-end control-label col-form-label">School Year</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="SchoolYear1" name="name" placeholder="Enter School Year Here" />
+                                    <input type="text" class="form-control" id="SchoolYear1" name="schoolYear" placeholder="Enter School Year Here" />
                                 </div>
                             </div>
                         </div>
@@ -257,11 +257,10 @@
                                         </thead>
                                         <tbody class="customtable">
                                         <tr>
-                                            <td> <input type="text" id="id"> </td>
-                                            <td> <input type="text" id="name"> </td>
-                                            <td> <input type="text" id="gender"> </td>
-                                            <td> <input type="text" id="birth"> </td>
-                                            <td> <input type="text" id="address"> </td>
+                                            <td> <input type="text" id="name" name="name"> </td>
+                                            <td> <input type="number" id="gender" name="gender"> </td>
+                                            <td> <input type="date" id="birth" name="birth"> </td>
+                                            <td> <input type="text" id="address" name="address"> </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -515,14 +514,18 @@
                     $("#modelAddStudent input[name='name']").val("");
                   });
                   $("#modelAddStudent .btn-save").click(function () {
-                    //handle add
-                    const student = {}
-                    student.name = $("#modelAdd input[name='name']").val();
-                    console.log(student)
+                    //handle add student
+                    const classStudent = {
+                        studentName : $("#modelAddStudent input[name='name']").val(),
+                        sex : $("#modelAddStudent input[name='gender']").val(),
+                        birthDate : $("#modelAddStudent input[name='birth']").val(),
+                        address : $("#modelAddStudent input[name='address']").val(),
+                        className: $("#modelAddStudent input[name='className']").val(),
+                    }
                     $.ajax({
                       type: "POST",
-                      url: "/class/create",
-                      data: student,
+                      url: "/class/add_student",
+                      data: classStudent,
                       success: (added, message, obj) => {
                         if (added) {
                           location.reload();
@@ -534,7 +537,7 @@
                         toastr.error("Error system admin. Try later.", "System Says");
                       },
                     });
-                    $("#modelAdd").modal('hide')
+                    $("#modelAddStudent").modal('hide')
                   })
                 });
                 $(document).ready(function () {

@@ -1,9 +1,9 @@
 package com.tkpm.studentsmanagement.controller;
 
 import com.tkpm.studentsmanagement.dto.ClassDTO;
+import com.tkpm.studentsmanagement.dto.ClassStudentDTO;
 import com.tkpm.studentsmanagement.dto.DeleteRequest;
 import com.tkpm.studentsmanagement.dto.StudentDTO;
-import com.tkpm.studentsmanagement.entity.ClassEntity;
 import com.tkpm.studentsmanagement.service.IClassService;
 import com.tkpm.studentsmanagement.service.IStudentService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,15 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -153,5 +149,11 @@ public class ClassController {
             return false;
         }
 
+    }
+
+    @PostMapping("add_student")
+    @ResponseBody
+    void AddStudent(ClassStudentDTO classStudentDTO) {
+        classService.saveStudents(classStudentDTO);
     }
 }
