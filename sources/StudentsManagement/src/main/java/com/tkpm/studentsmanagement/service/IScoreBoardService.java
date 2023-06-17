@@ -2,7 +2,6 @@ package com.tkpm.studentsmanagement.service;
 
 import com.tkpm.studentsmanagement.dto.ScoreBoardDTO;
 
-import javax.swing.text.StyledEditorKit;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
@@ -16,11 +15,11 @@ public interface IScoreBoardService {
     List<ScoreBoardDTO> create(List<ScoreBoardDTO> listScoreboard);
     List<ScoreBoardDTO> findAll(Pageable pageable);
     List<ScoreBoardDTO> findAll();
-    List<ScoreBoardDTO> findAllByStudentID(Long studentID);
+    ScoreBoardDTO findAllByStudentID(Long studentID);
     List<ScoreBoardDTO> findAllBySubject(Long subjectID);
     ScoreBoardDTO findByStudentAndSubject(Long studentID, Long subjectID);
     Integer totalPages(Pageable pageable);
-    Boolean delete(List<Long> studentID);
+    Boolean delete(List<Long> ids);
     Boolean delete(Long studentID, Long subjectID);
     Boolean update(ScoreBoardDTO scoreBoard);
     ScoreBoardDTO findByID(Long id);

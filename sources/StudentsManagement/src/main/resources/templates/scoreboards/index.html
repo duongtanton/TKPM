@@ -300,7 +300,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">EDIT STUDENT</h5>
+					<h5 class="modal-title">EDIT SCOREBOARD</h5>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
@@ -313,6 +313,54 @@
 							</div>
 						</div>
 						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Class</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="classroom" placeholder="" />
+							</div>
+						</div>
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Subject</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="subject" placeholder="" />
+							</div>
+						</div>
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Score 15 mins</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="score15mins" placeholder="" />
+							</div>
+						</div>
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Score 45 mins</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="score45mins" placeholder="" />
+							</div>
+						</div>
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Score middle exam</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="mid_exam_score" placeholder="" />
+							</div>
+						</div>
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Score final exam</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="final_exam_score" placeholder="" />
+							</div>
+						</div>
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Semester</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="semester" placeholder="" />
+							</div>
+						</div>
+						<div class="col-md-6 form-group row">
+							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Year</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="fname" name="year" placeholder="" />
+							</div>
+						</div>
+						<div class="col-md-6 form-group row">
 							<label for="lname" class="col-sm-3 text-end control-label col-form-label">Created date</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="lname" name="createdDate" placeholder="" disabled />
@@ -322,18 +370,6 @@
 							<label for="email1" class="col-sm-3 text-end control-label col-form-label">Updated date</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="email1" name="updatedDate" placeholder="" disabled />
-							</div>
-						</div>
-						<div class="col-md-6 form-group row">
-							<label for="cono1" class="col-sm-3 text-end control-label col-form-label">Created by</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="cono1" name="createdBy" placeholder="" disabled />
-							</div>
-						</div>
-						<div class="col-md-6 form-group row">
-							<label for="cono1" class="col-sm-3 text-end control-label col-form-label">Updated by</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="cono1" name="updatedBy" placeholder="" disabled />
 							</div>
 						</div>
 					</div>
@@ -545,16 +581,21 @@
             }
             $.ajax({
               type: "GET",
-              url: `/student/${ids[0]}`,
-              success: (student, message, obj) => {
-                if (student) {
+              url: `/scoreboard/${ids[0]}`,
+              success: (scoreboard, message, obj) => {
+                if (scoreboard) {
                   $("#modelEdit").modal('show')
-                  $("#modelEdit input[name=id]").val(student?.id)
-                  $("#modelEdit input[name=name]").val(student?.name)
-                  $("#modelEdit input[name=createdDate]").val(new Date(student?.createdDate).toLocaleString())
-                  $("#modelEdit input[name=updatedDate]").val(new Date(student?.createdDate).toLocaleString())
-                  $("#modelEdit input[name=createdBy]").val(student?.createdBy?.name)
-                  $("#modelEdit input[name=updatedBy]").val(student?.updatedBy?.name)
+                  $("#modelEdit input[name=name]").val(scoreboard?.studentId)
+                  $("#modelEdit input[name=classroom]").val(scoreboard?.classId)
+                  $("#modelEdit input[name=subject]").val(scoreboard?.subjectId)
+                  $("#modelEdit input[name=score15mins]").val(scoreboard?.exam15Min)
+                  $("#modelEdit input[name=score45mins]").val(scoreboard?.exam45Min)
+                  $("#modelEdit input[name=mid_exam_score]").val(scoreboard?.examMiddle)
+                  $("#modelEdit input[name=final_exam_score]").val(scoreboard?.examFinal)
+                  $("#modelEdit input[name=semester]").val(scoreboard?.semester)
+                  $("#modelEdit input[name=year]").val(scoreboard?.year)
+                  $("#modelEdit input[name=createdDate]").val(new Date(scoreboard?.createdDate).toLocaleString())
+                  $("#modelEdit input[name=updatedDate]").val(new Date(scoreboard?.createdDate).toLocaleString())
                 } else {
                   toastr.error("Error system admin. Try later.", "System Says");
                 }
@@ -568,13 +609,12 @@
             //handle edit
             $("#modelEdit").modal('hide')
             toastr.success("Edit successfully!!", "System Says");
-            const student = {}
-            student.id = $("#modelEdit input[name=id]").val()
-            student.name = $("#modelEdit input[name=name]").val()
+            const scoreboard = {}
+            scoreboard.studentId = $("#modelEdit input[name=id]").val()
             $.ajax({
               type: "PATCH",
-              url: "/student",
-              data: student,
+              url: "/scoreboard",
+              data: scoreboard,
               success: (updated, message, obj) => {
                 if (updated) {
                   location.reload();
@@ -600,7 +640,7 @@
             const ids = $("#zero_config input:checked:not(#mainCheckbox)").map((index, item) => Number.parseInt(item.getAttribute("name"))).toArray();
             $.ajax({
               type: "DELETE",
-              url: "/student",
+              url: "/scoreboard",
               data: {
                 ids: ids,
                 redirectUrl: window.location.href

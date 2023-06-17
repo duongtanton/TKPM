@@ -63,7 +63,7 @@ public class ScoreBoardService implements IScoreBoardService {
     }
 
     @Override
-    public List<ScoreBoardDTO> findAllByStudentID(Long studentID) {
+    public ScoreBoardDTO findAllByStudentID(Long studentID) {
         return null;
     }
 
@@ -115,6 +115,7 @@ public class ScoreBoardService implements IScoreBoardService {
 
     @Override
     public ScoreBoardDTO findByID(Long id) {
-        return null;
+        ScoreBoardEntity scoreBoardEntity = scoreBoardRepository.findById(id).orElse(null);
+        return modelMapper.map(scoreBoardRepository.save(scoreBoardEntity), ScoreBoardDTO.class);
     }
 }
