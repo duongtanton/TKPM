@@ -59,7 +59,6 @@ public class ClassController {
         ClassDTO updatedClassDTO = null;
         try {
             updatedClassDTO = classService.save(classDTO);
-
         } catch (Exception e) {
             logger.error(classDTO.toString(), e);
         }
@@ -75,7 +74,6 @@ public class ClassController {
 
     @PostMapping("create")
     public String createClass(ClassDTO classDTO) {
-        logger.info(classDTO.getName());
         classService.save(classDTO);
         return "redirect:/class";
     }
