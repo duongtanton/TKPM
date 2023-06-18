@@ -17,14 +17,17 @@ public class UserDTO extends AbstractDTO {
     private String password;
 
     private String email;
+
+    private Boolean isEnable;
+
     // relationship
     private List<ClassEntity> createdClasses;
 
     private List<ClassEntity> updatedClasses;
 
-    private List<Configuration> createdConfigurations;
+    private List<ConfigurationDTO> createdConfigurations;
 
-    private List<Configuration> updatedConfigurations;
+    private List<ConfigurationDTO> updatedConfigurations;
 
     private List<StudentEntity> createdStudents;
 
@@ -61,19 +64,19 @@ public class UserDTO extends AbstractDTO {
         this.updatedClasses = updatedClasses;
     }
 
-    public List<Configuration> getCreatedConfigurations() {
+    public List<ConfigurationDTO> getCreatedConfigurations() {
         return this.createdConfigurations;
     }
 
-    public void setCreatedConfigurations(List<Configuration> createdConfigurations) {
+    public void setCreatedConfigurations(List<ConfigurationDTO> createdConfigurations) {
         this.createdConfigurations = createdConfigurations;
     }
 
-    public List<Configuration> getUpdatedConfigurations() {
+    public List<ConfigurationDTO> getUpdatedConfigurations() {
         return this.updatedConfigurations;
     }
 
-    public void setUpdatedConfigurations(List<Configuration> updatedConfigurations) {
+    public void setUpdatedConfigurations(List<ConfigurationDTO> updatedConfigurations) {
         this.updatedConfigurations = updatedConfigurations;
     }
 
@@ -181,4 +184,11 @@ public class UserDTO extends AbstractDTO {
         this.password = password;
     }
 
+    public Boolean getEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(Boolean enable) {
+        isEnable = enable;
+    }
 }

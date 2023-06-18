@@ -88,9 +88,8 @@ public class StudentService implements IStudentService {
 
     @Override
     public Boolean update(StudentDTO studentDTO) {
-        StudentEntity studentEntity = studentRepositoty.findById(studentDTO.getId()).orElse(null);
+        StudentEntity studentEntity = modelMapper.map(studentDTO, StudentEntity.class);
         try {
-            studentEntity.setName(studentDTO.getName());
             studentRepositoty.save(studentEntity);
             return true;
         } catch (Exception e) {

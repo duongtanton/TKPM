@@ -3,6 +3,7 @@ package com.tkpm.studentsmanagement.dto;
 import java.sql.Date;
 import java.util.List;
 
+
 public class StudentDTO extends AbstractDTO {
     private String name;
 
@@ -10,7 +11,7 @@ public class StudentDTO extends AbstractDTO {
 
     private Boolean sex; // male 1: female: 0
 
-    private String adress;
+    private String address;
 
     private String email;
 
@@ -46,12 +47,12 @@ public class StudentDTO extends AbstractDTO {
         this.sex = sex;
     }
 
-    public String getAdress() {
-        return this.adress;
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String adress) {
+        this.address = adress;
     }
 
     public String getEmail() {
