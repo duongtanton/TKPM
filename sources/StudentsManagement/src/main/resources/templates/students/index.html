@@ -192,6 +192,35 @@
                   <input type="text" class="form-control" id="fname" name="name" placeholder="Enter Name Here" />
                 </div>
               </div>
+              <div class="col-md-6 form-group row">
+                <label for="lname" class="col-sm-3 text-end control-label col-form-label">Birth date</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="birthDate" id="datepicker-birthdate"
+                    placeholder="mm/dd/yyyy" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Address</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="address" placeholder="Enter Address Here" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Email</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="email" placeholder="Enter Email Here" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Sex</label>
+                <div class="col-sm-9">
+                  <select name="sex" class="custom-select custom-select-lg mb-3"
+                    style="margin: 0 !important; padding: 4px 6px;">
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -216,6 +245,35 @@
                 <label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="fname" name="name" placeholder="" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="lname" class="col-sm-3 text-end control-label col-form-label">Birth date</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="birthDate" id="datepicker-birthdate-2"
+                    placeholder="" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Address</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="address" placeholder="" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Email</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="email" placeholder="" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Sex</label>
+                <div class="col-sm-9">
+                  <select name="sex" class="custom-select custom-select-lg mb-3"
+                    style="margin: 0 !important; padding: 4px 6px;">
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-6 form-group row">
@@ -412,7 +470,11 @@
           $("#modelAdd .btn-save").click(function () {
             //handle add
             const student = {}
-            student.name = $("#modelAdd input[name='name']").val();
+            student.name = $("#modelAdd input[name='name']").val(); 
+            student.birthDate =  moment($("#modelAdd input[name='birthDate']").val()).format("yyyy-MM-DD");
+            student.sex = $("#modelAdd select[name='sex']").val();
+            student.address = $("#modelAdd input[name='address']").val();
+            student.email = $("#modelAdd input[name='email']").val();
             $.ajax({
               type: "POST",
               url: "/student",
@@ -449,6 +511,10 @@
                   $("#modelEdit").modal('show')
                   $("#modelEdit input[name=id]").val(student?.id)
                   $("#modelEdit input[name=name]").val(student?.name)
+                  $("#modelEdit input[name=birthDate]").val(student?.birthDate? moment(student?.birthDate).format("MM/DD/yyyy"):"")
+                  $("#modelEdit select[name=sex]").val(student?.sex ? "1" : "0")
+                  $("#modelEdit input[name=email]").val(student?.email)
+                  $("#modelEdit input[name=address]").val(student?.address)
                   $("#modelEdit input[name=createdDate]").val(new Date(student?.createdDate).toLocaleString())
                   $("#modelEdit input[name=updatedDate]").val(new Date(student?.createdDate).toLocaleString())
                   $("#modelEdit input[name=createdBy]").val(student?.createdBy?.name)
@@ -469,6 +535,11 @@
             const student = {}
             student.id = $("#modelEdit input[name=id]").val()
             student.name = $("#modelEdit input[name=name]").val()
+            student.birthDate =  moment($("#modelEdit input[name='birthDate']").val()).format("yyyy-MM-DD");
+            student.sex = $("#modelEdit select[name='sex']").val();
+            student.address = $("#modelEdit input[name='address']").val();
+            student.email = $("#modelEdit input[name='email']").val();
+            debugger
             $.ajax({
               type: "PATCH",
               url: "/student",
@@ -593,9 +664,9 @@
       <script src="/assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
       <script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
       <script src="/assets/libs/quill/dist/quill.min.js"></script>
-      
-      
-      
+
+
+
 
       <script>
         //***********************************//
@@ -635,6 +706,14 @@
           todayHighlight: true,
         });
         jQuery("#datepicker-autoclose-2").datepicker({
+          autoclose: true,
+          todayHighlight: true,
+        });
+        jQuery("#datepicker-birthdate").datepicker({
+          autoclose: true,
+          todayHighlight: true,
+        });
+        jQuery("#datepicker-birthdate-2").datepicker({
           autoclose: true,
           todayHighlight: true,
         });
