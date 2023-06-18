@@ -2,15 +2,8 @@ package com.tkpm.studentsmanagement.entity;
 
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 
 @Entity(name = "class")
 @EntityListeners(AuditingEntityListener.class) // listener auditing
@@ -18,12 +11,15 @@ public class ClassEntity extends AbstractEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "numberOfPupils")
-    private Integer numberOfPupils;
+    @Column(name = "number_of_pupils")
+    private Integer number_of_pupils = 0;
+
+    @Column(name = "school_year")
+    private String school_year;
 
     // relationship
-    @ManyToMany(mappedBy = "classes",fetch = FetchType.LAZY)
-    private List<StudentEntity> students;
+    @OneToMany(mappedBy = "classEntity",fetch = FetchType.LAZY)
+    private List<ClassStudentEntity> class_student;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "test_class", joinColumns = @JoinColumn(name = "classId"), inverseJoinColumns = @JoinColumn(name = "testId"))
@@ -39,11 +35,18 @@ public class ClassEntity extends AbstractEntity {
     }
 
     public Integer getNumberOfPupils() {
-        return this.numberOfPupils;
+        return this.number_of_pupils;
     }
 
-    public void setNumberOfPupils(Integer numberOfPupils) {
-        this.numberOfPupils = numberOfPupils;
+    public void setNumberOfPupils(Integer number_of_pupils) {
+        this.number_of_pupils = number_of_pupils;
     }
 
+    public String getSchool_year() {
+        return school_year;
+    }
+
+    public void setSchool_year(String school_year) {
+        this.school_year = school_year;
+    }
 }

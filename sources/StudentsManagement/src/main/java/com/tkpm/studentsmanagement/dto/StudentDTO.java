@@ -51,10 +51,10 @@ public class StudentDTO extends AbstractDTO {
         return this.address;
     }
 
-    public void setAddress(String adress) {
-        this.address = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
-
+    
     public String getEmail() {
         return this.email;
     }
