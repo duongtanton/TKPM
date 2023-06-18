@@ -24,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-// @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+// @SpringBootApplication
 @EnableAsync
 public class Application {
 	public static void main(String[] args) {
