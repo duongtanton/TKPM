@@ -1,25 +1,24 @@
 package com.tkpm.studentsmanagement.dto;
 
-import java.sql.Date;
+public class ClassStudentDTO extends AbstractDTO {
+    private ClassDTO classDTO;
+    
+    private StudentDTO studentDTO;
 
-public class ClassStudentDTO extends AbstractDTO{
-    private Long classId;
-    private Long studentId;
-
-    public Long getClassId() {
-        return classId;
+    public ClassDTO getClassDTO() {
+        return this.classDTO;
     }
 
-    public void setClassId(Long classId) {
-        this.classId = classId;
+    public void setClassDTO(ClassDTO classId) {
+        this.classDTO = classId;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public StudentDTO getStudentDTO() {
+        return this.studentDTO;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setStudentDTO(StudentDTO studentId) {
+        this.studentDTO = studentId;
     }
+
 }
-

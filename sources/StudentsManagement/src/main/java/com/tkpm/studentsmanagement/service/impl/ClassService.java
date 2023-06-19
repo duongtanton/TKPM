@@ -19,6 +19,7 @@ import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,16 +30,21 @@ import java.util.Optional;
 @Transactional
 public class ClassService implements IClassService {
     private static final Logger logger = LoggerFactory.getLogger(ClassService.class);
-    @Autowired private ClassRepository classRepository;
-    @Autowired private ClassStudentRepository classStudentRepository;
-    @Autowired private StudentService studentService;
-    @Autowired private ModelMapper modelMapper;
+    @Autowired
+    private ClassRepository classRepository;
+    @Autowired
+    private ClassStudentRepository classStudentRepository;
+    @Autowired
+    private StudentService studentService;
+    @Autowired
+    private ModelMapper modelMapper;
     final Integer MAX_STUDENTS_IN_CLASS = 40;
+
     @Override
     public void autoCreateClass() {
-        if(classRepository.count() == 0) {
+        if (classRepository.count() == 0) {
             try {
-                //Get default class from file 'default_classes.xlsx'
+                // Get default class from file 'default_classes.xlsx'
                 List<ClassDTO> listClassDTO = new ArrayList<>();
                 XSSFWorkbook workbook = new XSSFWorkbook("src/default_classes.xlsx");
                 XSSFSheet sheet = workbook.getSheetAt(0);
@@ -77,7 +83,8 @@ public class ClassService implements IClassService {
     @Override
     public ClassDTO findByClassName(String className) {
         List<ClassEntity> classEntityList = classRepository.findByName(className);
-        if(classEntityList.size()>0) return modelMapper.map(classEntityList.get(0), ClassDTO.class);
+        if (classEntityList.size() > 0)
+            return modelMapper.map(classEntityList.get(0), ClassDTO.class);
         return new ClassDTO();
     }
 
@@ -87,32 +94,31 @@ public class ClassService implements IClassService {
         Iterable<ClassEntity> listClasses = classRepository.findAll();
 
         classRepository.findAll().forEach(classEntity -> {
-            result.add(modelMapper.map(classEntity, ClassDTO.class) );
+            result.add(modelMapper.map(classEntity, ClassDTO.class));
         });
         return result;
     }
 
-
-
-//    @Override
-//    public List<ClassDTO> getAll(Pageable pageable) {
-//        List<StudentEntity> listStudentEntity = classRepository.findAll(pageable);
-//        return modelMapper.map(listStudentEntity, new TypeToken<List<StudentDTO>>() {
-//        }.getType());
-//    }
+    // @Override
+    // public List<ClassDTO> getAll(Pageable pageable) {
+    // List<StudentEntity> listStudentEntity = classRepository.findAll(pageable);
+    // return modelMapper.map(listStudentEntity, new TypeToken<List<StudentDTO>>() {
+    // }.getType());
+    // }
 
     @Override
     public ClassDTO save(ClassDTO classDTO) {
         ClassEntity newClass = new ClassEntity();
-        if(classDTO.getId() != null) {
+        if (classDTO.getId() != null) {
             newClass.setId(classDTO.getId());
         }
         newClass.setName(classDTO.getName());
-        if(classDTO.getNumberOfPupils() != null) {
+        if (classDTO.getNumberOfPupils() != null) {
             newClass.setNumberOfPupils(classDTO.getNumberOfPupils());
         }
         return modelMapper.map(classRepository.save(newClass), ClassDTO.class);
     }
+
     @Override
     public List<ClassDTO> save(List<ClassDTO> listClass) {
         List<ClassEntity> listStudentEntity = modelMapper.map(listClass, new TypeToken<List<ClassEntity>>() {
@@ -126,35 +132,40 @@ public class ClassService implements IClassService {
     @Override
     public ClassStudentDTO saveStudents(ClassStudentDTO classStudentDTO) {
         try {
-            if(classStudentDTO.getStudentId()==null || classStudentDTO.getClassId()==null) return null;
+            if (classStudentDTO.getStudentDTO() == null || classStudentDTO.getClassDTO() == null)
+                return null;
 
-            Long classId = classStudentDTO.getClassId();
-            Long studentId = classStudentDTO.getStudentId();
+            Long classId = classStudentDTO.getClassDTO().getId();
+            Long studentId = classStudentDTO.getStudentDTO().getId();
             // Get class
             ClassDTO classDTO = this.findByClassId(classId);
-            if(classDTO.getNumberOfPupils() == 40) return null;
+            if (classDTO.getNumberOfPupils() == 40)
+                return null;
 
-            //Get student
+            // Get student
             StudentDTO studentDTO = studentService.findById(studentId);
 
-            //Map
+            // Map
             ClassEntity classEntity = modelMapper.map(classDTO, ClassEntity.class);
             StudentEntity studentEntity = modelMapper.map(studentDTO, StudentEntity.class);
 
-            //Check if student already in class
-            List<ClassStudentEntity> classEntityList  = classStudentRepository.findStudentInClass(classEntity, studentEntity);
-            if(classEntityList.size()>0) return null;
+            // Check if student already in class
+            List<ClassStudentEntity> classEntityList = classStudentRepository.findStudentInClass(classEntity,
+                    studentEntity);
+            if (classEntityList.size() > 0)
+                return null;
 
-            //Add student to the class
+            // Add student to the class
             ClassStudentEntity classStudentEntity = new ClassStudentEntity();
             classStudentEntity.setClassEntity(classEntity);
             classStudentEntity.setStudentEntity(studentEntity);
             classStudentEntity.setStatus(Boolean.TRUE);
             this.classStudentRepository.save(classStudentEntity);
 
-            //Update number of student in class
+            // Update number of student in class
             classDTO.setNumberOfPupils(classDTO.getNumberOfPupils() + 1);
-            return modelMapper.map(this.classRepository.save(modelMapper.map(classDTO, ClassEntity.class)), ClassStudentDTO.class) ;
+            return modelMapper.map(this.classRepository.save(modelMapper.map(classDTO, ClassEntity.class)),
+                    ClassStudentDTO.class);
         } catch (Exception e) {
             logger.error(e.toString());
         }
@@ -169,5 +180,12 @@ public class ClassService implements IClassService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public List<ClassDTO> findLikeByIdOrNameOrYear(Long id, String name, String year, Pageable pageable) {
+        List<ClassEntity> studentEntities = classRepository.findByIdOrNameContainingOrYear(id, name, year, pageable);
+        return modelMapper.map(studentEntities, new TypeToken<List<StudentDTO>>() {
+        }.getType());
     }
 }

@@ -1,5 +1,6 @@
 package com.tkpm.studentsmanagement.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -95,5 +96,13 @@ public class StudentService implements IStudentService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public List<StudentDTO> findLikeByIdOrNameOrEmail(Long id, String name, String Email, Pageable pageable) {
+        List<StudentEntity> studentEntities = studentRepositoty.findByIdOrNameContainingOrEmailContaining(id, name,
+                Email, pageable);
+        return modelMapper.map(studentEntities, new TypeToken<List<StudentDTO>>() {
+        }.getType());
     }
 }

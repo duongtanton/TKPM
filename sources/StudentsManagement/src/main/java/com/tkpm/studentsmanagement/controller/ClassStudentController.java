@@ -33,10 +33,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tkpm.studentsmanagement.dto.ClassDTO;
+import com.tkpm.studentsmanagement.dto.ClassStudentDTO;
 import com.tkpm.studentsmanagement.dto.DeleteRequest;
 import com.tkpm.studentsmanagement.dto.SimpleRequest;
 import com.tkpm.studentsmanagement.dto.SimpleResponse;
 import com.tkpm.studentsmanagement.dto.StudentDTO;
+import com.tkpm.studentsmanagement.service.IClassService;
+import com.tkpm.studentsmanagement.service.IClassStudentService;
 import com.tkpm.studentsmanagement.service.IStudentService;
 import com.tkpm.studentsmanagement.util.NotNullOrT;
 
@@ -44,8 +48,8 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping("/student")
-public class StudentController {
+@RequestMapping("/class-student")
+public class ClassStudentController {
 
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
 
@@ -55,50 +59,40 @@ public class StudentController {
     @Autowired
     private IStudentService studentService;
 
+    @Autowired
+    private IClassService classService;
+
+    @Autowired
+    private IClassStudentService classStudentService;
+
     @GetMapping
     public String index(Model model, SimpleRequest simpleRequest,
-            @RequestParam(required = false, value = "student") String studentStr) {
-        SimpleResponse<StudentDTO> simpleResponse = new SimpleResponse<>();
-        StudentDTO studentDTOSearch;
-        try {
-            studentDTOSearch = objectMapper.readValue(studentStr, StudentDTO.class);
-        } catch (Exception e) {
-            e.printStackTrace();
+            @RequestParam(required = false, value = "classId") Long classId) {
+        SimpleResponse<ClassStudentDTO> simpleResponse = new SimpleResponse<>();
+
+        Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
+                Sort.by("createdDate").descending());
+        Integer totalPages = studentService.totalPages(pageable);
+
+        simpleResponse.setPerPage(pageable.getPageSize());
+        simpleResponse.setCurrentPage(pageable.getPageNumber() + 1);
+        simpleResponse.setTotalPages(totalPages);
+        List<ClassDTO> listClassDTO = classService.getAll();
+
+        if (listClassDTO.size() > 0 && classId == null) {
+            classId = listClassDTO.get(0).getId();
+        } else if (classId == null) {
+            classId = 0L;
         }
 
-        Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
-                Sort.by("createdDate").descending());
-        Integer totalPages = studentService.totalPages(pageable);
-
-        simpleResponse.setPerPage(pageable.getPageSize());
-        simpleResponse.setCurrentPage(pageable.getPageNumber() + 1);
-        simpleResponse.setTotalPages(totalPages);
-
-        List<StudentDTO> listT = studentService.findAll(pageable);
-        simpleResponse.setListT(listT);
+        List<ClassStudentDTO> listT = classStudentService.findByClassId(classId, pageable);
+        // simpleResponse.setListT(listT);
         model.addAttribute("res", simpleResponse);
-        return "students/index";
-    }
+        model.addAttribute("classes", listClassDTO);
+        model.addAttribute("classId", classId);
+        model.addAttribute("classStudents", listT);
 
-    @GetMapping("search")
-    @ResponseBody
-    public SimpleResponse<StudentDTO> search(SimpleRequest simpleRequest,
-            @RequestParam(required = false, value = "id") Long id,
-            @RequestParam(required = false, value = "name") String name,
-            @RequestParam(required = false, value = "email") String email) {
-        SimpleResponse<StudentDTO> simpleResponse = new SimpleResponse<>();
-
-        Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
-                Sort.by("createdDate").descending());
-        Integer totalPages = studentService.totalPages(pageable);
-
-        simpleResponse.setPerPage(pageable.getPageSize());
-        simpleResponse.setCurrentPage(pageable.getPageNumber() + 1);
-        simpleResponse.setTotalPages(totalPages);
-
-        List<StudentDTO> listT = studentService.findLikeByIdOrNameOrEmail(id, name, email, pageable);
-        simpleResponse.setListT(listT);
-        return simpleResponse;
+        return "classstudent/index";
     }
 
     @PatchMapping
@@ -127,12 +121,12 @@ public class StudentController {
 
     @PostMapping
     @ResponseBody
-    public Boolean add(StudentDTO studentDTO) {
-        StudentDTO newStudentDTO = null;
+    public Boolean add(ClassStudentDTO classStudentDTO) {
+        ClassStudentDTO newStudentDTO = null;
         try {
-            newStudentDTO = studentService.create(studentDTO);
+            newStudentDTO = classStudentService.create(classStudentDTO);
         } catch (Exception e) {
-            logger.error(studentDTO.toString(), e);
+            logger.error(newStudentDTO.toString(), e);
         }
         return newStudentDTO != null;
     }

@@ -11,15 +11,15 @@ public class ClassEntity extends AbstractEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "number_of_pupils")
-    private Integer number_of_pupils = 0;
+    @Column(name = "numberOfPupils")
+    private Integer numberOfPupils = 0;
 
-    @Column(name = "school_year")
-    private String school_year;
+    @Column(name = "year")
+    private String year;
 
     // relationship
-    @OneToMany(mappedBy = "classEntity",fetch = FetchType.LAZY)
-    private List<ClassStudentEntity> class_student;
+    @OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
+    private List<ClassStudentEntity> classStudent;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "test_class", joinColumns = @JoinColumn(name = "classId"), inverseJoinColumns = @JoinColumn(name = "testId"))
@@ -35,18 +35,35 @@ public class ClassEntity extends AbstractEntity {
     }
 
     public Integer getNumberOfPupils() {
-        return this.number_of_pupils;
+        return this.numberOfPupils;
     }
 
     public void setNumberOfPupils(Integer number_of_pupils) {
-        this.number_of_pupils = number_of_pupils;
+        this.numberOfPupils = number_of_pupils;
     }
 
-    public String getSchool_year() {
-        return school_year;
+    public String getYear() {
+        return this.year;
     }
 
-    public void setSchool_year(String school_year) {
-        this.school_year = school_year;
+    public void setYear(String year) {
+        this.year = year;
     }
+
+    public List<ClassStudentEntity> getClassStudent() {
+        return this.classStudent;
+    }
+
+    public void setClassStudent(List<ClassStudentEntity> class_student) {
+        this.classStudent = class_student;
+    }
+
+    public List<TestEntity> getTests() {
+        return this.tests;
+    }
+
+    public void setTests(List<TestEntity> tests) {
+        this.tests = tests;
+    }
+
 }
