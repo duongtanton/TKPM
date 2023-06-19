@@ -42,4 +42,13 @@ public class SubjectEntity extends AbstractEntity {
     public void setRequiredScore(Double requiredScore) {
         this.requiredScore = requiredScore;
     }
+
+    @Override
+    public String toString() {
+        return "SubjectEntity{" +
+                "name='" + name + '\'' +
+                ", teacherID=" + teacherID +
+                ", requiredScore=" + requiredScore +
+                '}';
+    }
 }
