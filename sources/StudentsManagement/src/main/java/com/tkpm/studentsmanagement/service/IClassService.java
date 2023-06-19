@@ -16,6 +16,6 @@ public interface IClassService {
 //    public List<ClassDTO> getAll(Pageable pageable);
 public ClassDTO save(ClassDTO userDTO);
     public List<ClassDTO> save(List<ClassDTO> userDTO);
-    public boolean saveStudents(ClassStudentDTO classStudentDTO);
+    public ClassStudentDTO saveStudents(ClassStudentDTO classStudentDTO);
     public Boolean delete(List<Long> id);
 }

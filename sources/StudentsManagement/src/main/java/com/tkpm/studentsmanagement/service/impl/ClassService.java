@@ -42,7 +42,7 @@ public class ClassService implements IClassService {
                 List<ClassDTO> listClassDTO = new ArrayList<>();
                 XSSFWorkbook workbook = new XSSFWorkbook("src/default_classes.xlsx");
                 XSSFSheet sheet = workbook.getSheetAt(0);
-                logger.info(sheet.toString());
+
                 for (Row row : sheet) {
                     Integer rowNum = row.getRowNum();
                     if (rowNum != 0) {
@@ -124,37 +124,41 @@ public class ClassService implements IClassService {
     }
 
     @Override
-    public boolean saveStudents(ClassStudentDTO classStudentDTO) {
+    public ClassStudentDTO saveStudents(ClassStudentDTO classStudentDTO) {
         try {
-            ClassDTO classDTO = this.findByClassName(classStudentDTO.getClassName());
-            logger.info(classDTO.getName() + " " + classDTO.getNumberOfPupils());
-            logger.info(classDTO.getName() + " " + classDTO.getCreatedDate());
-            if (classDTO.getId() != null) {
-                //Create new student
-                StudentDTO newStudent = new StudentDTO();
-                newStudent.setName(classStudentDTO.getStudentName());
-                newStudent.setSex(classStudentDTO.getSex());
-                newStudent.setAddress(classStudentDTO.getAddress());
-                newStudent.setBirthDate(classStudentDTO.getBirthDate());
-                StudentDTO savedStudent = studentService.create(newStudent);
+            if(classStudentDTO.getStudentId()==null || classStudentDTO.getClassId()==null) return null;
 
-                //Add student to the class
-                ClassStudentEntity classStudentEntity = new ClassStudentEntity();
-                classStudentEntity.setClassEntity(modelMapper.map(classDTO, ClassEntity.class));
-                classStudentEntity.setStudentEntity(modelMapper.map(savedStudent, StudentEntity.class));
-                classStudentEntity.setStatus(Boolean.TRUE);
-                this.classStudentRepository.save(classStudentEntity);
+            Long classId = classStudentDTO.getClassId();
+            Long studentId = classStudentDTO.getStudentId();
+            // Get class
+            ClassDTO classDTO = this.findByClassId(classId);
+            if(classDTO.getNumberOfPupils() == 40) return null;
 
-                //Update number of student in class
-                classDTO.setNumberOfPupils(classDTO.getNumberOfPupils() + 1);
-                logger.info(classDTO.getNumberOfPupils().toString());
-                this.classRepository.save(modelMapper.map(classDTO, ClassEntity.class));
-            }
+            //Get student
+            StudentDTO studentDTO = studentService.findById(studentId);
+
+            //Map
+            ClassEntity classEntity = modelMapper.map(classDTO, ClassEntity.class);
+            StudentEntity studentEntity = modelMapper.map(studentDTO, StudentEntity.class);
+
+            //Check if student already in class
+            List<ClassStudentEntity> classEntityList  = classStudentRepository.findStudentInClass(classEntity, studentEntity);
+            if(classEntityList.size()>0) return null;
+
+            //Add student to the class
+            ClassStudentEntity classStudentEntity = new ClassStudentEntity();
+            classStudentEntity.setClassEntity(classEntity);
+            classStudentEntity.setStudentEntity(studentEntity);
+            classStudentEntity.setStatus(Boolean.TRUE);
+            this.classStudentRepository.save(classStudentEntity);
+
+            //Update number of student in class
+            classDTO.setNumberOfPupils(classDTO.getNumberOfPupils() + 1);
+            return modelMapper.map(this.classRepository.save(modelMapper.map(classDTO, ClassEntity.class)), ClassStudentDTO.class) ;
         } catch (Exception e) {
             logger.error(e.toString());
         }
-
-        return true;
+        return null;
     }
 
     @Override
