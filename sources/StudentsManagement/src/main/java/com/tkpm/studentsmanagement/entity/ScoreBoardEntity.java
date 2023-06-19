@@ -12,15 +12,19 @@ import java.util.List;
 
 @Entity(name = "score_board")
 @EntityListeners(AuditingEntityListener.class)
-public class ScoreBoardEntity extends AbstractEntity{
-    @Column(name = "studentID")
-    private Long studentID;
+public class ScoreBoardEntity extends AbstractEntity {
 
-    @Column(name = "classID")
-    private Long classID;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "studentId")
+    private StudentEntity student;
 
-    @Column(name = "subjectID")
-    private Long subjectID;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "classId")
+    private ClassEntity classs;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "subjectId")
+    private SubjectEntity subject;
 
     @Column(name = "exam15Min")
     private Double exam15Min;
@@ -46,49 +50,79 @@ public class ScoreBoardEntity extends AbstractEntity{
     @Column(name = "isCompleted")
     private Boolean isCompleted;
 
-    //relationship
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "scoreboard_student",
-            joinColumns = @JoinColumn(name = "scoreboardId"),
-            inverseJoinColumns = @JoinColumn(name = "studentID"))
-    private List<StudentEntity> students;
+    // relationship
+    // @ManyToMany(fetch = FetchType.LAZY)
+    // @JoinTable(name = "scoreboard_student", joinColumns = @JoinColumn(name = "scoreboardId"), inverseJoinColumns = @JoinColumn(name = "studentID"))
+    // private List<StudentEntity> students;
 
-    @ManyToMany
-    @JoinTable(name = "scoreboard_class",
-            joinColumns = @JoinColumn(name = "scoreboardId"),
-            inverseJoinColumns = @JoinColumn(name = "classId"))
-    private List<ClassEntity> classes;
+    // @ManyToMany(fetch = FetchType.LAZY)
+    // @JoinTable(name = "scoreboard_class", joinColumns = @JoinColumn(name = "scoreboardId"), inverseJoinColumns = @JoinColumn(name = "classId"))
+    // private List<ClassEntity> classes;
 
-    @ManyToMany
-    @JoinTable(name = "scoreboard_subject",
-            joinColumns = @JoinColumn(name = "scoreboardId"),
-            inverseJoinColumns = @JoinColumn(name = "subjectId"))
-    private List<ClassEntity> subjects;
-    //end relationship
+    // @ManyToMany(fetch = FetchType.LAZY)
+    // @JoinTable(name = "scoreboard_subject", joinColumns = @JoinColumn(name = "scoreboardId"), inverseJoinColumns = @JoinColumn(name = "subjectId"))
+    // private List<ClassEntity> subjects;
+    // end relationship
 
-    public Long getStudentID() {
-        return studentID;
+    public StudentEntity getStudent() {
+        return this.student;
     }
 
-    public void setStudentID(Long studentID) {
-        this.studentID = studentID;
+    public void setStudent(StudentEntity student) {
+        this.student = student;
     }
 
-    public Long getClassID() {
-        return classID;
+    public ClassEntity getClasss() {
+        return this.classs;
     }
 
-    public void setClassID(Long classID) {
-        this.classID = classID;
+    public void setClasss(ClassEntity classs) {
+        this.classs = classs;
     }
 
-    public Long getSubjectID() {
-        return subjectID;
+    public SubjectEntity getSubject() {
+        return this.subject;
     }
 
-    public void setSubjectID(Long subjectID) {
-        this.subjectID = subjectID;
+    public void setSubject(SubjectEntity subject) {
+        this.subject = subject;
     }
+
+    public Boolean isIsCompleted() {
+        return this.isCompleted;
+    }
+
+    public Boolean getIsCompleted() {
+        return this.isCompleted;
+    }
+
+    public void setIsCompleted(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
+    // public List<StudentEntity> getStudents() {
+    //     return this.students;
+    // }
+
+    // public void setStudents(List<StudentEntity> students) {
+    //     this.students = students;
+    // }
+
+    // public List<ClassEntity> getClasses() {
+    //     return this.classes;
+    // }
+
+    // public void setClasses(List<ClassEntity> classes) {
+    //     this.classes = classes;
+    // }
+
+    // public List<ClassEntity> getSubjects() {
+    //     return this.subjects;
+    // }
+
+    // public void setSubjects(List<ClassEntity> subjects) {
+    //     this.subjects = subjects;
+    // }
 
     public Double getExam15Min() {
         return exam15Min;
@@ -152,25 +186,5 @@ public class ScoreBoardEntity extends AbstractEntity{
 
     public void setCompleted(Boolean completed) {
         isCompleted = completed;
-    }
-
-    @Override
-    public String toString() {
-        return "ScoreBoardEntity{" +
-                "studentID=" + studentID +
-                ", classID=" + classID +
-                ", subjectID=" + subjectID +
-                ", exam15Min=" + exam15Min +
-                ", exam45Min=" + exam45Min +
-                ", examMiddle=" + examMiddle +
-                ", examFinal=" + examFinal +
-                ", averageScore=" + averageScore +
-                ", semester=" + semester +
-                ", year=" + year +
-                ", isCompleted=" + isCompleted +
-                ", students=" + students +
-                ", classes=" + classes +
-                ", subjects=" + subjects +
-                '}';
     }
 }

@@ -60,18 +60,6 @@ public class UserEntity extends AbstractEntity {
     private List<StudentEntity> updatedStudents;
 
     @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
-    private List<TestEntity> createdTests;
-
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
-    private List<TestEntity> updatedTests;
-
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
-    private List<TestEntity> createdUses;
-
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
-    private List<TestEntity> updatedUsers;
-
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<OtpEntity> createdOtps;
 
     @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
@@ -207,35 +195,4 @@ public class UserEntity extends AbstractEntity {
         this.updatedStudents = updatedStudents;
     }
 
-    public List<TestEntity> getCreatedTests() {
-        return this.createdTests;
-    }
-
-    public void setCreatedTests(List<TestEntity> createdTests) {
-        this.createdTests = createdTests;
-    }
-
-    public List<TestEntity> getUpdatedTests() {
-        return this.updatedTests;
-    }
-
-    public void setUpdatedTests(List<TestEntity> updatedTests) {
-        this.updatedTests = updatedTests;
-    }
-
-    public List<TestEntity> getCreatedUses() {
-        return this.createdUses;
-    }
-
-    public void setCreatedUses(List<TestEntity> createdUses) {
-        this.createdUses = createdUses;
-    }
-
-    public List<TestEntity> getUpdatedUsers() {
-        return this.updatedUsers;
-    }
-
-    public void setUpdatedUsers(List<TestEntity> updatedUsers) {
-        this.updatedUsers = updatedUsers;
-    }
 }

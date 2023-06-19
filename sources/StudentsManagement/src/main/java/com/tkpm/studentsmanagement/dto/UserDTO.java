@@ -6,7 +6,6 @@ import com.tkpm.studentsmanagement.entity.ClassEntity;
 import com.tkpm.studentsmanagement.entity.OtpEntity;
 import com.tkpm.studentsmanagement.entity.RoleEntity;
 import com.tkpm.studentsmanagement.entity.StudentEntity;
-import com.tkpm.studentsmanagement.entity.TestEntity;
 
 public class UserDTO extends AbstractDTO {
 
@@ -21,144 +20,24 @@ public class UserDTO extends AbstractDTO {
     private Boolean isEnable;
 
     // relationship
-    private List<ClassEntity> createdClasses;
+    private List<ClassDTO> createdClasses;
 
-    private List<ClassEntity> updatedClasses;
+    private List<ClassDTO> updatedClasses;
 
     private List<ConfigurationDTO> createdConfigurations;
 
     private List<ConfigurationDTO> updatedConfigurations;
 
-    private List<StudentEntity> createdStudents;
+    private List<StudentDTO> createdStudents;
 
-    private List<StudentEntity> updatedStudents;
+    private List<StudentDTO> updatedStudents;
 
-    private List<TestEntity> createdTests;
+    private List<OtpDTO> createdOtps;
 
-    private List<TestEntity> updatedTests;
+    private List<OtpDTO> updatedOtps;
 
-    private List<TestEntity> createdUses;
-
-    private List<TestEntity> updatedUsers;
-
-    private List<OtpEntity> createdOtps;
-
-    private List<OtpEntity> updatedOtps;
-
-    private List<RoleEntity> roles;
+    private List<RoleDTO> roles;
     // end relationship
-
-    public List<ClassEntity> getCreatedClasses() {
-        return this.createdClasses;
-    }
-
-    public void setCreatedClasses(List<ClassEntity> createdClasses) {
-        this.createdClasses = createdClasses;
-    }
-
-    public List<ClassEntity> getUpdatedClasses() {
-        return this.updatedClasses;
-    }
-
-    public void setUpdatedClasses(List<ClassEntity> updatedClasses) {
-        this.updatedClasses = updatedClasses;
-    }
-
-    public List<ConfigurationDTO> getCreatedConfigurations() {
-        return this.createdConfigurations;
-    }
-
-    public void setCreatedConfigurations(List<ConfigurationDTO> createdConfigurations) {
-        this.createdConfigurations = createdConfigurations;
-    }
-
-    public List<ConfigurationDTO> getUpdatedConfigurations() {
-        return this.updatedConfigurations;
-    }
-
-    public void setUpdatedConfigurations(List<ConfigurationDTO> updatedConfigurations) {
-        this.updatedConfigurations = updatedConfigurations;
-    }
-
-    public List<StudentEntity> getCreatedStudents() {
-        return this.createdStudents;
-    }
-
-    public void setCreatedStudents(List<StudentEntity> createdStudents) {
-        this.createdStudents = createdStudents;
-    }
-
-    public List<StudentEntity> getUpdatedStudents() {
-        return this.updatedStudents;
-    }
-
-    public void setUpdatedStudents(List<StudentEntity> updatedStudents) {
-        this.updatedStudents = updatedStudents;
-    }
-
-    public List<TestEntity> getCreatedTests() {
-        return this.createdTests;
-    }
-
-    public void setCreatedTests(List<TestEntity> createdTests) {
-        this.createdTests = createdTests;
-    }
-
-    public List<TestEntity> getUpdatedTests() {
-        return this.updatedTests;
-    }
-
-    public void setUpdatedTests(List<TestEntity> updatedTests) {
-        this.updatedTests = updatedTests;
-    }
-
-    public List<TestEntity> getCreatedUses() {
-        return this.createdUses;
-    }
-
-    public void setCreatedUses(List<TestEntity> createdUses) {
-        this.createdUses = createdUses;
-    }
-
-    public List<TestEntity> getUpdatedUsers() {
-        return this.updatedUsers;
-    }
-
-    public void setUpdatedUsers(List<TestEntity> updatedUsers) {
-        this.updatedUsers = updatedUsers;
-    }
-
-    public List<OtpEntity> getCreatedOtps() {
-        return this.createdOtps;
-    }
-
-    public void setCreatedOtps(List<OtpEntity> createdOtps) {
-        this.createdOtps = createdOtps;
-    }
-
-    public List<OtpEntity> getUpdatedOtps() {
-        return this.updatedOtps;
-    }
-
-    public void setUpdatedOtps(List<OtpEntity> updatedOtps) {
-        this.updatedOtps = updatedOtps;
-    }
-
-    public List<RoleEntity> getRoles() {
-        return this.roles;
-    }
-
-    public void setRoles(List<RoleEntity> roles) {
-        this.roles = roles;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getName() {
         return this.name;
@@ -184,11 +63,103 @@ public class UserDTO extends AbstractDTO {
         this.password = password;
     }
 
-    public Boolean getEnable() {
-        return isEnable;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setEnable(Boolean enable) {
-        isEnable = enable;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean isIsEnable() {
+        return this.isEnable;
+    }
+
+    public Boolean getIsEnable() {
+        return this.isEnable;
+    }
+
+    public Boolean getEnable() {
+        return this.isEnable;
+    }
+
+    public void setEnable(Boolean isEnable) {
+        this.isEnable = isEnable;
+    }
+
+    public void setIsEnable(Boolean isEnable) {
+        this.isEnable = isEnable;
+    }
+
+    public List<ClassDTO> getCreatedClasses() {
+        return this.createdClasses;
+    }
+
+    public void setCreatedClasses(List<ClassDTO> createdClasses) {
+        this.createdClasses = createdClasses;
+    }
+
+    public List<ClassDTO> getUpdatedClasses() {
+        return this.updatedClasses;
+    }
+
+    public void setUpdatedClasses(List<ClassDTO> updatedClasses) {
+        this.updatedClasses = updatedClasses;
+    }
+
+    public List<ConfigurationDTO> getCreatedConfigurations() {
+        return this.createdConfigurations;
+    }
+
+    public void setCreatedConfigurations(List<ConfigurationDTO> createdConfigurations) {
+        this.createdConfigurations = createdConfigurations;
+    }
+
+    public List<ConfigurationDTO> getUpdatedConfigurations() {
+        return this.updatedConfigurations;
+    }
+
+    public void setUpdatedConfigurations(List<ConfigurationDTO> updatedConfigurations) {
+        this.updatedConfigurations = updatedConfigurations;
+    }
+
+    public List<StudentDTO> getCreatedStudents() {
+        return this.createdStudents;
+    }
+
+    public void setCreatedStudents(List<StudentDTO> createdStudents) {
+        this.createdStudents = createdStudents;
+    }
+
+    public List<StudentDTO> getUpdatedStudents() {
+        return this.updatedStudents;
+    }
+
+    public void setUpdatedStudents(List<StudentDTO> updatedStudents) {
+        this.updatedStudents = updatedStudents;
+    }
+
+    public List<OtpDTO> getCreatedOtps() {
+        return this.createdOtps;
+    }
+
+    public void setCreatedOtps(List<OtpDTO> createdOtps) {
+        this.createdOtps = createdOtps;
+    }
+
+    public List<OtpDTO> getUpdatedOtps() {
+        return this.updatedOtps;
+    }
+
+    public void setUpdatedOtps(List<OtpDTO> updatedOtps) {
+        this.updatedOtps = updatedOtps;
+    }
+
+    public List<RoleDTO> getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(List<RoleDTO> roles) {
+        this.roles = roles;
     }
 }

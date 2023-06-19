@@ -10,6 +10,6 @@ import com.tkpm.studentsmanagement.dto.StudentDTO;
 public interface IClassStudentService {
     public ClassStudentDTO create(ClassStudentDTO classStudentDTO);
 
-    public List<ClassStudentDTO> findByClassId(Long classId, Pageable pageable);
+    public List<ClassStudentDTO> findByClasssId(Long classId, Pageable pageable);
 
 }

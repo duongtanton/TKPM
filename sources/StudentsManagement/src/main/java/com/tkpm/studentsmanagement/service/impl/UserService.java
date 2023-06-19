@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tkpm.studentsmanagement.constant.Role;
 import com.tkpm.studentsmanagement.dto.*;
 import com.tkpm.studentsmanagement.entity.*;
-import com.tkpm.studentsmanagement.entity.UserEntity;
 import com.tkpm.studentsmanagement.repository.RoleRepository;
 import com.tkpm.studentsmanagement.util.TimestampUtil;
 import jakarta.servlet.ServletOutputStream;
@@ -22,7 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.tkpm.studentsmanagement.dto.UserDTO;
 import com.tkpm.studentsmanagement.repository.UserRepository;
 import com.tkpm.studentsmanagement.service.IUserService;
 
@@ -137,7 +135,8 @@ public class UserService implements IUserService {
             roleEntities.add(roleRepository.findByName(role.name()));
         }
         userDTO.setEnable(false);
-        userDTO.setRoles(roleEntities);
+        userDTO.setRoles(modelMapper.map(roleEntities, new TypeToken<RoleDTO>() {
+        }.getType()));
         userDTO.setCreatedBy(modelMapper.map(userRepository.findById(currentUserId), UserDTO.class));
         userDTO.setUpdatedBy(modelMapper.map(userRepository.findById(currentUserId), UserDTO.class));
         return save(userDTO);

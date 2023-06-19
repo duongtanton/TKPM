@@ -72,7 +72,7 @@ public class ClassController {
     public ClassDTO showClassById(@PathVariable Long id) {
         ClassDTO classDTO = null;
         try {
-            classDTO = classService.findByClassId(id);
+            classDTO = classService.findByClasssId(id);
         } catch (Exception error) {
             logger.error(id.toString(), error);
         }

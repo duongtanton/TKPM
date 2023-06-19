@@ -1,24 +1,22 @@
 package com.tkpm.studentsmanagement.dto;
 
 public class ClassStudentDTO extends AbstractDTO {
-    private ClassDTO classDTO;
-    
-    private StudentDTO studentDTO;
+    private ClassDTO classs;
+    private StudentDTO student;
 
-    public ClassDTO getClassDTO() {
-        return this.classDTO;
+    public ClassDTO getClasss() {
+        return this.classs;
     }
 
-    public void setClassDTO(ClassDTO classId) {
-        this.classDTO = classId;
+    public void setClasss(ClassDTO classs) {
+        this.classs = classs;
     }
 
-    public StudentDTO getStudentDTO() {
-        return this.studentDTO;
+    public StudentDTO getStudent() {
+        return this.student;
     }
 
-    public void setStudentDTO(StudentDTO studentId) {
-        this.studentDTO = studentId;
+    public void setStudent(StudentDTO student) {
+        this.student = student;
     }
-
 }

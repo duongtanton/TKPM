@@ -10,7 +10,7 @@ import java.util.List;
 public interface IClassService {
     public void autoCreateClass();
 
-    public ClassDTO findByClassId(Long classId);
+    public ClassDTO findByClasssId(Long classId);
 
     public ClassDTO findByClassName(String className);
 

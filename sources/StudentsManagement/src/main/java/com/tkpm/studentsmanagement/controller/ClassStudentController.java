@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -85,7 +86,7 @@ public class ClassStudentController {
             classId = 0L;
         }
 
-        List<ClassStudentDTO> listT = classStudentService.findByClassId(classId, pageable);
+        List<ClassStudentDTO> listT = classStudentService.findByClasssId(classId, pageable);
         // simpleResponse.setListT(listT);
         model.addAttribute("res", simpleResponse);
         model.addAttribute("classes", listClassDTO);
@@ -121,10 +122,10 @@ public class ClassStudentController {
 
     @PostMapping
     @ResponseBody
-    public Boolean add(ClassStudentDTO classStudentDTO) {
+    public Boolean add( ClassStudentDTO classStudent) {
         ClassStudentDTO newStudentDTO = null;
         try {
-            newStudentDTO = classStudentService.create(classStudentDTO);
+            newStudentDTO = classStudentService.create(classStudent);
         } catch (Exception e) {
             logger.error(newStudentDTO.toString(), e);
         }

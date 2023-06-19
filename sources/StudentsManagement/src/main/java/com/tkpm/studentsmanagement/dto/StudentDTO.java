@@ -15,9 +15,9 @@ public class StudentDTO extends AbstractDTO {
 
     private String email;
 
-    private List<ClassDTO> classes;
+    // private List<ClassDTO> classes;
 
-    private List<TestDTO> tests;
+    // private List<TestDTO> tests;
 
     public String getName() {
         return this.name;
@@ -63,19 +63,19 @@ public class StudentDTO extends AbstractDTO {
         this.email = email;
     }
 
-    public List<ClassDTO> getClasses() {
-        return this.classes;
-    }
+    // public List<ClassDTO> getClasses() {
+    //     return this.classes;
+    // }
 
-    public void setClasses(List<ClassDTO> classes) {
-        this.classes = classes;
-    }
+    // public void setClasses(List<ClassDTO> classes) {
+    //     this.classes = classes;
+    // }
 
-    public List<TestDTO> getTests() {
-        return this.tests;
-    }
+    // public List<TestDTO> getTests() {
+    //     return this.tests;
+    // }
 
-    public void setTests(List<TestDTO> tests) {
-        this.tests = tests;
-    }
+    // public void setTests(List<TestDTO> tests) {
+    //     this.tests = tests;
+    // }
 }

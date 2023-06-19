@@ -36,17 +36,17 @@ public class ClassStudentService implements IClassStudentService {
     }
 
     @Override
-    public List<ClassStudentDTO> findByClassId(Long classId, Pageable pageable) {
-        List<ClassStudentEntity> classStudentEntities = classStudentRepository.findByClassEntityId(classId, pageable);
+    public List<ClassStudentDTO> findByClasssId(Long classId, Pageable pageable) {
+        List<ClassStudentEntity> classStudentEntities = classStudentRepository.findByClasssId(classId, pageable);
 
         List<ClassStudentDTO> classStudentDTOs = modelMapper.map(classStudentEntities,
                 new TypeToken<List<ClassStudentDTO>>() {
                 }.getType());
         for (int i = 0; i < classStudentDTOs.size(); i++) {
             classStudentDTOs.get(i)
-                    .setStudentDTO(modelMapper.map(classStudentEntities.get(i).getStudentEntity(), StudentDTO.class));
+                    .setStudent(modelMapper.map(classStudentEntities.get(i).getStudent(), StudentDTO.class));
             classStudentDTOs.get(i)
-                    .setClassDTO(modelMapper.map(classStudentEntities.get(i).getClassEntity(), ClassDTO.class));
+                    .setClasss(modelMapper.map(classStudentEntities.get(i).getClasss(), ClassDTO.class));
         }
         return classStudentDTOs;
     }

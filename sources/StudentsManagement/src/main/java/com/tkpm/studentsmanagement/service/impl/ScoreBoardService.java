@@ -47,10 +47,7 @@ public class ScoreBoardService implements IScoreBoardService {
     @Override
     public List<ScoreBoardDTO> findAll(Pageable pageable) {
         List<ScoreBoardEntity> listScoreboardEntity = scoreBoardRepository.findAll(pageable);
-        return modelMapper.map(
-                listScoreboardEntity,
-                new TypeToken<List<ScoreBoardDTO>>(){}.getType()
-        );
+        return modelMapper.map(listScoreboardEntity, new TypeToken<List<ScoreBoardDTO>>(){}.getType());
     }
 
     @Override
