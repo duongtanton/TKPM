@@ -18,7 +18,7 @@ public class ClassEntity extends AbstractEntity {
     private String year;
 
     // relationship
-    @OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "classs", fetch = FetchType.LAZY)
     private List<ClassStudentEntity> classStudent;
 
     public String getName() {

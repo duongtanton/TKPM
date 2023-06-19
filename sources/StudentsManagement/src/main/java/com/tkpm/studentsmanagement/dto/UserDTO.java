@@ -79,6 +79,14 @@ public class UserDTO extends AbstractDTO {
         return this.isEnable;
     }
 
+    public Boolean getEnable() {
+        return this.isEnable;
+    }
+
+    public void setEnable(Boolean isEnable) {
+        this.isEnable = isEnable;
+    }
+
     public void setIsEnable(Boolean isEnable) {
         this.isEnable = isEnable;
     }

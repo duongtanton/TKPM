@@ -288,15 +288,15 @@
 						<div class="row">
 							<input type="number" class="form-control" id="fname" name="id" hidden placeholder="" />
 							<div class="col-md-6 form-group row">
-								<label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
+								<label for="fname"  class="col-sm-3 text-end control-label col-form-label">Name</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="fname" name="name" placeholder="" />
+									<input type="text" disabled class="form-control" id="fname" name="name" placeholder="" />
 								</div>
 							</div>
 							<div class="col-md-6 form-group row">
 								<label for="fname" class="col-sm-3 text-end control-label col-form-label">Class</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="fname" name="classroom"
+									<input type="text" disabled class="form-control" id="fname" name="classroom"
 										placeholder="" />
 								</div>
 							</div>
@@ -304,7 +304,7 @@
 								<label for="fname"
 									class="col-sm-3 text-end control-label col-form-label">Subject</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="fname" name="subject" placeholder="" />
+									<input type="text" disabled class="form-control" id="fname" name="subject" placeholder="" />
 								</div>
 							</div>
 							<div class="col-md-6 form-group row">
@@ -541,15 +541,16 @@
 					$("#modelAdd .btn-save").click(function () {
 						//handle add
 						const scoreboard = {}
-						scoreboard.studentId = Number.parseInt($("#modelAdd input[name='studentId']").val());
-						scoreboard.classId = Number.parseInt($("#modelAdd input[name='classId']").val());
-						scoreboard.subjectId = Number.parseInt($("#modelAdd input[name='subjectId']").val()) || null;
+						scoreboard["student.id"] = Number.parseInt($("#modelAdd input[name='studentId']").val());
+						scoreboard["classs.id"] = Number.parseInt($("#modelAdd input[name='classId']").val());
+						scoreboard["subject.id"] = Number.parseInt($("#modelAdd input[name='subjectId']").val()) || 1 || null;//do chua lam subject
 						scoreboard.exam15Min = Number.parseFloat($("#modelAdd input[name='score15mins']").val()) || null;
 						scoreboard.exam45Min = Number.parseFloat($("#modelAdd input[name='score45mins']").val()) || null;
 						scoreboard.examMiddle = Number.parseFloat($("#modelAdd input[name='mid_exam_score']").val()) || null;
 						scoreboard.examFinal = Number.parseFloat($("#modelAdd input[name='final_exam_score']").val()) || null;
 						scoreboard.semester = Number.parseInt($("#modelAdd input[name='semester']").val()) || null;
 						scoreboard.year = Number.parseInt($("#modelAdd input[name='year']").val()) || null;
+						debugger
 						$.ajax({
 							type: "POST",
 							url: "/scoreboard",
@@ -584,9 +585,9 @@
 							success: (scoreboard, message, obj) => {
 								if (scoreboard) {
 									$("#modelEdit").modal('show')
-									$("#modelEdit input[name=name]").val(scoreboard?.studentId)
-									$("#modelEdit input[name=classroom]").val(scoreboard?.classId)
-									$("#modelEdit input[name=subject]").val(scoreboard?.subjectId)
+									$("#modelEdit input[name=name]").val(scoreboard?.student?.name)
+									$("#modelEdit input[name=classroom]").val(scoreboard?.classs?.name)
+									$("#modelEdit input[name=subject]").val(scoreboard?.subject?.name)
 									$("#modelEdit input[name=score15mins]").val(scoreboard?.exam15Min)
 									$("#modelEdit input[name=score45mins]").val(scoreboard?.exam45Min)
 									$("#modelEdit input[name=mid_exam_score]").val(scoreboard?.examMiddle)
@@ -804,7 +805,7 @@
 					// Debounce API call
 					timeoutStudentId = setTimeout(() => {
 						// Call API to get autocomplete results
-						const query = `id=${0}&name=${searchValue}&email=${searchValue}&currentPage=${1}`;
+						const query = `id=${Number.parseInt(searchValue) || 0}&name=${searchValue}&email=${searchValue}&currentPage=${1}`;
 						fetch(`/student/search?${query}`)
 							.then(response => response.json())
 							.then(data => {
@@ -845,7 +846,7 @@
 					// Debounce API call
 					timeoutStudentId = setTimeout(() => {
 						// Call API to get autocomplete results
-						const query = `id=${0}&name=${searchValue}&currentPage=${1}`;
+						const query = `id=${Number.parseInt(searchValue) || 0}&name=${searchValue}&year=${searchValue}&currentPage=${1}`;
 						fetch(`/class/search?${query}`)
 							.then(response => response.json())
 							.then(data => {

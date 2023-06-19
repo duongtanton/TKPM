@@ -28,7 +28,7 @@ public class StudentEntity extends AbstractEntity {
     private String email;
 
     // relationship
-    @OneToMany(mappedBy = "studentEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<ClassStudentEntity> classes;
 
     // @ManyToMany(fetch = FetchType.LAZY)

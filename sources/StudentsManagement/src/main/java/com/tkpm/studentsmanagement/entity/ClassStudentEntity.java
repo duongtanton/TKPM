@@ -15,29 +15,29 @@ public class ClassStudentEntity extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "classId")
-    private ClassEntity classEntity;
+    private ClassEntity classs;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "studentId")
-    private StudentEntity studentEntity;
+    private StudentEntity student;
 
     @Column
     private Boolean status;
 
-    public ClassEntity getClassEntity() {
-        return classEntity;
+    public ClassEntity getClasss() {
+        return classs;
     }
 
-    public void setClassEntity(ClassEntity classEntity) {
-        this.classEntity = classEntity;
+    public void setClasss(ClassEntity classs) {
+        this.classs = classs;
     }
 
-    public StudentEntity getStudentEntity() {
-        return studentEntity;
+    public StudentEntity getStudent() {
+        return student;
     }
 
-    public void setStudentEntity(StudentEntity studentEntity) {
-        this.studentEntity = studentEntity;
+    public void setStudent(StudentEntity student) {
+        this.student = student;
     }
 
     public Boolean getStatus() {

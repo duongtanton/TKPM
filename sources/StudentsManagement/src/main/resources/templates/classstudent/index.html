@@ -71,9 +71,10 @@
                 <div class="col-md-6 form-group row">
                   <label for="fname" class="col-sm-3 text-end control-label col-form-label">Class</label>
                   <div class="col-sm-9">
-                    <select class="select2 classTxtSearch form-select shadow-none mt-3" 
+                    <select class="select2 classTxtSearch form-select shadow-none mt-3"
                       style="height: 36px; width: 100%">
-                      <option th:each="class: ${classes}" th:selected="${class.id} == ${classId}" th:value="${class.id}" th:text="${class.name}"></option>
+                      <option th:each="class: ${classes}" th:selected="${class.id} == ${classId}" th:value="${class.id}"
+                        th:text="${class.name}"></option>
                     </select>
                   </div>
                 </div>
@@ -163,7 +164,7 @@
                     <span class="checkmark"></span>
                   </label>
                 </th>
-                <td th:text="${student.studentDTO.name}" />
+                <td th:text="${student.student.name}" />
                 <td th:text="${student.createdDate}" />
                 <td th:text="${student.updatedDate}" />
                 <td th:text="${student.createdBy?.name}" />
@@ -467,9 +468,13 @@
               });
               $("#modelAdd .btn-save").click(function () {
                 //handle add
+                // const classStudent = {}
+                // classStudent.classDTO = { id: Number.parseInt($("#modelAdd input[name='studentId']").val()) };
+                // classStudent.studentDTO = { id: Number.parseInt($("#modelAdd input[name='classId']").val()) };
                 const classStudent = {}
-                classStudent.studentId = $("#modelAdd input[name='studentId']").val();
-                classStudent.classId = $("#modelAdd input[name='classId']").val();
+                classStudent['classs.id'] = 1;
+                classStudent['student.id'] = 1;
+                debugger
                 $.ajax({
                   type: "POST",
                   url: "/class-student",
@@ -724,7 +729,7 @@
               // Debounce API call
               timeoutStudentId = setTimeout(() => {
                 // Call API to get autocomplete results
-                const query = `id=${0}&name=${searchValue}&email=${searchValue}&currentPage=${1}`;
+                const query = `id=${Number.parseInt(searchValue) || 0}&name=${searchValue}&email=${searchValue}&currentPage=${1}`;
                 fetch(`/student/search?${query}`)
                   .then(response => response.json())
                   .then(data => {
@@ -765,7 +770,7 @@
               // Debounce API call
               timeoutStudentId = setTimeout(() => {
                 // Call API to get autocomplete results
-                const query = `id=${0}&name=${searchValue}&currentPage=${1}`;
+                const query = `id=${Number.parseInt(searchValue)}&name=${searchValue}&year=${searchValue}currentPage=${1}`;
                 fetch(`/class/search?${query}`)
                   .then(response => response.json())
                   .then(data => {

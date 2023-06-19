@@ -15,8 +15,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface ClassStudentRepository extends CrudRepository<ClassStudentEntity, Long> {
-    @Query("SELECT c_s FROM class_student c_s WHERE c_s.classEntity = :classEntity AND c_s.studentEntity = :studentEntity")
-    List<ClassStudentEntity> findStudentInClass(@Param("classEntity") ClassEntity classEntity, @Param("studentEntity") StudentEntity studentEntity);
+    @Query("SELECT c_s FROM class_student c_s WHERE c_s.classs = :classs AND c_s.student = :student")
+    List<ClassStudentEntity> findStudentInClass(@Param("classs") ClassEntity classs, @Param("student") StudentEntity student);
 
-    List<ClassStudentEntity> findByClassEntityId(Long classId, Pageable pageable);
+    List<ClassStudentEntity> findByClasssId(Long classsId, Pageable pageable);
 }

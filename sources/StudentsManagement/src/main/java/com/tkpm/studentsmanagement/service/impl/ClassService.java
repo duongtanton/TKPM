@@ -68,7 +68,7 @@ public class ClassService implements IClassService {
     }
 
     @Override
-    public ClassDTO findByClassId(Long classId) {
+    public ClassDTO findByClasssId(Long classId) {
         Optional<ClassEntity> optionalClassEntity = classRepository.findById(classId);
         ClassDTO classDTO = null;
 
@@ -132,13 +132,13 @@ public class ClassService implements IClassService {
     @Override
     public ClassStudentDTO saveStudents(ClassStudentDTO classStudentDTO) {
         try {
-            if (classStudentDTO.getStudentDTO() == null || classStudentDTO.getClassDTO() == null)
+            if (classStudentDTO.getStudent() == null || classStudentDTO.getClasss() == null)
                 return null;
 
-            Long classId = classStudentDTO.getClassDTO().getId();
-            Long studentId = classStudentDTO.getStudentDTO().getId();
+            Long classId = classStudentDTO.getClasss().getId();
+            Long studentId = classStudentDTO.getStudent().getId();
             // Get class
-            ClassDTO classDTO = this.findByClassId(classId);
+            ClassDTO classDTO = this.findByClasssId(classId);
             if (classDTO.getNumberOfPupils() == 40)
                 return null;
 
@@ -157,8 +157,8 @@ public class ClassService implements IClassService {
 
             // Add student to the class
             ClassStudentEntity classStudentEntity = new ClassStudentEntity();
-            classStudentEntity.setClassEntity(classEntity);
-            classStudentEntity.setStudentEntity(studentEntity);
+            classStudentEntity.setClasss(classEntity);
+            classStudentEntity.setStudent(studentEntity);
             classStudentEntity.setStatus(Boolean.TRUE);
             this.classStudentRepository.save(classStudentEntity);
 
