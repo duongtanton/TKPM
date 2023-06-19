@@ -29,13 +29,12 @@ public class ScoreBoardController {
 
     @GetMapping
     public String index(Model model, SimpleRequest simpleRequest,
-                        @RequestParam(required = false, value = "scoreboard") String scoreboardStr) {
+            @RequestParam(required = false, value = "scoreboard") String scoreboardStr) {
         SimpleResponse<ScoreBoardDTO> simpleResponse = new SimpleResponse<>();
         ScoreBoardDTO scoreBoardDTO;
         try {
             scoreBoardDTO = objectMapper.readValue(scoreboardStr, ScoreBoardDTO.class);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -57,13 +56,12 @@ public class ScoreBoardController {
 
     @PatchMapping
     @ResponseBody
-    public Boolean update(ScoreBoardDTO scoreBoardDTO) {
+    public Boolean update(ScoreBoardDTO scoreboard) {
         Boolean updated = false;
         try {
-            updated = scoreBoardService.update(scoreBoardDTO);
-        }
-        catch (Exception e) {
-            logger.error(scoreBoardDTO.toString(), e);
+            updated = scoreBoardService.update(scoreboard);
+        } catch (Exception e) {
+            logger.error(scoreboard.toString(), e);
         }
         return updated;
     }
@@ -74,8 +72,7 @@ public class ScoreBoardController {
         ScoreBoardDTO scoreBoardDTO = null;
         try {
             scoreBoardDTO = scoreBoardService.findByID(id);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error(id.toString(), e);
         }
         return scoreBoardDTO;
@@ -83,13 +80,12 @@ public class ScoreBoardController {
 
     @PostMapping
     @ResponseBody
-    public Boolean add(ScoreBoardDTO scoreBoardDTO) {
+    public Boolean add(ScoreBoardDTO scoreboard) {
         ScoreBoardDTO newScoreboardDTO = null;
         try {
-            newScoreboardDTO = scoreBoardService.create(scoreBoardDTO);
-        }
-        catch (Exception e) {
-            logger.error(scoreBoardDTO.toString(), e);
+            newScoreboardDTO = scoreBoardService.create(scoreboard);
+        } catch (Exception e) {
+            logger.error(scoreboard.toString(), e);
         }
         return newScoreboardDTO != null;
     }
@@ -100,8 +96,7 @@ public class ScoreBoardController {
         Boolean deleted = false;
         try {
             deleted = scoreBoardService.delete(deleteRequest.getIds());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error(deleteRequest.getIds().toString(), e);
         }
         return deleted;

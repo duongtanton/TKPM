@@ -29,12 +29,11 @@ public class StudentEntity extends AbstractEntity {
 
     // relationship
     @OneToMany(mappedBy = "studentEntity", cascade = CascadeType.ALL)
-//    @EqualsAndHashCode.E
-    private List<ClassStudentEntity> class_student;
+    private List<ClassStudentEntity> classes;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "student_test", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "testId"))
-    private List<TestEntity> tests;
+    // @ManyToMany(fetch = FetchType.LAZY)
+    // @JoinTable(name = "student_test", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "testId"))
+    // private List<TestEntity> tests;
     // end relationship
 
     public Date getBirthDate() {
@@ -81,4 +80,19 @@ public class StudentEntity extends AbstractEntity {
         this.name = name;
     }
 
+    public List<ClassStudentEntity> getClasses() {
+        return this.classes;
+    }
+
+    public void setClasses(List<ClassStudentEntity> classes) {
+        this.classes = classes;
+    }
+
+    // public List<TestEntity> getTests() {
+    //     return this.tests;
+    // }
+
+    // public void setTests(List<TestEntity> tests) {
+    //     this.tests = tests;
+    // }
 }

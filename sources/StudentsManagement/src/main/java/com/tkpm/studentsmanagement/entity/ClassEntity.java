@@ -21,11 +21,6 @@ public class ClassEntity extends AbstractEntity {
     @OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
     private List<ClassStudentEntity> classStudent;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "test_class", joinColumns = @JoinColumn(name = "classId"), inverseJoinColumns = @JoinColumn(name = "testId"))
-    private List<TestEntity> tests;
-    // end relationship
-
     public String getName() {
         return this.name;
     }
@@ -57,13 +52,4 @@ public class ClassEntity extends AbstractEntity {
     public void setClassStudent(List<ClassStudentEntity> class_student) {
         this.classStudent = class_student;
     }
-
-    public List<TestEntity> getTests() {
-        return this.tests;
-    }
-
-    public void setTests(List<TestEntity> tests) {
-        this.tests = tests;
-    }
-
 }
