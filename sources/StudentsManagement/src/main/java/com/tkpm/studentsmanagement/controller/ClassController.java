@@ -1,14 +1,11 @@
 package com.tkpm.studentsmanagement.controller;
 
-import com.tkpm.studentsmanagement.dto.ClassDTO;
-import com.tkpm.studentsmanagement.dto.ClassStudentDTO;
-import com.tkpm.studentsmanagement.dto.DeleteRequest;
-import com.tkpm.studentsmanagement.dto.SimpleRequest;
-import com.tkpm.studentsmanagement.dto.SimpleResponse;
-import com.tkpm.studentsmanagement.dto.StudentDTO;
-import com.tkpm.studentsmanagement.service.IClassService;
-import com.tkpm.studentsmanagement.service.IStudentService;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -20,14 +17,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import com.tkpm.studentsmanagement.dto.ClassDTO;
+import com.tkpm.studentsmanagement.dto.ClassStudentDTO;
+import com.tkpm.studentsmanagement.dto.DeleteRequest;
+import com.tkpm.studentsmanagement.dto.SimpleRequest;
+import com.tkpm.studentsmanagement.dto.SimpleResponse;
+import com.tkpm.studentsmanagement.service.IClassService;
+import com.tkpm.studentsmanagement.service.IStudentService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/class")
@@ -81,14 +88,13 @@ public class ClassController {
 
     @PatchMapping
     @ResponseBody
-    public ClassDTO editClass(ClassDTO classDTO) {
-        ClassDTO updatedClassDTO = null;
+    public Boolean editClass(ClassDTO classDTO) {
         try {
-            updatedClassDTO = classService.save(classDTO);
+            return classService.update(classDTO);
         } catch (Exception e) {
             logger.error(classDTO.toString(), e);
         }
-        return updatedClassDTO;
+        return false;
     }
 
     @GetMapping("new")

@@ -1,15 +1,13 @@
 package com.tkpm.studentsmanagement.repository;
 
-import com.tkpm.studentsmanagement.entity.ClassEntity;
-import com.tkpm.studentsmanagement.entity.UserEntity;
-import org.springframework.data.domain.Page;
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import java.sql.Timestamp;
-import java.util.List;
+import com.tkpm.studentsmanagement.entity.ClassEntity;
 
 public interface ClassRepository extends CrudRepository<ClassEntity, Long> {
     // @Query("SELECT * FROM class" +

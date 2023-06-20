@@ -1,19 +1,9 @@
 package com.tkpm.studentsmanagement.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tkpm.studentsmanagement.configuration.CustomUserAuth;
-import com.tkpm.studentsmanagement.dto.*;
-import com.tkpm.studentsmanagement.entity.RoleEntity;
-import com.tkpm.studentsmanagement.service.IEmailService;
-import com.tkpm.studentsmanagement.service.impl.OtpService;
-import com.tkpm.studentsmanagement.service.impl.RoleService;
-import com.tkpm.studentsmanagement.service.impl.UserService;
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletResponse;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,20 +15,34 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tkpm.studentsmanagement.configuration.CustomUserAuth;
+import com.tkpm.studentsmanagement.dto.DisableRequest;
+import com.tkpm.studentsmanagement.dto.OtpDTO;
+import com.tkpm.studentsmanagement.dto.SimpleRequest;
+import com.tkpm.studentsmanagement.dto.SimpleResponse;
+import com.tkpm.studentsmanagement.dto.UserBasicDTO;
+import com.tkpm.studentsmanagement.dto.UserCreateDTO;
+import com.tkpm.studentsmanagement.dto.UserDTO;
+import com.tkpm.studentsmanagement.dto.UserSearchDTO;
+import com.tkpm.studentsmanagement.service.IEmailService;
+import com.tkpm.studentsmanagement.service.impl.OtpService;
+import com.tkpm.studentsmanagement.service.impl.RoleService;
+import com.tkpm.studentsmanagement.service.impl.UserService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/user")

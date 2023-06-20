@@ -2,7 +2,7 @@
 <html layout:decorate="~{layouts/default-layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
-	<title>Students</title>
+	<title>Scoreboard</title>
 </head>
 
 <body>
@@ -28,6 +28,7 @@
 				list-style-type: none;
 				padding: 0;
 				margin-top: 10px;
+				z-index: 20;
 			}
 
 			li {
@@ -84,6 +85,14 @@
 											placeholder="Subject name" />
 									</div>
 								</div>
+								<div class="col-md-6 form-group row">
+									<label for="fname"
+										class="col-sm-3 text-end control-label col-form-label">Student</label>
+									<div class="col-sm-9">
+										<input type="text" class="input-url form-control" id="fname" name="subject"
+											placeholder="Student name" />
+									</div>
+								</div>
 							</div>
 						</div>
 					</form>
@@ -122,11 +131,6 @@
 								<th>Name</th>
 								<th>Class</th>
 								<th>Subject</th>
-								<th>15 mins</th>
-								<th>45 mins</th>
-								<th>Middle</th>
-								<th>Final</th>
-								<th>Average</th>
 								<th>Semester</th>
 								<th>Year</th>
 								<th>Passed</th>
@@ -145,11 +149,6 @@
 								<td th:text="${scoreboard?.student?.name}" />
 								<td th:text="${scoreboard?.classs?.name}" />
 								<td th:text="${scoreboard?.subject?.name}" />
-								<td th:text="${scoreboard.exam15Min}" />
-								<td th:text="${scoreboard.exam45Min}" />
-								<td th:text="${scoreboard.examMiddle}" />
-								<td th:text="${scoreboard.examFinal}" />
-								<td th:text="${scoreboard.averageScore}" />
 								<td th:text="${scoreboard.semester}" />
 								<td th:text="${scoreboard.year}" />
 								<td th:text="${scoreboard.isCompleted}" />
@@ -216,9 +215,12 @@
 							<div class="col-md-6 form-group row">
 								<label for="fname"
 									class="col-sm-3 text-end control-label col-form-label">Subject</label>
-								<div class="col-sm-9">
-									<input type="text" class="form-control" id="fname" name="subject"
-										placeholder="Enter Subject" />
+								<div class="col-sm-9" style="position: relative;">
+									<input type="text" id="subjectSearch" class="form-control" placeholder="">
+									<input type="text" id="subjectId" name="subjectId" hidden class="form-control"
+										placeholder="">
+									<ul style="position: absolute; top: 100%; left: 10px; right: 10px; background-color: #ccc;"
+										id="subjectResults"></ul>
 								</div>
 							</div>
 							<div class="col-md-6 form-group row">
@@ -288,9 +290,10 @@
 						<div class="row">
 							<input type="number" class="form-control" id="fname" name="id" hidden placeholder="" />
 							<div class="col-md-6 form-group row">
-								<label for="fname"  class="col-sm-3 text-end control-label col-form-label">Name</label>
+								<label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
 								<div class="col-sm-9">
-									<input type="text" disabled class="form-control" id="fname" name="name" placeholder="" />
+									<input type="text" disabled class="form-control" id="fname" name="name"
+										placeholder="" />
 								</div>
 							</div>
 							<div class="col-md-6 form-group row">
@@ -304,7 +307,8 @@
 								<label for="fname"
 									class="col-sm-3 text-end control-label col-form-label">Subject</label>
 								<div class="col-sm-9">
-									<input type="text" disabled class="form-control" id="fname" name="subject" placeholder="" />
+									<input type="text" disabled class="form-control" id="fname" name="subject"
+										placeholder="" />
 								</div>
 							</div>
 							<div class="col-md-6 form-group row">
@@ -541,16 +545,16 @@
 					$("#modelAdd .btn-save").click(function () {
 						//handle add
 						const scoreboard = {}
+						scoreboard.id = null;
 						scoreboard["student.id"] = Number.parseInt($("#modelAdd input[name='studentId']").val());
 						scoreboard["classs.id"] = Number.parseInt($("#modelAdd input[name='classId']").val());
-						scoreboard["subject.id"] = Number.parseInt($("#modelAdd input[name='subjectId']").val()) || 1 || null;//do chua lam subject
+						scoreboard["subject.id"] = Number.parseInt($("#modelAdd input[name='subjectId']").val());
 						scoreboard.exam15Min = Number.parseFloat($("#modelAdd input[name='score15mins']").val()) || null;
 						scoreboard.exam45Min = Number.parseFloat($("#modelAdd input[name='score45mins']").val()) || null;
 						scoreboard.examMiddle = Number.parseFloat($("#modelAdd input[name='mid_exam_score']").val()) || null;
 						scoreboard.examFinal = Number.parseFloat($("#modelAdd input[name='final_exam_score']").val()) || null;
-						scoreboard.semester = Number.parseInt($("#modelAdd input[name='semester']").val()) || null;
-						scoreboard.year = Number.parseInt($("#modelAdd input[name='year']").val()) || null;
-						debugger
+						scoreboard.semester = Number.parseInt($("#modelAdd input[name='semester']").val());
+						scoreboard.year = Number.parseInt($("#modelAdd input[name='year']").val());
 						$.ajax({
 							type: "POST",
 							url: "/scoreboard",
@@ -585,6 +589,7 @@
 							success: (scoreboard, message, obj) => {
 								if (scoreboard) {
 									$("#modelEdit").modal('show')
+									$("#modelEdit input[name=id]").val(scoreboard?.id)
 									$("#modelEdit input[name=name]").val(scoreboard?.student?.name)
 									$("#modelEdit input[name=classroom]").val(scoreboard?.classs?.name)
 									$("#modelEdit input[name=subject]").val(scoreboard?.subject?.name)
@@ -610,15 +615,14 @@
 						$("#modelEdit").modal('hide')
 						toastr.success("Edit successfully!!", "System Says");
 						const scoreboard = {}
-						scoreboard.studentId = Number.parseInt($("#modelAdd input[name='studentId']").val());
-						scoreboard.classId = Number.parseInt($("#modelAdd input[name='classId']").val());
-						scoreboard.subjectId = Number.parseInt($("#modelAdd input[name='subjectId']").val()) || null;
-						scoreboard.exam15Min = Number.parseFloat($("#modelAdd input[name='score15mins']").val()) || null;
-						scoreboard.exam45Min = Number.parseFloat($("#modelAdd input[name='score45mins']").val()) || null;
-						scoreboard.examMiddle = Number.parseFloat($("#modelAdd input[name='mid_exam_score']").val()) || null;
-						scoreboard.examFinal = Number.parseFloat($("#modelAdd input[name='final_exam_score']").val()) || null;
-						scoreboard.semester = Number.parseInt($("#modelAdd input[name='semester']").val()) || null;
-						scoreboard.year = Number.parseInt($("#modelAdd input[name='year']").val()) || null;
+						scoreboard.id = Number.parseInt($("#modelEdit input[name='id']").val())
+						scoreboard.exam15Min = Number.parseFloat($("#modelEdit input[name='score15mins']").val()) || null;
+						scoreboard.exam45Min = Number.parseFloat($("#modelEdit input[name='score45mins']").val()) || null;
+						scoreboard.examMiddle = Number.parseFloat($("#modelEdit input[name='mid_exam_score']").val()) || null;
+						scoreboard.examFinal = Number.parseFloat($("#modelEdit input[name='final_exam_score']").val()) || null;
+						scoreboard.semester = Number.parseInt($("#modelEdit input[name='semester']").val()) || null;
+						scoreboard.year = Number.parseInt($("#modelEdit input[name='year']").val()) || null;
+						debugger
 						$.ajax({
 							type: "PATCH",
 							url: "/scoreboard",
@@ -839,12 +843,12 @@
 				let timeoutClassId;
 				classSearch.addEventListener('input', handleClassInput);
 				function handleClassInput() {
-					clearTimeout(timeoutStudentId);
+					clearTimeout(timeoutClassId);
 					const searchValue = classSearch.value;
 					// Clear previous results
 					classResults.innerHTML = '';
 					// Debounce API call
-					timeoutStudentId = setTimeout(() => {
+					timeoutClassId = setTimeout(() => {
 						// Call API to get autocomplete results
 						const query = `id=${Number.parseInt(searchValue) || 0}&name=${searchValue}&year=${searchValue}&currentPage=${1}`;
 						fetch(`/class/search?${query}`)
@@ -872,6 +876,47 @@
 				}
 				document.addEventListener("click", function (e) {
 					classResults.innerHTML = '';
+				});
+			</script>
+			<script>
+				const subjectSearch = document.getElementById('subjectSearch');
+				const subjectResults = document.getElementById('subjectResults');
+				let timeoutSubjectId;
+				subjectSearch.addEventListener('input', handleSubjectInput);
+				function handleSubjectInput() {
+					clearTimeout(timeoutSubjectId);
+					const searchValue = subjectSearch.value;
+					// Clear previous results
+					subjectResults.innerHTML = '';
+					// Debounce API call
+					timeoutSubjectId = setTimeout(() => {
+						// Call API to get autocomplete results
+						const query = `id=${Number.parseInt(searchValue) || 0}&name=${searchValue}&currentPage=${1}`;
+						fetch(`/subject/search?${query}`)
+							.then(response => response.json())
+							.then(data => {
+								displaySubjectResults(data.listT);
+							})
+							.catch(error => {
+								console.error('Error:', error);
+							});
+					}, 500); // Delay in milliseconds
+				}
+				function displaySubjectResults(results) {
+					subjectResults.innerHTML = ''
+					results.forEach(result => {
+						const li = document.createElement('li');
+						li.innerText = `${result.id}-${result.name}`;
+						li.addEventListener('click', () => {
+							subjectSearch.value = li.innerText;
+							$('#modelAdd #subjectId').val(result.id);
+							subjectResults.innerHTML = '';
+						});
+						subjectResults.appendChild(li);
+					});
+				}
+				document.addEventListener("click", function (e) {
+					subjectResults.innerHTML = '';
 				});
 			</script>
 		</div>

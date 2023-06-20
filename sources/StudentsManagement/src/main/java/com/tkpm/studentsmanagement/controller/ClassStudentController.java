@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -123,13 +122,12 @@ public class ClassStudentController {
     @PostMapping
     @ResponseBody
     public Boolean add( ClassStudentDTO classStudent) {
-        ClassStudentDTO newStudentDTO = null;
         try {
-            newStudentDTO = classStudentService.create(classStudent);
+           return classStudentService.update(classStudent);
         } catch (Exception e) {
-            logger.error(newStudentDTO.toString(), e);
+            logger.error(classStudent.toString(), e);
         }
-        return newStudentDTO != null;
+        return false;
     }
 
     @DeleteMapping

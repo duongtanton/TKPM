@@ -1,8 +1,7 @@
 package com.tkpm.studentsmanagement.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tkpm.studentsmanagement.dto.*;
-import com.tkpm.studentsmanagement.service.IScoreBoardService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tkpm.studentsmanagement.dto.DeleteRequest;
+import com.tkpm.studentsmanagement.dto.ScoreBoardDTO;
+import com.tkpm.studentsmanagement.dto.SimpleRequest;
+import com.tkpm.studentsmanagement.dto.SimpleResponse;
+import com.tkpm.studentsmanagement.service.IScoreBoardService;
 
 /**
  * @author : daitt
@@ -80,14 +91,13 @@ public class ScoreBoardController {
 
     @PostMapping
     @ResponseBody
-    public Boolean add(ScoreBoardDTO scoreboard) {
-        ScoreBoardDTO newScoreboardDTO = null;
+    public ScoreBoardDTO add(ScoreBoardDTO scoreboard) {
         try {
-            newScoreboardDTO = scoreBoardService.create(scoreboard);
+            return scoreBoardService.create(scoreboard);
         } catch (Exception e) {
             logger.error(scoreboard.toString(), e);
         }
-        return newScoreboardDTO != null;
+        return null;
     }
 
     @DeleteMapping

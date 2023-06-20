@@ -1,12 +1,12 @@
 package com.tkpm.studentsmanagement.service;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+
 import com.tkpm.studentsmanagement.dto.ConfigurationDTO;
 import com.tkpm.studentsmanagement.dto.ConfigurationSearchDTO;
 import com.tkpm.studentsmanagement.dto.SimpleResponse;
-import com.tkpm.studentsmanagement.dto.UserDTO;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 public interface IConfigurationService {
     List<ConfigurationDTO> findAll();

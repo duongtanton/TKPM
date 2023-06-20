@@ -128,13 +128,12 @@ public class StudentController {
     @PostMapping
     @ResponseBody
     public Boolean add(StudentDTO studentDTO) {
-        StudentDTO newStudentDTO = null;
         try {
-            newStudentDTO = studentService.create(studentDTO);
+            return studentService.update(studentDTO);
         } catch (Exception e) {
             logger.error(studentDTO.toString(), e);
         }
-        return newStudentDTO != null;
+        return false;
     }
 
     @DeleteMapping

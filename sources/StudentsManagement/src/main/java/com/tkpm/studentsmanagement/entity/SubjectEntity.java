@@ -14,8 +14,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class SubjectEntity extends AbstractEntity {
     @Column(name = "name")
     private String name;
-    @Column(name = "teacherID")
-    private Long teacherID;
+
     @Column(name = "requiredScore")
     private Double requiredScore;
 
@@ -25,14 +24,6 @@ public class SubjectEntity extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getTeacherID() {
-        return teacherID;
-    }
-
-    public void setTeacherID(Long teacherID) {
-        this.teacherID = teacherID;
     }
 
     public Double getRequiredScore() {

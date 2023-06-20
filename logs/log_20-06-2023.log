@@ -184,3 +184,28 @@ Caused by: org.hibernate.HibernateException: Unable to determine Dialect without
 	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
 	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:255)
 	... 36 common frames omitted
+20-06-2023 12:51:53.005 [restartedMain] INFO  c.t.studentsmanagement.Application.logStarting - Starting Application using Java 17.0.7 with PID 19804 (E:\Desktop\TKPM\sources\StudentsManagement\target\classes started by ADMIN in E:\Desktop\TKPM)
+20-06-2023 12:51:53.006 [restartedMain] INFO  c.t.studentsmanagement.Application.logStartupProfileInfo - The following 1 profile is active: "prod"
+20-06-2023 12:51:53.145 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate.registerRepositoriesIn - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+20-06-2023 12:51:53.164 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate.registerRepositoriesIn - Finished Spring Data repository scanning in 18 ms. Found 9 JPA repository interfaces.
+20-06-2023 12:51:53.198 [restartedMain] ERROR o.a.c.core.AprLifecycleListener.log - An incompatible version [1.2.31] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+20-06-2023 12:51:53.214 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer.initialize - Tomcat initialized with port(s): 8080 (http)
+20-06-2023 12:51:53.215 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol.log - Initializing ProtocolHandler ["http-nio-8080"]
+20-06-2023 12:51:53.215 [restartedMain] INFO  o.a.catalina.core.StandardService.log - Starting service [Tomcat]
+20-06-2023 12:51:53.215 [restartedMain] INFO  o.a.catalina.core.StandardEngine.log - Starting Servlet engine: [Apache Tomcat/10.1.8]
+20-06-2023 12:51:53.244 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext.prepareWebApplicationContext - Root WebApplicationContext: initialization completed in 237 ms
+20-06-2023 12:51:53.294 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper.logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: default]
+20-06-2023 12:51:53.298 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource.getConnection - HikariPool-30 - Starting...
+20-06-2023 12:51:53.653 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool.checkFailFast - HikariPool-30 - Added connection com.mysql.cj.jdbc.ConnectionImpl@22470c29
+20-06-2023 12:51:53.654 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource.getConnection - HikariPool-30 - Start completed.
+20-06-2023 12:51:53.662 [restartedMain] INFO  SQL dialect.logSelectedDialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+20-06-2023 12:51:54.186 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator.initiateService - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+20-06-2023 12:51:54.187 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory - Initialized JPA EntityManagerFactory for persistence unit 'default'
+20-06-2023 12:51:54.568 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain.<init> - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@763ee3d0, org.springframework.security.web.session.ForceEagerSessionCreationFilter@5e244b7f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2b92db05, org.springframework.security.web.context.SecurityContextHolderFilter@347feba7, org.springframework.security.web.header.HeaderWriterFilter@7f8190f1, org.springframework.security.web.authentication.logout.LogoutFilter@131199a4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@697d9be2, org.springframework.security.web.session.ConcurrentSessionFilter@42cd07fc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@478af3c1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@72a06880, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2e35e71e, org.springframework.security.web.session.SessionManagementFilter@667a7cac, org.springframework.security.web.access.ExceptionTranslationFilter@7f4120b2, org.springframework.security.web.access.intercept.AuthorizationFilter@7200e866]
+20-06-2023 12:51:54.610 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer.startServer - LiveReload server is running on port 35729
+20-06-2023 12:51:54.616 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer.start - Tomcat started on port(s): 8080 (http) with context path ''
+20-06-2023 12:51:54.618 [restartedMain] INFO  c.t.studentsmanagement.Application.logStarted - Started Application in 1.664 seconds (process running for 3877.799)
+20-06-2023 12:51:54.618 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener.onApplicationEvent - Condition evaluation unchanged
+20-06-2023 12:51:54.634 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean.destroy - Closing JPA EntityManagerFactory for persistence unit 'default'
+20-06-2023 12:51:54.635 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource.close - HikariPool-30 - Shutdown initiated...
+20-06-2023 12:51:54.755 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource.close - HikariPool-30 - Shutdown completed.

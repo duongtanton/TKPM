@@ -1,22 +1,30 @@
 package com.tkpm.studentsmanagement.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.exceptions.ClosedOnExpiredPasswordException;
-import com.tkpm.studentsmanagement.dto.*;
-import com.tkpm.studentsmanagement.service.ISubjectService;
-import jakarta.servlet.http.HttpServletResponse;
-import org.modelmapper.ModelMapper;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.awt.print.Pageable;
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tkpm.studentsmanagement.dto.DeleteRequest;
+import com.tkpm.studentsmanagement.dto.SimpleRequest;
+import com.tkpm.studentsmanagement.dto.SimpleResponse;
+import com.tkpm.studentsmanagement.dto.SubjectDTO;
+import com.tkpm.studentsmanagement.service.ISubjectService;
 
 /**
  * @author : daitt
@@ -28,6 +36,7 @@ public class SubjectController {
     private static final Logger logger = LoggerFactory.getLogger(SubjectController.class);
     @Autowired
     private ObjectMapper objectMapper;
+
     @Autowired
     private ISubjectService subjectService;
 
@@ -59,6 +68,26 @@ public class SubjectController {
         return "subjects/index";
     }
 
+    @GetMapping("search")
+    @ResponseBody
+    public SimpleResponse<SubjectDTO> search(SimpleRequest simpleRequest,
+            @RequestParam(required = false, value = "id") Long id,
+            @RequestParam(required = false, value = "name") String name) {
+        SimpleResponse<SubjectDTO> simpleResponse = new SimpleResponse<>();
+
+        Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
+                Sort.by("createdDate").descending());
+        Integer totalPages = subjectService.totalPages(pageable);
+
+        simpleResponse.setPerPage(pageable.getPageSize());
+        simpleResponse.setCurrentPage(pageable.getPageNumber() + 1);
+        simpleResponse.setTotalPages(totalPages);
+
+        List<SubjectDTO> listT = subjectService.findLikeByIdOrName(id, name, pageable);
+        simpleResponse.setListT(listT);
+        return simpleResponse;
+    }
+
     @PatchMapping
     @ResponseBody
     public Boolean update(SubjectDTO subjectDTO) {
@@ -78,8 +107,7 @@ public class SubjectController {
         SubjectDTO subjectDTO = null;
         try {
             subjectDTO = subjectService.findByID(id);
-        }
-        catch (Exception e) {
+        }  catch (Exception e) {
             logger.error(id.toString(), e);
         }
         return subjectDTO;

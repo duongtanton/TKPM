@@ -12,7 +12,6 @@ public class ClassDTO extends AbstractDTO {
     // relationship
     private List<StudentDTO> students;
 
-    private List<TestDTO> tests;
 
     public String getName() {
         return this.name;
@@ -45,13 +44,4 @@ public class ClassDTO extends AbstractDTO {
     public void setStudents(List<StudentDTO> students) {
         this.students = students;
     }
-
-    public List<TestDTO> getTests() {
-        return this.tests;
-    }
-
-    public void setTests(List<TestDTO> tests) {
-        this.tests = tests;
-    }
-
 }

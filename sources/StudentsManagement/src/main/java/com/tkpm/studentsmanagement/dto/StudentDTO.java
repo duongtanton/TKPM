@@ -1,7 +1,6 @@
 package com.tkpm.studentsmanagement.dto;
 
 import java.sql.Date;
-import java.util.List;
 
 
 public class StudentDTO extends AbstractDTO {

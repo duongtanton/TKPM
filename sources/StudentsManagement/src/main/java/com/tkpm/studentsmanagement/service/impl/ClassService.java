@@ -1,5 +1,20 @@
 package com.tkpm.studentsmanagement.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.tkpm.studentsmanagement.dto.ClassDTO;
 import com.tkpm.studentsmanagement.dto.ClassStudentDTO;
 import com.tkpm.studentsmanagement.dto.StudentDTO;
@@ -9,22 +24,8 @@ import com.tkpm.studentsmanagement.entity.StudentEntity;
 import com.tkpm.studentsmanagement.repository.ClassRepository;
 import com.tkpm.studentsmanagement.repository.ClassStudentRepository;
 import com.tkpm.studentsmanagement.service.IClassService;
+
 import jakarta.transaction.Transactional;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -180,5 +181,24 @@ public class ClassService implements IClassService {
         List<ClassEntity> studentEntities = classRepository.findByIdOrNameContainingOrYear(id, name, year, pageable);
         return modelMapper.map(studentEntities, new TypeToken<List<StudentDTO>>() {
         }.getType());
+    }
+
+    @Override
+    public boolean update(ClassDTO classDTO) {
+        ClassEntity classEntity = classRepository.findById(classDTO.getId()).orElse(null);
+        try {
+            classEntity.setName(classDTO.getName());
+            classEntity.setYear(classDTO.getYear());
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return false;
+    }
+
+    @Override
+    public ClassDTO findById(Long id) {
+        ClassEntity classDTO = classRepository.findById(id).orElse(null);
+
+        return modelMapper.map(classDTO, ClassDTO.class);
     }
 }

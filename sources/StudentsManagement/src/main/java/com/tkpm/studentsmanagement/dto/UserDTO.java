@@ -2,11 +2,6 @@ package com.tkpm.studentsmanagement.dto;
 
 import java.util.List;
 
-import com.tkpm.studentsmanagement.entity.ClassEntity;
-import com.tkpm.studentsmanagement.entity.OtpEntity;
-import com.tkpm.studentsmanagement.entity.RoleEntity;
-import com.tkpm.studentsmanagement.entity.StudentEntity;
-
 public class UserDTO extends AbstractDTO {
 
     private String name;

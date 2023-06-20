@@ -1,6 +1,5 @@
 package com.tkpm.studentsmanagement.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -89,8 +88,13 @@ public class StudentService implements IStudentService {
 
     @Override
     public Boolean update(StudentDTO studentDTO) {
-        StudentEntity studentEntity = modelMapper.map(studentDTO, StudentEntity.class);
+        StudentEntity studentEntity = studentRepositoty.findById(studentDTO.getId()).orElse(null);
         try {
+            studentEntity.setAddress(studentDTO.getAddress());
+            studentEntity.setBirthDate(studentDTO.getBirthDate());
+            studentEntity.setEmail(studentDTO.getEmail());
+            studentEntity.setName(studentDTO.getName());
+            studentEntity.setSex(studentDTO.getSex());
             studentRepositoty.save(studentEntity);
             return true;
         } catch (Exception e) {

@@ -1,17 +1,19 @@
 package com.tkpm.studentsmanagement.service.impl;
 
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.tkpm.studentsmanagement.dto.ScoreBoardDTO;
 import com.tkpm.studentsmanagement.entity.ScoreBoardEntity;
 import com.tkpm.studentsmanagement.repository.ScoreBoardRepository;
 import com.tkpm.studentsmanagement.service.IScoreBoardService;
-import jakarta.transaction.Transactional;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-import org.springframework.data.domain.Pageable;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import jakarta.transaction.Transactional;
 
 /**
  * @author : daitt
@@ -26,7 +28,6 @@ public class ScoreBoardService implements IScoreBoardService {
     @Autowired
     private ScoreBoardRepository scoreBoardRepository;
 
-
     public ScoreBoardDTO create(ScoreBoardDTO scoreBoard) {
         ScoreBoardEntity scoreBoardEntity = modelMapper.map(scoreBoard, ScoreBoardEntity.class);
         return modelMapper.map(scoreBoardRepository.save(scoreBoardEntity), ScoreBoardDTO.class);
@@ -36,18 +37,20 @@ public class ScoreBoardService implements IScoreBoardService {
     public List<ScoreBoardDTO> create(List<ScoreBoardDTO> listScoreboard) {
         List<ScoreBoardEntity> listScoreboardEntity = modelMapper.map(
                 listScoreboard,
-                new TypeToken<List<ScoreBoardEntity>>(){}.getType());
+                new TypeToken<List<ScoreBoardEntity>>() {
+                }.getType());
         List<ScoreBoardDTO> listScoreboardDTO = modelMapper.map(
                 scoreBoardRepository.saveAll(listScoreboardEntity),
-                new TypeToken<List<ScoreBoardDTO>>(){}.getType()
-        );
+                new TypeToken<List<ScoreBoardDTO>>() {
+                }.getType());
         return listScoreboardDTO;
     }
 
     @Override
     public List<ScoreBoardDTO> findAll(Pageable pageable) {
         List<ScoreBoardEntity> listScoreboardEntity = scoreBoardRepository.findAll(pageable);
-        return modelMapper.map(listScoreboardEntity, new TypeToken<List<ScoreBoardDTO>>(){}.getType());
+        return modelMapper.map(listScoreboardEntity, new TypeToken<List<ScoreBoardDTO>>() {
+        }.getType());
     }
 
     @Override
@@ -55,8 +58,8 @@ public class ScoreBoardService implements IScoreBoardService {
         List<ScoreBoardEntity> listScoreboardEntity = scoreBoardRepository.findAll();
         return modelMapper.map(
                 listScoreboardEntity,
-                new TypeToken<List<ScoreBoardDTO>>(){}.getType()
-        );
+                new TypeToken<List<ScoreBoardDTO>>() {
+                }.getType());
     }
 
     @Override
@@ -86,8 +89,7 @@ public class ScoreBoardService implements IScoreBoardService {
         try {
             scoreBoardRepository.deleteAllById(ids);
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -101,11 +103,17 @@ public class ScoreBoardService implements IScoreBoardService {
     public Boolean update(ScoreBoardDTO scoreBoard) {
         ScoreBoardEntity scoreBoardEntity = scoreBoardRepository.findById(scoreBoard.getId()).orElse(null);
         try {
+            scoreBoardEntity.setAverageScore(scoreBoard.getAverageScore());
+            scoreBoardEntity.setCompleted(scoreBoard.getIsCompleted());
+            scoreBoardEntity.setExam15Min(scoreBoard.getExam15Min());
+            scoreBoardEntity.setExam45Min(scoreBoard.getExam45Min());
+            scoreBoardEntity.setExamMiddle(scoreBoard.getExamMiddle());
+            scoreBoardEntity.setExamFinal(scoreBoard.getExamFinal());
+            scoreBoardEntity.setSemester(scoreBoard.getSemester());
+
             scoreBoardRepository.save(scoreBoardEntity);
             return true;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return false;
         }
     }

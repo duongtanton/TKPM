@@ -1,9 +1,13 @@
 package com.tkpm.studentsmanagement.entity;
 
-import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 /**
  * @author : daitt
@@ -42,7 +46,7 @@ public class ScoreBoardEntity extends AbstractEntity {
     private Double averageScore;
 
     @Column(name = "semester")
-    private Double semester;
+    private Integer semester;
 
     @Column(name = "year")
     private Integer year;
@@ -164,11 +168,11 @@ public class ScoreBoardEntity extends AbstractEntity {
         this.averageScore = averageScore;
     }
 
-    public Double getSemester() {
+    public Integer getSemester() {
         return semester;
     }
 
-    public void setSemester(Double semester) {
+    public void setSemester(Integer semester) {
         this.semester = semester;
     }
 
