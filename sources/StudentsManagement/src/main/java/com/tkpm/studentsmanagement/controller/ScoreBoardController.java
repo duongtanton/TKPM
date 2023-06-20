@@ -23,6 +23,7 @@ import com.tkpm.studentsmanagement.dto.DeleteRequest;
 import com.tkpm.studentsmanagement.dto.ScoreBoardDTO;
 import com.tkpm.studentsmanagement.dto.SimpleRequest;
 import com.tkpm.studentsmanagement.dto.SimpleResponse;
+import com.tkpm.studentsmanagement.dto.StaticAverageByClass;
 import com.tkpm.studentsmanagement.service.IScoreBoardService;
 
 /**
@@ -77,6 +78,12 @@ public class ScoreBoardController {
         return updated;
     }
 
+    @GetMapping("/static-average-by-class/{classsID}")
+    @ResponseBody
+    public List<StaticAverageByClass> staticAverageByClass(@PathVariable(value = "classsID") Long classsId) {
+        return scoreBoardService.staticAverageByClass(classsId);
+    }
+
     @GetMapping("/{id}")
     @ResponseBody
     public ScoreBoardDTO findByID(@PathVariable("id") Long id) {
@@ -111,4 +118,5 @@ public class ScoreBoardController {
         }
         return deleted;
     }
+
 }

@@ -8,25 +8,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.tkpm.studentsmanagement.dto.ClassDTO;
 import com.tkpm.studentsmanagement.dto.ScoreBoardDTO;
+import com.tkpm.studentsmanagement.dto.StaticAverageByClass;
+import com.tkpm.studentsmanagement.dto.StudentDTO;
 import com.tkpm.studentsmanagement.entity.ScoreBoardEntity;
 import com.tkpm.studentsmanagement.repository.ScoreBoardRepository;
 import com.tkpm.studentsmanagement.service.IScoreBoardService;
 
 import jakarta.transaction.Transactional;
 
-/**
- * @author : daitt
- * @create : 12/6/2023
- **/
-
 @Service
 @Transactional
 public class ScoreBoardService implements IScoreBoardService {
     @Autowired
     private ModelMapper modelMapper;
+
     @Autowired
     private ScoreBoardRepository scoreBoardRepository;
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private ClassService classService;
 
     public ScoreBoardDTO create(ScoreBoardDTO scoreBoard) {
         ScoreBoardEntity scoreBoardEntity = modelMapper.map(scoreBoard, ScoreBoardEntity.class);
@@ -122,5 +127,20 @@ public class ScoreBoardService implements IScoreBoardService {
     public ScoreBoardDTO findByID(Long id) {
         ScoreBoardEntity scoreBoardEntity = scoreBoardRepository.findById(id).orElse(null);
         return modelMapper.map(scoreBoardRepository.save(scoreBoardEntity), ScoreBoardDTO.class);
+    }
+
+    @Override
+    public List<StaticAverageByClass> staticAverageByClass(Long classsId) {
+        List<Object[]> objectResults = scoreBoardRepository.staticAverageByClass(classsId);
+        List<StaticAverageByClass> staticResults = objectResults.stream().map(item -> {
+            StaticAverageByClass staticRow = new StaticAverageByClass();
+
+            staticRow.setStudent(modelMapper.map(item[0], StudentDTO.class));
+            staticRow.setClasss(modelMapper.map(item[1], ClassDTO.class));
+            staticRow.setScoreI((Double) item[2]);
+            staticRow.setScoreII((Double) item[3]);
+            return staticRow;
+        }).toList();
+        return staticResults;
     }
 }

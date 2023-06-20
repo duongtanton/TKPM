@@ -100,7 +100,7 @@ public class StudentController {
         simpleResponse.setListT(listT);
         return simpleResponse;
     }
-
+// SELECT (sb1.exam15Min + sb1.exam45Min + sb1.examMiddle + sb1.examFinal)/4 as HK1, (sb2.exam15Min + sb2.exam45Min + sb2.examMiddle + sb2.examFinal)/4 as HK2 FROM `score_board` as sb1 JOIN `score_board` sb2 ON sb1.studentId = sb2.studentId AND sb1.year = sb2.year AND sb1.subjectId = sb2.subjectId AND sb1.classId = sb2.classId AND sb1.id != sb2.id AND sb1.semester > sb2.semester;
     @PatchMapping
     @ResponseBody
     public Boolean update(StudentDTO student) {
