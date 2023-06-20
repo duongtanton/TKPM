@@ -5,45 +5,45 @@ package com.tkpm.studentsmanagement.dto;
  * @create : 5/6/2023
  **/
 
-public class ScoreBoardDTO extends AbstractDTO{
-    private Long studentId;
-    private Long classId;
-    private Long subjectId;
+public class ScoreBoardDTO extends AbstractDTO {
+    private StudentDTO student;
+    private ClassDTO classs;
+    private SubjectDTO subject;
     private Double exam15Min;
     private Double exam45Min;
     private Double examMiddle;
     private Double examFinal;
     private Double averageScore;
-    private int semester;
-    private int year;
-    private boolean isCompleted;
+    private Integer semester;
+    private Integer year;
+    private Boolean isCompleted;
 
-    public Long getStudentId() {
-        return studentId;
+    public StudentDTO getStudent() {
+        return this.student;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setStudent(StudentDTO student) {
+        this.student = student;
     }
 
-    public Long getClassId() {
-        return classId;
+    public ClassDTO getClasss() {
+        return this.classs;
     }
 
-    public void setClassId(Long classId) {
-        this.classId = classId;
+    public void setClasss(ClassDTO classs) {
+        this.classs = classs;
     }
 
-    public Long getSubjectId() {
-        return subjectId;
+    public SubjectDTO getSubject() {
+        return this.subject;
     }
 
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(SubjectDTO subject) {
+        this.subject = subject;
     }
 
     public Double getExam15Min() {
-        return exam15Min;
+        return this.exam15Min;
     }
 
     public void setExam15Min(Double exam15Min) {
@@ -51,7 +51,7 @@ public class ScoreBoardDTO extends AbstractDTO{
     }
 
     public Double getExam45Min() {
-        return exam45Min;
+        return this.exam45Min;
     }
 
     public void setExam45Min(Double exam45Min) {
@@ -59,7 +59,7 @@ public class ScoreBoardDTO extends AbstractDTO{
     }
 
     public Double getExamMiddle() {
-        return examMiddle;
+        return this.examMiddle;
     }
 
     public void setExamMiddle(Double examMiddle) {
@@ -67,7 +67,7 @@ public class ScoreBoardDTO extends AbstractDTO{
     }
 
     public Double getExamFinal() {
-        return examFinal;
+        return this.examFinal;
     }
 
     public void setExamFinal(Double examFinal) {
@@ -75,34 +75,38 @@ public class ScoreBoardDTO extends AbstractDTO{
     }
 
     public Double getAverageScore() {
-        return averageScore;
+        return this.averageScore;
     }
 
     public void setAverageScore(Double averageScore) {
         this.averageScore = averageScore;
     }
 
-    public int getSemester() {
-        return semester;
+    public Integer getSemester() {
+        return this.semester;
     }
 
-    public void setSemester(int semester) {
+    public void setSemester(Integer semester) {
         this.semester = semester;
     }
 
-    public int getYear() {
-        return year;
+    public Integer getYear() {
+        return this.year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
+    public Boolean isIsCompleted() {
+        return this.isCompleted;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public Boolean getIsCompleted() {
+        return this.isCompleted;
+    }
+
+    public void setIsCompleted(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tkpm.studentsmanagement.service.IEmailService;
@@ -22,12 +23,13 @@ public class EmailService  implements IEmailService{
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendEmail(String to, String subject, String url) throws MessagingException, IOException {
+    @Async
+    public void sendEmail(String to, String subject, String url, String directory) throws MessagingException, IOException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
         // Load HTML template
-        ClassPathResource templateResource = new ClassPathResource("templates/email-template.html");
+        ClassPathResource templateResource = new ClassPathResource(directory);
         String template = new String(templateResource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
 
         // Replace placeholders with dynamic values

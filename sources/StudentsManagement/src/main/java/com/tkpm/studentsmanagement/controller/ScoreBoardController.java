@@ -1,8 +1,7 @@
 package com.tkpm.studentsmanagement.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tkpm.studentsmanagement.dto.*;
-import com.tkpm.studentsmanagement.service.IScoreBoardService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tkpm.studentsmanagement.dto.DeleteRequest;
+import com.tkpm.studentsmanagement.dto.ScoreBoardDTO;
+import com.tkpm.studentsmanagement.dto.SimpleRequest;
+import com.tkpm.studentsmanagement.dto.SimpleResponse;
+import com.tkpm.studentsmanagement.service.IScoreBoardService;
 
 /**
  * @author : daitt
@@ -29,13 +40,12 @@ public class ScoreBoardController {
 
     @GetMapping
     public String index(Model model, SimpleRequest simpleRequest,
-                        @RequestParam(required = false, value = "scoreboard") String scoreboardStr) {
+            @RequestParam(required = false, value = "scoreboard") String scoreboardStr) {
         SimpleResponse<ScoreBoardDTO> simpleResponse = new SimpleResponse<>();
         ScoreBoardDTO scoreBoardDTO;
         try {
             scoreBoardDTO = objectMapper.readValue(scoreboardStr, ScoreBoardDTO.class);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -57,13 +67,12 @@ public class ScoreBoardController {
 
     @PatchMapping
     @ResponseBody
-    public Boolean update(ScoreBoardDTO scoreBoardDTO) {
+    public Boolean update(ScoreBoardDTO scoreboard) {
         Boolean updated = false;
         try {
-            updated = scoreBoardService.update(scoreBoardDTO);
-        }
-        catch (Exception e) {
-            logger.error(scoreBoardDTO.toString(), e);
+            updated = scoreBoardService.update(scoreboard);
+        } catch (Exception e) {
+            logger.error(scoreboard.toString(), e);
         }
         return updated;
     }
@@ -74,8 +83,7 @@ public class ScoreBoardController {
         ScoreBoardDTO scoreBoardDTO = null;
         try {
             scoreBoardDTO = scoreBoardService.findByID(id);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error(id.toString(), e);
         }
         return scoreBoardDTO;
@@ -83,15 +91,13 @@ public class ScoreBoardController {
 
     @PostMapping
     @ResponseBody
-    public Boolean add(ScoreBoardDTO scoreBoardDTO) {
-        ScoreBoardDTO newScoreboardDTO = null;
+    public ScoreBoardDTO add(ScoreBoardDTO scoreboard) {
         try {
-            newScoreboardDTO = scoreBoardService.create(scoreBoardDTO);
+            return scoreBoardService.create(scoreboard);
+        } catch (Exception e) {
+            logger.error(scoreboard.toString(), e);
         }
-        catch (Exception e) {
-            logger.error(scoreBoardDTO.toString(), e);
-        }
-        return newScoreboardDTO != null;
+        return null;
     }
 
     @DeleteMapping
@@ -100,8 +106,7 @@ public class ScoreBoardController {
         Boolean deleted = false;
         try {
             deleted = scoreBoardService.delete(deleteRequest.getIds());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error(deleteRequest.getIds().toString(), e);
         }
         return deleted;

@@ -31,4 +31,10 @@ public class OtpService implements IOtpService {
         OtpEntity otpEntity =  otpRepositopy.findByIdAndUsed(id, used);
         return  modelMapper.map(otpEntity, OtpDTO.class);
     }
+    @Override
+    public void markToUsed(Long id) {
+        OtpEntity otpEntity =  otpRepositopy.findByIdAndUsed(id, false);
+        otpEntity.setUsed(true);
+        otpRepositopy.save(otpEntity);
+    }
 }

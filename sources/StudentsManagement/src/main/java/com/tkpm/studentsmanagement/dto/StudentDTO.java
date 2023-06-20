@@ -1,7 +1,7 @@
 package com.tkpm.studentsmanagement.dto;
 
 import java.sql.Date;
-import java.util.List;
+
 
 public class StudentDTO extends AbstractDTO {
     private String name;
@@ -10,13 +10,13 @@ public class StudentDTO extends AbstractDTO {
 
     private Boolean sex; // male 1: female: 0
 
-    private String adress;
+    private String address;
 
     private String email;
 
-    private List<ClassDTO> classes;
+    // private List<ClassDTO> classes;
 
-    private List<TestDTO> tests;
+    // private List<TestDTO> tests;
 
     public String getName() {
         return this.name;
@@ -46,14 +46,14 @@ public class StudentDTO extends AbstractDTO {
         this.sex = sex;
     }
 
-    public String getAdress() {
-        return this.adress;
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
-
+    
     public String getEmail() {
         return this.email;
     }
@@ -62,19 +62,19 @@ public class StudentDTO extends AbstractDTO {
         this.email = email;
     }
 
-    public List<ClassDTO> getClasses() {
-        return this.classes;
-    }
+    // public List<ClassDTO> getClasses() {
+    //     return this.classes;
+    // }
 
-    public void setClasses(List<ClassDTO> classes) {
-        this.classes = classes;
-    }
+    // public void setClasses(List<ClassDTO> classes) {
+    //     this.classes = classes;
+    // }
 
-    public List<TestDTO> getTests() {
-        return this.tests;
-    }
+    // public List<TestDTO> getTests() {
+    //     return this.tests;
+    // }
 
-    public void setTests(List<TestDTO> tests) {
-        this.tests = tests;
-    }
+    // public void setTests(List<TestDTO> tests) {
+    //     this.tests = tests;
+    // }
 }

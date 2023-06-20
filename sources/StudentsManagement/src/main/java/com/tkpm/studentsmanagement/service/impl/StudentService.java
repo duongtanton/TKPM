@@ -90,11 +90,23 @@ public class StudentService implements IStudentService {
     public Boolean update(StudentDTO studentDTO) {
         StudentEntity studentEntity = studentRepositoty.findById(studentDTO.getId()).orElse(null);
         try {
+            studentEntity.setAddress(studentDTO.getAddress());
+            studentEntity.setBirthDate(studentDTO.getBirthDate());
+            studentEntity.setEmail(studentDTO.getEmail());
             studentEntity.setName(studentDTO.getName());
+            studentEntity.setSex(studentDTO.getSex());
             studentRepositoty.save(studentEntity);
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public List<StudentDTO> findLikeByIdOrNameOrEmail(Long id, String name, String Email, Pageable pageable) {
+        List<StudentEntity> studentEntities = studentRepositoty.findByIdOrNameContainingOrEmailContaining(id, name,
+                Email, pageable);
+        return modelMapper.map(studentEntities, new TypeToken<List<StudentDTO>>() {
+        }.getType());
     }
 }

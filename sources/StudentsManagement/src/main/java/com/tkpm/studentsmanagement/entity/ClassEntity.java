@@ -2,15 +2,8 @@ package com.tkpm.studentsmanagement.entity;
 
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 
 @Entity(name = "class")
 @EntityListeners(AuditingEntityListener.class) // listener auditing
@@ -19,16 +12,14 @@ public class ClassEntity extends AbstractEntity {
     private String name;
 
     @Column(name = "numberOfPupils")
-    private Integer numberOfPupils;
+    private Integer numberOfPupils = 0;
+
+    @Column(name = "year")
+    private String year;
 
     // relationship
-    @ManyToMany(mappedBy = "classes",fetch = FetchType.LAZY)
-    private List<StudentEntity> students;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "test_class", joinColumns = @JoinColumn(name = "classId"), inverseJoinColumns = @JoinColumn(name = "testId"))
-    private List<TestEntity> tests;
-    // end relationship
+    @OneToMany(mappedBy = "classs", fetch = FetchType.LAZY)
+    private List<ClassStudentEntity> classStudent;
 
     public String getName() {
         return this.name;
@@ -42,8 +33,23 @@ public class ClassEntity extends AbstractEntity {
         return this.numberOfPupils;
     }
 
-    public void setNumberOfPupils(Integer numberOfPupils) {
-        this.numberOfPupils = numberOfPupils;
+    public void setNumberOfPupils(Integer number_of_pupils) {
+        this.numberOfPupils = number_of_pupils;
     }
 
+    public String getYear() {
+        return this.year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public List<ClassStudentEntity> getClassStudent() {
+        return this.classStudent;
+    }
+
+    public void setClassStudent(List<ClassStudentEntity> class_student) {
+        this.classStudent = class_student;
+    }
 }

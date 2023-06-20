@@ -9,7 +9,7 @@ File: js
 // ==============================================================
 $(function () {
   "use strict";
-  var url = window.location + "";
+  var url = window.location.origin + window.location.pathname + "";
   var path = url.replace(
     window.location.protocol + "//" + window.location.host + "/",
     ""

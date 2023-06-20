@@ -5,13 +5,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -36,13 +34,12 @@ public class StudentEntity extends AbstractEntity {
     private String email;
 
     // relationship
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "student_class", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "classId"))
-    private List<ClassEntity> classes;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<ClassStudentEntity> classes;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "student_test", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "testId"))
-    private List<TestEntity> tests;
+    // @ManyToMany(fetch = FetchType.LAZY)
+    // @JoinTable(name = "student_test", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "testId"))
+    // private List<TestEntity> tests;
     // end relationship
 
     public Date getBirthDate() {
@@ -89,4 +86,19 @@ public class StudentEntity extends AbstractEntity {
         this.name = name;
     }
 
+    public List<ClassStudentEntity> getClasses() {
+        return this.classes;
+    }
+
+    public void setClasses(List<ClassStudentEntity> classes) {
+        this.classes = classes;
+    }
+
+    // public List<TestEntity> getTests() {
+    //     return this.tests;
+    // }
+
+    // public void setTests(List<TestEntity> tests) {
+    //     this.tests = tests;
+    // }
 }

@@ -1,10 +1,11 @@
 package com.tkpm.studentsmanagement.repository;
 
-import com.tkpm.studentsmanagement.entity.SubjectEntity;
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import com.tkpm.studentsmanagement.entity.SubjectEntity;
 
 /**
  * @author : daitt
@@ -13,5 +14,8 @@ import java.util.List;
 
 public interface SubjectRepository extends CrudRepository<SubjectEntity, Long> {
     List<SubjectEntity> findAll(Pageable pageable);
+
     List<SubjectEntity> findAll();
+
+    List<SubjectEntity> findByIdOrNameContaining(Long id, String name, Pageable pageable);
 }

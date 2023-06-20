@@ -37,6 +37,9 @@ public class UserEntity extends AbstractEntity {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "isEnable")
+    private Boolean isEnable = false;
+
     // relationship
     @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<ClassEntity> createdClasses;
@@ -57,26 +60,14 @@ public class UserEntity extends AbstractEntity {
     private List<StudentEntity> updatedStudents;
 
     @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
-    private List<TestEntity> createdTests;
-
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
-    private List<TestEntity> updatedTests;
-
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
-    private List<TestEntity> createdUses;
-
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
-    private List<TestEntity> updatedUsers;
-
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<OtpEntity> createdOtps;
 
     @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
     private List<OtpEntity> updatedOtps;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = {
-            @JoinColumn(name = "roleId") })
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "userId")}, inverseJoinColumns = {
+            @JoinColumn(name = "roleId")})
     private List<RoleEntity> roles;
     // end relationship
 
@@ -164,6 +155,14 @@ public class UserEntity extends AbstractEntity {
         this.password = password;
     }
 
+    public Boolean getEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(Boolean enable) {
+        isEnable = enable;
+    }
+
     public List<Configuration> getCreatedConfigurations() {
         return this.createdConfigurations;
     }
@@ -196,35 +195,4 @@ public class UserEntity extends AbstractEntity {
         this.updatedStudents = updatedStudents;
     }
 
-    public List<TestEntity> getCreatedTests() {
-        return this.createdTests;
-    }
-
-    public void setCreatedTests(List<TestEntity> createdTests) {
-        this.createdTests = createdTests;
-    }
-
-    public List<TestEntity> getUpdatedTests() {
-        return this.updatedTests;
-    }
-
-    public void setUpdatedTests(List<TestEntity> updatedTests) {
-        this.updatedTests = updatedTests;
-    }
-
-    public List<TestEntity> getCreatedUses() {
-        return this.createdUses;
-    }
-
-    public void setCreatedUses(List<TestEntity> createdUses) {
-        this.createdUses = createdUses;
-    }
-
-    public List<TestEntity> getUpdatedUsers() {
-        return this.updatedUsers;
-    }
-
-    public void setUpdatedUsers(List<TestEntity> updatedUsers) {
-        this.updatedUsers = updatedUsers;
-    }
 }

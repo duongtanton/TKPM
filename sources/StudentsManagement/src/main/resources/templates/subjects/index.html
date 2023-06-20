@@ -54,7 +54,7 @@
 						<h4 class="card-title">SEARCH INFOMATION</h4>
 						<div class="row">
 							<div class="col-md-6 form-group row">
-								<label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
+								<label for="fname" class="col-sm-3 text-end control-label col-form-label">Subject Name</label>
 								<div class="col-sm-9">
 									<input type="text" class="input-url form-control" id="fname" name="name"
 									       placeholder="First Name Here" />
@@ -132,7 +132,6 @@
 							</label>
 						</th>
 						<th>Subject name</th>
-						<th>Teacher name</th>
 						<th>Required score</th>
 						<th>Created date</th>
 						<th>Updated date</th>
@@ -149,7 +148,6 @@
 							</label>
 						</th>
 						<td th:text="${subject.name}" />
-						<td th:text="${subject.teacherID}" />
 						<td th:text="${subject.requiredScore}" />
 						<td th:text="${subject.createdDate}" />
 						<td th:text="${subject.updatedDate}" />
@@ -196,16 +194,6 @@
 								<input type="text" class="form-control" id="fname" name="subject_name" placeholder="Enter Subject Name" />
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 form-group row">
-							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Teacher name</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="fname" name="teacher_name" placeholder="Enter Teacher Name" />
-							</div>
-						</div>
-					</div>
-					<div class="row">
 						<div class="col-md-6 form-group row">
 							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Required score</label>
 							<div class="col-sm-9">
@@ -236,12 +224,6 @@
 							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Subject Name</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="fname" name="subject_name" placeholder="" />
-							</div>
-						</div>
-						<div class="col-md-6 form-group row">
-							<label for="fname" class="col-sm-3 text-end control-label col-form-label">Teacher Name</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="fname" name="teacher_name" placeholder="" />
 							</div>
 						</div>
 						<div class="col-md-6 form-group row">
@@ -445,7 +427,6 @@
             //handle add
             const subject = {}
             subject.name = $("#modelAdd input[name='subject_name']").val();
-            subject.teacherID = $("#modelAdd input[name='teacher_name']").val();
             subject.requiredScore = $("#modelAdd input[name='required_score']").val();
             $.ajax({
               type: "POST",
@@ -479,16 +460,15 @@
               type: "GET",
               url: `/subject/${ids[0]}`,
               success: (subject, message, obj) => {
-                if (student) {
+                if (subject) {
                   $("#modelEdit").modal('show')
                   $("#modelEdit input[name=id]").val(subject?.id)
                   $("#modelEdit input[name=subject_name]").val(subject?.name)
-                  $("#modelEdit input[name=teacher_name]").val(subject?.teacherID)
                   $("#modelEdit input[name=required_score]").val(subject?.requiredScore)
-                  $("#modelEdit input[name=createdDate]").val(new Date(student?.createdDate).toLocaleString())
-                  $("#modelEdit input[name=updatedDate]").val(new Date(student?.createdDate).toLocaleString())
-                  $("#modelEdit input[name=createdBy]").val(student?.createdBy?.name)
-                  $("#modelEdit input[name=updatedBy]").val(student?.updatedBy?.name)
+                  $("#modelEdit input[name=createdDate]").val(new Date(subject?.createdDate).toLocaleString())
+                  $("#modelEdit input[name=updatedDate]").val(new Date(subject?.createdDate).toLocaleString())
+                  $("#modelEdit input[name=createdBy]").val(subject?.createdBy?.name)
+                  $("#modelEdit input[name=updatedBy]").val(subject?.updatedBy?.name)
                 } else {
                   toastr.error("Error system admin. Try later.", "System Says");
                 }
@@ -505,7 +485,6 @@
             const subject = {}
             subject.id = $("#modelEdit input[name=id]").val()
             subject.name = $("#modelEdit input[name=subject_name]").val()
-            subject.teacherID = $("#modelEdit input[name=teacher_name]").val()
             subject.requiredScore = $("#modelEdit input[name=required_score]").val()
             $.ajax({
               type: "PATCH",

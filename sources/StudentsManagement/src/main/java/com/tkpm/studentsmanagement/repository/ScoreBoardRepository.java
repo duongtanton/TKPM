@@ -1,11 +1,11 @@
 package com.tkpm.studentsmanagement.repository;
 
-import com.tkpm.studentsmanagement.dto.ScoreBoardDTO;
-import com.tkpm.studentsmanagement.entity.ScoreBoardEntity;
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import com.tkpm.studentsmanagement.entity.ScoreBoardEntity;
 
 /**
  * @author : daitt

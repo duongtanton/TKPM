@@ -62,7 +62,7 @@ public class StudentController {
         StudentDTO studentDTOSearch;
         try {
             studentDTOSearch = objectMapper.readValue(studentStr, StudentDTO.class);
-        } catch (Exception e) { 
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -78,6 +78,27 @@ public class StudentController {
         simpleResponse.setListT(listT);
         model.addAttribute("res", simpleResponse);
         return "students/index";
+    }
+
+    @GetMapping("search")
+    @ResponseBody
+    public SimpleResponse<StudentDTO> search(SimpleRequest simpleRequest,
+            @RequestParam(required = false, value = "id") Long id,
+            @RequestParam(required = false, value = "name") String name,
+            @RequestParam(required = false, value = "email") String email) {
+        SimpleResponse<StudentDTO> simpleResponse = new SimpleResponse<>();
+
+        Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
+                Sort.by("createdDate").descending());
+        Integer totalPages = studentService.totalPages(pageable);
+
+        simpleResponse.setPerPage(pageable.getPageSize());
+        simpleResponse.setCurrentPage(pageable.getPageNumber() + 1);
+        simpleResponse.setTotalPages(totalPages);
+
+        List<StudentDTO> listT = studentService.findLikeByIdOrNameOrEmail(id, name, email, pageable);
+        simpleResponse.setListT(listT);
+        return simpleResponse;
     }
 
     @PatchMapping
@@ -107,13 +128,12 @@ public class StudentController {
     @PostMapping
     @ResponseBody
     public Boolean add(StudentDTO studentDTO) {
-        StudentDTO newStudentDTO = null;
         try {
-            newStudentDTO = studentService.create(studentDTO);
+            return studentService.update(studentDTO);
         } catch (Exception e) {
             logger.error(studentDTO.toString(), e);
         }
-        return newStudentDTO != null;
+        return false;
     }
 
     @DeleteMapping
@@ -190,7 +210,7 @@ public class StudentController {
         } catch (Exception e) {
             logger.error(listStudentDTO.toString().toString(), e);
             e.printStackTrace();
-        } 
+        }
     }
 
     @GetMapping("/export-example")
@@ -240,7 +260,7 @@ public class StudentController {
             workbook.write(outputStream);
             workbook.close();
             outputStream.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error("", e);
         }
 

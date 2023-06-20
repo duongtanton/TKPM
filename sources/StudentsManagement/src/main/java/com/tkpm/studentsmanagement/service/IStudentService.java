@@ -17,6 +17,8 @@ public interface IStudentService {
 
     public List<StudentDTO> findAllById(List<Long> ids);
 
+    public List<StudentDTO> findLikeByIdOrNameOrEmail(Long id, String name, String Email, Pageable pageable);
+
     public StudentDTO findById(Long id);
 
     public Integer totalPages(Pageable pageable);

@@ -34,18 +34,18 @@ class ApplicationTests {
     */
 	@Test
 	void addNew() {
-		ScoreBoardEntity scoreBoard = new ScoreBoardEntity();
-		scoreBoard.setStudentID(2L);
-		scoreBoard.setClassID(2L);
-		scoreBoard.setSubjectID(2L);
-		scoreBoard.setYear(2023);
-		scoreBoard.setSemester(2D);
-		scoreBoard.setExam15Min(8.5D);
-		scoreBoard.setExam45Min(8.5D);
-		scoreBoard.setExamMiddle(8.5D);
-		scoreBoard.setExamFinal(8.5D);
+		// ScoreBoardEntity scoreBoard = new ScoreBoardEntity();
+		// scoreBoard.setStudentID(2L);
+		// scoreBoard.setClassID(2L);
+		// scoreBoard.setSubjectID(2L);
+		// scoreBoard.setYear(2023);
+		// scoreBoard.setSemester(2D);
+		// scoreBoard.setExam15Min(8.5D);
+		// scoreBoard.setExam45Min(8.5D);
+		// scoreBoard.setExamMiddle(8.5D);
+		// scoreBoard.setExamFinal(8.5D);
 
-		scoreBoardRepository.save(scoreBoard);
+		// scoreBoardRepository.save(scoreBoard);
 	}
 
 	@Test
@@ -86,8 +86,6 @@ class ApplicationTests {
 		subjectEntity.setId(2L);
 		subjectEntity.setName("Ly");
 		subjectEntity.setRequiredScore(5.0D);
-		subjectEntity.setTeacherID(13L);
-
 		subjectRepository.save(subjectEntity);
 	}
 

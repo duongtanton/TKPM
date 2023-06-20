@@ -7,10 +7,11 @@ public class ClassDTO extends AbstractDTO {
 
     private Integer numberOfPupils;
 
+    private String year;
+
     // relationship
     private List<StudentDTO> students;
 
-    private List<TestDTO> tests;
 
     public String getName() {
         return this.name;
@@ -28,19 +29,19 @@ public class ClassDTO extends AbstractDTO {
         this.numberOfPupils = numberOfPupils;
     }
 
+    public String getYear() {
+        return this.year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
     public List<StudentDTO> getStudents() {
         return this.students;
     }
 
     public void setStudents(List<StudentDTO> students) {
         this.students = students;
-    }
-
-    public List<TestDTO> getTests() {
-        return this.tests;
-    }
-
-    public void setTests(List<TestDTO> tests) {
-        this.tests = tests;
     }
 }
