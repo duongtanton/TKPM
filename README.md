@@ -85,7 +85,7 @@ Documentation: [Spring boot](https://spring.io/projects/spring-boot), [Thymeleaf
 
 ### KẾT THÚC.
 Chúng em xin tỏ lòng kính trọng và biết ơn sâu sắc đến thầy cô giáo là người trực tiếp hướng dẫn đồ án. Thầy cô đã cung cấp cho chúng em những tài liệu cần thiết cho đồ án của chúng em. 
-Em xin chân thành cảm ơn!
+Em xin chân thành cảm ơn! 
 
 <br/>
 
