@@ -55,7 +55,7 @@ public class ClassService implements IClassService {
                         ClassDTO classDTO = new ClassDTO();
                         classDTO.setId((long) row.getCell(0).getNumericCellValue());
                         classDTO.setName(row.getCell(1).getStringCellValue());
-                        classDTO.setSchoolYear(row.getCell(2).getStringCellValue());
+                        classDTO.setYear(row.getCell(2).getStringCellValue());
                         listClassDTO.add(classDTO);
                     }
                 }
@@ -108,14 +108,7 @@ public class ClassService implements IClassService {
 
     @Override
     public ClassDTO save(ClassDTO classDTO) {
-        ClassEntity newClass = new ClassEntity();
-        if (classDTO.getId() != null) {
-            newClass.setId(classDTO.getId());
-        }
-        newClass.setName(classDTO.getName());
-        if (classDTO.getNumberOfPupils() != null) {
-            newClass.setNumberOfPupils(classDTO.getNumberOfPupils());
-        }
+        ClassEntity newClass = modelMapper.map(classDTO, ClassEntity.class);
         return modelMapper.map(classRepository.save(newClass), ClassDTO.class);
     }
 

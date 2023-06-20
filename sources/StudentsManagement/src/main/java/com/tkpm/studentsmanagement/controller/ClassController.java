@@ -79,7 +79,7 @@ public class ClassController {
         return classDTO;
     }
 
-    @PostMapping("edit")
+    @PatchMapping
     @ResponseBody
     public ClassDTO editClass(ClassDTO classDTO) {
         ClassDTO updatedClassDTO = null;

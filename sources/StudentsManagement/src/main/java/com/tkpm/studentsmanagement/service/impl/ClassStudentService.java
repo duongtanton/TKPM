@@ -1,6 +1,5 @@
 package com.tkpm.studentsmanagement.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -13,9 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tkpm.studentsmanagement.dto.ClassDTO;
 import com.tkpm.studentsmanagement.dto.ClassStudentDTO;
 import com.tkpm.studentsmanagement.dto.StudentDTO;
-import com.tkpm.studentsmanagement.entity.ClassEntity;
 import com.tkpm.studentsmanagement.entity.ClassStudentEntity;
-import com.tkpm.studentsmanagement.entity.StudentEntity;
 import com.tkpm.studentsmanagement.repository.ClassStudentRepository;
 import com.tkpm.studentsmanagement.service.IClassStudentService;
 
@@ -49,5 +46,23 @@ public class ClassStudentService implements IClassStudentService {
                     .setClasss(modelMapper.map(classStudentEntities.get(i).getClasss(), ClassDTO.class));
         }
         return classStudentDTOs;
+    }
+
+    public ClassStudentDTO findById(Long id) {
+        ClassStudentEntity classStudentEntity = classStudentRepository.findById(id).orElse(null);
+        
+        ClassStudentDTO classStudentDTO =  modelMapper.map(classStudentEntity, ClassStudentDTO.class);
+      
+        return classStudentDTO;
+    }
+
+    @Override
+    public Boolean delete(List<Long> ids) {
+         try {
+            classStudentRepository.deleteAllById(ids);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

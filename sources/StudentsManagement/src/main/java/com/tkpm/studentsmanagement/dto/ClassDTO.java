@@ -30,11 +30,11 @@ public class ClassDTO extends AbstractDTO {
         this.numberOfPupils = numberOfPupils;
     }
 
-    public String getSchoolYear() {
-        return year;
+    public String getYear() {
+        return this.year;
     }
 
-    public void setSchoolYear(String year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -53,4 +53,5 @@ public class ClassDTO extends AbstractDTO {
     public void setTests(List<TestDTO> tests) {
         this.tests = tests;
     }
+
 }

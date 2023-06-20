@@ -110,14 +110,14 @@ public class ClassStudentController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public StudentDTO findById(@PathVariable("id") Long id) {
-        StudentDTO studentDTO = null;
+    public ClassStudentDTO findById(@PathVariable("id") Long id) {
+        ClassStudentDTO classStudentDTO = null;
         try {
-            studentDTO = studentService.findById(id);
+            classStudentDTO = classStudentService.findById(id);
         } catch (Exception e) {
             logger.error(id.toString(), e);
         }
-        return studentDTO;
+        return classStudentDTO;
     }
 
     @PostMapping
@@ -137,7 +137,7 @@ public class ClassStudentController {
     public Boolean delete(DeleteRequest deleteRequest) {
         Boolean deleted = false;
         try {
-            deleted = studentService.delete(deleteRequest.getIds());
+            deleted = classStudentService.delete(deleteRequest.getIds());
         } catch (Exception e) {
             logger.error(deleteRequest.getIds().toString(), e);
         }

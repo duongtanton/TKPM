@@ -63,10 +63,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 form-group row">
-                                    <label for="No_of_pupils" class="col-sm-3 text-end control-label col-form-label">Number of pupils</label>
+                                    <label for="No_of_pupils" class="col-sm-3 text-end control-label col-form-label">Start Year</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="input-url form-control" id="No_of_pupils" name="name"
-                                               placeholder="0" />
+                                        <input type="text" class="input-url form-control" id="No_of_pupils" name="year"
+                                               placeholder="Start Year" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 form-group row">
@@ -109,23 +109,23 @@
                         </div>
                     </form>
                     <div class="card-body" style="padding: 0 20px;">
-<!--                        <button type="button" class="btn btn-primary btn-search">-->
-<!--                            Search-->
-<!--                        </button>-->
+                       <button type="button" class="btn btn-primary btn-search">
+                           Search
+                       </button>
                         <button type="submit" class="btn btn-primary btn-add">
                             Add
                         </button>
-                        <button type="submit" class="btn btn-primary btn-add-student">
+                        <!-- <button type="submit" class="btn btn-primary btn-add-student">
                             Add Student
-                        </button>
+                        </button> -->
                         <button type="submit" class="btn btn-primary btn-edit">Edit</button>
                         <button type="submit" class="btn btn-primary btn-delete">Delete</button>
                         <button type="submit" class="btn btn-primary btn-import">
                             Import (Excel)
                         </button>
-<!--                        <button type="submit" class="btn btn-primary btn-export">-->
-<!--                            Export (Excel)-->
-<!--                        </button>-->
+                       <button type="submit" class="btn btn-primary btn-export">
+                           Export (Excel)
+                       </button>
                     </div>
                 </div>
             </div>
@@ -162,7 +162,7 @@
                             </th>
                             <td th:text="${class.name}" />
                             <td th:text="${class.numberOfPupils}" />
-                            <td th:text="${class.schoolYear}" />
+                            <td th:text="${class.year}" />
                             <td th:text="${class.createdDate}" />
                             <td th:text="${class.updatedDate}" />
                             <td th:text="${class.createdBy?.name}" />
@@ -208,6 +208,12 @@
                                     <input type="text" class="form-control" id="fname1" name="name" placeholder="Enter Class Name Here" />
                                 </div>
                             </div>
+                            <div class="col-md-6 form-group row">
+                              <label for="fname1" class="col-sm-3 text-end control-label col-form-label">Start year</label>
+                              <div class="col-sm-9">
+                                  <input type="text" class="form-control" id="fname1" name="year" placeholder="Enter Start Year Here" />
+                              </div>
+                          </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -315,6 +321,12 @@
                                     <input type="text" class="form-control" id="fname3" name="name" placeholder="" />
                                 </div>
                             </div>
+                            <div class="col-md-6 form-group row">
+                              <label for="fname1" class="col-sm-3 text-end control-label col-form-label">Start year</label>
+                              <div class="col-sm-9">
+                                  <input type="text" class="form-control" id="fname1" name="year" placeholder="Enter Start Year Here" />
+                              </div>
+                          </div>
                             <div class="col-md-6 form-group row">
                                 <label for="lname" class="col-sm-3 text-end control-label col-form-label">Created date</label>
                                 <div class="col-sm-9">
@@ -593,7 +605,8 @@
                     const name = $("#modelAddStudent input[name=\"studentName\"]").val();
                     const classStudent = {
                         studentId : +$(`#modelAddStudent input[name="studentIdReadonly"]`).val(),
-                        classId : +$(`#modelAddStudent input[name="classIdReadonly"]`).val()
+                        classId : +$(`#modelAddStudent input[name="classIdReadonly"]`).val(),
+                        classId : $(`#modelAddStudent input[name="year"]`).val(),
                     }
 
                     $.ajax({
@@ -634,7 +647,7 @@
                           $("#modelEdit").modal('show')
                           $("#modelEdit input[name=id]").val(student?.id)
                           $("#modelEdit input[name=name]").val(student?.name)
-                          $("#modelEdit input[name=name]").val(student?.name)
+                          $("#modelEdit input[name=year]").val(student?.year)
                           $("#modelEdit input[name=createdDate]").val(new Date(student?.createdDate).toLocaleString())
                           $("#modelEdit input[name=updatedDate]").val(new Date(student?.updatedDate).toLocaleString())
                           $("#modelEdit input[name=createdBy]").val(student?.createdBy?.name)
@@ -652,13 +665,14 @@
                     //handle edit
                     $("#modelEdit").modal('hide')
                     toastr.success("Edit successfully!!", "System Says");
-                    const student = {}
-                    student.id = $("#modelEdit input[name=id]").val()
-                    student.name = $("#modelEdit input[name=name]").val()
+                    const classDTO = {}
+                    classDTO.id = $("#modelEdit input[name=id]").val()
+                    classDTO.name = $("#modelEdit input[name=name]").val()
+                    classDTO.year = $("#modelEdit input[name=year]").val()
                     $.ajax({
-                      type: "POST",
-                      url: "/class/edit",
-                      data: student,
+                      type: "PATCH",
+                      url: "/class",
+                      data: classDTO,
                       success: (updated, message, obj) => {
                         if (updated) {
                           location.reload();

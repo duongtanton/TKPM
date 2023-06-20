@@ -16,7 +16,8 @@ import java.util.List;
 
 public interface ClassStudentRepository extends CrudRepository<ClassStudentEntity, Long> {
     @Query("SELECT c_s FROM class_student c_s WHERE c_s.classs = :classs AND c_s.student = :student")
-    List<ClassStudentEntity> findStudentInClass(@Param("classs") ClassEntity classs, @Param("student") StudentEntity student);
+    List<ClassStudentEntity> findStudentInClass(@Param("classs") ClassEntity classs,
+            @Param("student") StudentEntity student);
 
     List<ClassStudentEntity> findByClasssId(Long classsId, Pageable pageable);
 }
