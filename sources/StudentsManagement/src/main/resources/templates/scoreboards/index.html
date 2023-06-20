@@ -290,7 +290,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary btn-save">Save</button>
+					<button type="button" class="btn btn-primary btn-save">Add</button>
 				</div>
 			</div>
 		</div>
@@ -595,7 +595,7 @@
                   $("#modelEdit input[name=semester]").val(scoreboard?.semester)
                   $("#modelEdit input[name=year]").val(scoreboard?.year)
                   $("#modelEdit input[name=createdDate]").val(new Date(scoreboard?.createdDate).toLocaleString())
-                  $("#modelEdit input[name=updatedDate]").val(new Date(scoreboard?.createdDate).toLocaleString())
+                  $("#modelEdit input[name=updatedDate]").val(new Date(scoreboard?.updateDate).toLocaleString())
                 } else {
                   toastr.error("Error system admin. Try later.", "System Says");
                 }
@@ -610,7 +610,17 @@
             $("#modelEdit").modal('hide')
             toastr.success("Edit successfully!!", "System Says");
             const scoreboard = {}
-            scoreboard.studentId = $("#modelEdit input[name=id]").val()
+            scoreboard.studentId = $("#modelEdit input[name=name]").val()
+            scoreboard.classId = $("#modelEdit input[name=classroom]").val()
+            scoreboard.subjectId = $("#modelEdit input[name=subject]").val()
+            scoreboard.exam15Min = $("#modelEdit input[name=score15mins]").val()
+            scoreboard.exam45Min = $("#modelEdit input[name=score45mins]").val()
+            scoreboard.examMiddle = $("#modelEdit input[name=mid_exam_score]").val()
+            scoreboard.examFinal = $("#modelEdit input[name=final_exam_score]").val()
+            scoreboard.semester = $("#modelEdit input[name=semester]").val()
+            scoreboard.year = $("#modelEdit input[name=year]").val()
+            scoreboard.createdDate = $("#modelEdit input[name=createdDate]").val()
+            scoreboard.updatedDate = $("#modelEdit input[name=updateDate]").val()
             $.ajax({
               type: "PATCH",
               url: "/scoreboard",
