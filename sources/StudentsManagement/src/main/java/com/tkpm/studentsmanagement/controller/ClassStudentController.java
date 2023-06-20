@@ -90,6 +90,7 @@ public class ClassStudentController {
         model.addAttribute("res", simpleResponse);
         model.addAttribute("classes", listClassDTO);
         model.addAttribute("classId", classId);
+        model.addAttribute("classs", classService.findById(classId));
         model.addAttribute("classStudents", listT);
 
         return "classstudent/index";
@@ -121,9 +122,9 @@ public class ClassStudentController {
 
     @PostMapping
     @ResponseBody
-    public Boolean add( ClassStudentDTO classStudent) {
+    public Boolean add(ClassStudentDTO classStudent) {
         try {
-           return classStudentService.update(classStudent);
+            return classStudentService.update(classStudent);
         } catch (Exception e) {
             logger.error(classStudent.toString(), e);
         }

@@ -2,7 +2,7 @@
 <html layout:decorate="~{layouts/default-layout}">
 
 <head>
-  <title>Student-Class</title>
+  <title>Report</title>
 </head>
 
 <body>
@@ -22,27 +22,8 @@
       <link rel="stylesheet" type="text/css" href="/assets/libs/quill/dist/quill.snow.css" />
       <link href="/dist/css/style.min.css" rel="stylesheet" />
       <link href="/assets/libs/toastr/build/toastr.min.css" rel="stylesheet" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
-        integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     </div>
     <style>
-      ul {
-        list-style-type: none;
-        padding: 0;
-        margin-top: 10px;
-      }
-
-      li {
-        padding: 5px;
-        cursor: pointer;
-      }
-
-      li:hover {
-        background-color: #f4f4f4;
-      }
-
       .modal-dialog {
         max-width: 80%;
       }
@@ -73,13 +54,10 @@
               <h4 class="card-title">SEARCH INFOMATION</h4>
               <div class="row">
                 <div class="col-md-6 form-group row">
-                  <label for="fname" class="col-sm-3 text-end control-label col-form-label">Class</label>
+                  <label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
                   <div class="col-sm-9">
-                    <select class="select2 classTxtSearch form-select shadow-none mt-3"
-                      style="height: 36px; width: 100%">
-                      <option th:each="class: ${classes}" th:selected="${class.id} == ${classId}" th:value="${class.id}"
-                        th:text="${class.name}"></option>
-                    </select>
+                    <input type="text" class="input-url form-control" id="fname" name="name"
+                      placeholder="First Name Here" />
                   </div>
                 </div>
                 <div class="col-md-6 form-group row">
@@ -134,7 +112,7 @@
               Import (Excel)
             </button>
             <button type="submit" class="btn btn-primary btn-export">
-              Export (.pdf)
+              Export (Excel)
             </button>
           </div>
         </div>
@@ -161,14 +139,14 @@
               </tr>
             </thead>
             <tbody class="customtable">
-              <tr th:each="student: ${classStudents}">
+	              <tr th:each="student: ${res.listT}">
                 <th>
                   <label class="customcheckbox">
                     <input type="checkbox" th:name="${student.id}" class="listCheckbox" />
                     <span class="checkmark"></span>
                   </label>
                 </th>
-                <td th:text="${student.student.name}" />
+                <td th:text="${student.name}" />
                 <td th:text="${student.createdDate}" />
                 <td th:text="${student.updatedDate}" />
                 <td th:text="${student.createdBy?.name}" />
@@ -203,34 +181,51 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">ADD STUDENT IN CLASS</h5>
+            <h5 class="modal-title">ADD STUDENT</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
             <div class="row">
               <div class="col-md-6 form-group row">
-                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Student</label>
-                <div class="col-sm-9" style="position: relative;">
-                  <input type="text" id="studentSearch" class="form-control" placeholder="">
-                  <input type="text" id="studentId" name="studentId" hidden class="form-control" placeholder="">
-                  <ul style="position: absolute; top: 100%; left: 10px; right: 10px; background-color: #ccc;"
-                    id="studentResults"></ul>
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="name" placeholder="Enter Name Here" />
                 </div>
               </div>
               <div class="col-md-6 form-group row">
-                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Class</label>
-                <div class="col-sm-9" style="position: relative;">
-                  <input type="text" id="classSearch" class="form-control" placeholder="">
-                  <input type="text" id="classId" name="classId" hidden class="form-control" placeholder="">
-                  <ul style="position: absolute; top: 100%; left: 10px; right: 10px; background-color: #ccc;"
-                    id="classResults"></ul>
+                <label for="lname" class="col-sm-3 text-end control-label col-form-label">Birth date</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="birthDate" id="datepicker-birthdate"
+                    placeholder="mm/dd/yyyy" />
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary btn-save">Save</button>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Address</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="address" placeholder="Enter Address Here" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Email</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="email" placeholder="Enter Email Here" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Sex</label>
+                <div class="col-sm-9">
+                  <select name="sex" class="custom-select custom-select-lg mb-3"
+                    style="margin: 0 !important; padding: 4px 6px;">
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                  </select>
+                </div>
               </div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary btn-save">Save</button>
           </div>
         </div>
       </div>
@@ -240,28 +235,45 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">EDIT STUDENT IN CLASS</h5>
+            <h5 class="modal-title">EDIT STUDENT</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
             <div class="row">
               <input type="number" class="form-control" id="fname" name="id" hidden placeholder="" />
               <div class="col-md-6 form-group row">
-                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Student</label>
-                <div class="col-sm-9" style="position: relative;">
-                  <input type="text" id="studentSearch" name="studentSearch" class="form-control" placeholder="">
-                  <input type="text" id="studentId" name="studentId" hidden class="form-control" placeholder="">
-                  <ul style="position: absolute; top: 100%; left: 10px; right: 10px; background-color: #ccc;"
-                    id="studentResults"></ul>
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="name" placeholder="" />
                 </div>
               </div>
               <div class="col-md-6 form-group row">
-                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Class</label>
-                <div class="col-sm-9" style="position: relative;">
-                  <input type="text" id="classSearch" name="classSearch" class="form-control" placeholder="">
-                  <input type="text" id="classId" name="classId" hidden class="form-control" placeholder="">
-                  <ul style="position: absolute; top: 100%; left: 10px; right: 10px; background-color: #ccc;"
-                    id="classResults"></ul>
+                <label for="lname" class="col-sm-3 text-end control-label col-form-label">Birth date</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="birthDate" id="datepicker-birthdate-2"
+                    placeholder="" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Address</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="address" placeholder="" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Email</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="fname" name="email" placeholder="" />
+                </div>
+              </div>
+              <div class="col-md-6 form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label">Sex</label>
+                <div class="col-sm-9">
+                  <select name="sex" class="custom-select custom-select-lg mb-3"
+                    style="margin: 0 !important; padding: 4px 6px;">
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-6 form-group row">
@@ -320,7 +332,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">IMPORT PDF</h5>
+            <h5 class="modal-title">IMPORT EXCEL</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
@@ -339,65 +351,6 @@
               <button type="button" class="btn btn-primary " data-dismiss="modal">Download example file</button>
             </a>
             <button type="button" class="btn btn-primary btn-save">Save</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="modelExport" class="modal fade" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">EXPORT PDF</h5>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body" >
-            <div style=" text-align: center;
-            font-size: 30px;
-            font-weight: 600; ">CLASS LIST</div>
-            <div style="display: flex; justify-content: center; padding-top: 20px; padding-bottom: 10px;">
-              <div style="padding: 0 4ch;
-              font-size: 16px;
-              font-weight: 600;">Class: <span
-                  th:text="${classs?.year}+'-'+(${T(java.lang.Integer).parseInt(classs?.year)+1})"></span></div>
-
-              <div style="padding: 0 4ch;
-              font-size: 16px;
-              font-weight: 600;">Class: <span th:text="${classs?.name}"></span></div>
-
-              <div style="padding: 0 40px;
-              font-size: 16px;
-              font-weight: 600;">Numbers: <span th:text="${classStudents.size}"></span></div>
-            </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Stt</th>
-                  <th scope="col">Fullname</th>
-                  <th scope="col">Gender</th>
-                  <th scope="col">Birthday</th>
-                  <th scope="col">Address</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="classStudent, iterStat : ${classStudents}">
-                  <th scope="row" th:text="${iterStat.index + 1}"></th>
-                  <th th:text="${classStudent?.student?.name}"></th>
-                  <th th:if="${classStudent?.student?.sex}">
-                    Male
-                  </th>
-                  <th th:if="${!classStudent?.student?.sex}">
-                    Female
-                  </th>
-                  <td th:text="${classStudent?.student?.birthDate}"></td>
-                  <td th:text="${classStudent?.student?.address}"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary btn-save">Download</button>
           </div>
         </div>
       </div>
@@ -478,6 +431,7 @@
       </script>
       <script>
         $(document).ready(function () {
+
           $('.input-url').on('change', function () {
             const name = $(this).attr("name");
             const value = $(this).val();
@@ -514,13 +468,17 @@
             $("#modelAdd input[name='name']").val("");
           });
           $("#modelAdd .btn-save").click(function () {
-            const classStudent = {}
-            classStudent['classs.id'] = Number.parseInt($("#modelAdd input[name='classId']").val());
-            classStudent['student.id'] = Number.parseInt($("#modelAdd input[name='studentId']").val());
+            //handle add
+            const student = {}
+            student.name = $("#modelAdd input[name='name']").val(); 
+            student.birthDate =  moment($("#modelAdd input[name='birthDate']").val()).format("yyyy-MM-DD");
+            student.sex = $("#modelAdd select[name='sex']").val();
+            student.address = $("#modelAdd input[name='address']").val();
+            student.email = $("#modelAdd input[name='email']").val();
             $.ajax({
               type: "POST",
-              url: "/class-student",
-              data: classStudent,
+              url: "/student",
+              data: student,
               success: (added, message, obj) => {
                 if (added) {
                   location.reload();
@@ -547,19 +505,20 @@
             }
             $.ajax({
               type: "GET",
-              url: `/class-student/${ids[0]}`,
-              success: (classStudent, message, obj) => {
-                if (classStudent) {
+              url: `/student/${ids[0]}`,
+              success: (student, message, obj) => {
+                if (student) {
                   $("#modelEdit").modal('show')
-                  $("#modelEdit input[name=id]").val(classStudent?.id)
-                  $("#modelEdit input[name=studentId]").val(classStudent?.student.id)
-                  $("#modelEdit input[name=studentSearch]").val(classStudent?.student.id + "-" + classStudent?.student.name)
-                  $("#modelEdit input[name=classId]").val(classStudent?.classs.id)
-                  $("#modelEdit input[name=classSearch]").val(classStudent?.classs.id + "-" + classStudent?.classs.name)
-                  $("#modelEdit input[name=createdDate]").val(new Date(classStudent?.createdDate).toLocaleString())
-                  $("#modelEdit input[name=updatedDate]").val(new Date(classStudent?.createdDate).toLocaleString())
-                  $("#modelEdit input[name=createdBy]").val(classStudent?.createdBy?.name)
-                  $("#modelEdit input[name=updatedBy]").val(classStudent?.updatedBy?.name)
+                  $("#modelEdit input[name=id]").val(student?.id)
+                  $("#modelEdit input[name=name]").val(student?.name)
+                  $("#modelEdit input[name=birthDate]").val(student?.birthDate? moment(student?.birthDate).format("MM/DD/yyyy"):"")
+                  $("#modelEdit select[name=sex]").val(student?.sex ? "1" : "0")
+                  $("#modelEdit input[name=email]").val(student?.email)
+                  $("#modelEdit input[name=address]").val(student?.address)
+                  $("#modelEdit input[name=createdDate]").val(new Date(student?.createdDate).toLocaleString())
+                  $("#modelEdit input[name=updatedDate]").val(new Date(student?.createdDate).toLocaleString())
+                  $("#modelEdit input[name=createdBy]").val(student?.createdBy?.name)
+                  $("#modelEdit input[name=updatedBy]").val(student?.updatedBy?.name)
                 } else {
                   toastr.error("Error system admin. Try later.", "System Says");
                 }
@@ -576,13 +535,14 @@
             const student = {}
             student.id = $("#modelEdit input[name=id]").val()
             student.name = $("#modelEdit input[name=name]").val()
-            student.birthDate = moment($("#modelEdit input[name='birthDate']").val()).format("yyyy-MM-DD");
+            student.birthDate =  moment($("#modelEdit input[name='birthDate']").val()).format("yyyy-MM-DD");
             student.sex = $("#modelEdit select[name='sex']").val();
             student.address = $("#modelEdit input[name='address']").val();
             student.email = $("#modelEdit input[name='email']").val();
+            debugger
             $.ajax({
               type: "PATCH",
-              url: "/class-student",
+              url: "/student",
               data: student,
               success: (updated, message, obj) => {
                 if (updated) {
@@ -609,7 +569,7 @@
             const ids = $("#zero_config input:checked:not(#mainCheckbox)").map((index, item) => Number.parseInt(item.getAttribute("name"))).toArray();
             $.ajax({
               type: "DELETE",
-              url: "/class-student",
+              url: "/student",
               data: {
                 ids: ids,
                 redirectUrl: window.location.href
@@ -648,7 +608,7 @@
             $.ajax({
               type: 'POST',
               method: 'POST',
-              url: "class-student/import",
+              url: "student/import",
               data: data,
               processData: false,
               cache: false,
@@ -664,37 +624,23 @@
           })
 
           $(".btn-export").click(function () {
-            $("#modelExport").modal('show');
+            const ids = $("#zero_config input:checked:not(#mainCheckbox)").map((index, item) => Number.parseInt(item.getAttribute("name"))).toArray();
 
-            // const ids = $("#zero_config input:checked:not(#mainCheckbox)").map((index, item) => Number.parseInt(item.getAttribute("name"))).toArray();
-            // let url = '/class-student/export';
-            // if (ids?.length != 0) {
-            //   url += "?ids=" + ids.join(",");
-            // }
-            // var win = window.open(url, '_blank');
-            // if (win) {
-            //   //Browser has allowed it to be opened
-            //   win.focus();
-            // } else {
-            //   //Browser has not allowed it to be opened
-            //   toastr.warning("Please allow popups for this website.", "System Says");
-            // }
-
-          });
-        });
-        $("#modelExport .btn-save").click(function () {
-          window.jsPDF = window.jspdf.jsPDF;
-          window.html2canvas = html2canvas;
-          var classs = /*[[${classs}]]*/'';
-          const doc = new jsPDF('a4');
-          const component = document.querySelector('#modelExport .modal-body');
-          doc.html(component, {
-            callback: function (pdf) {
-              // Trigger PDF download
-              pdf.save(`${classs.year}-${classs.year + 1}_${classs.name}.pdf`);
+            let url = '/student/export';
+            if (ids?.length != 0) {
+              url += "?ids=" + ids.join(",");
+            }
+            var win = window.open(url, '_blank');
+            if (win) {
+              //Browser has allowed it to be opened
+              win.focus();
+            } else {
+              //Browser has not allowed it to be opened
+              toastr.warning("Please allow popups for this website.", "System Says");
             }
           });
-        })
+        });
+
         $(document).ready(function () {
           $(".close").click(function () {
             $(".modal").modal('hide');
@@ -718,6 +664,10 @@
       <script src="/assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
       <script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
       <script src="/assets/libs/quill/dist/quill.min.js"></script>
+
+
+
+
       <script>
         //***********************************//
         // For select 2
@@ -771,184 +721,9 @@
         //   theme: "snow",
         // });
       </script>
-      <script>
-        const studentSearch = document.querySelector('#modelAdd #studentSearch');
-        const studentResults = document.querySelector('#modelAdd #studentResults');
-        let timeoutStudentId;
-        studentSearch.addEventListener('input', handleStudentInput);
-        function handleStudentInput() {
-          clearTimeout(timeoutStudentId);
-          const searchValue = studentSearch.value;
-          // Clear previous results
-          studentResults.innerHTML = '';
-          // Debounce API call
-          timeoutStudentId = setTimeout(() => {
-            // Call API to get autocomplete results
-            const query = `id=${Number.parseInt(searchValue) || 0}&name=${searchValue}&email=${searchValue}&currentPage=${1}`;
-            fetch(`/student/search?${query}`)
-              .then(response => response.json())
-              .then(data => {
-                displayStudentResults(data.listT);
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
-          }, 500); // Delay in milliseconds
-        }
-        function displayStudentResults(results) {
-          studentResults.innerHTML = ''
-          results.forEach(result => {
-            const li = document.createElement('li');
-            li.innerText = `${result.id}-${result.name}`;
-            li.addEventListener('click', () => {
-              studentSearch.value = li.innerText;
-              $('#modelAdd #studentId').val(result.id);
-              studentResults.innerHTML = '';
-            });
-            studentResults.appendChild(li);
-          });
-        }
-        document.addEventListener("click", function (e) {
-          studentResults.innerHTML = '';
-        });
-      </script>
-      <script>
-        const classSearch = document.querySelector('#modelAdd #classSearch');
-        const classResults = document.querySelector('#modelAdd #classResults');
-        let timeoutClassId;
-        classSearch.addEventListener('input', handleClassInput);
-        function handleClassInput() {
-          clearTimeout(timeoutClassId);
-          const searchValue = classSearch.value;
-          // Clear previous results
-          classResults.innerHTML = '';
-          // Debounce API call
-          timeoutClassId = setTimeout(() => {
-            // Call API to get autocomplete results
-            const query = `id=${Number.parseInt(searchValue)}&name=${searchValue}&year=${searchValue}currentPage=${1}`;
-            fetch(`/class/search?${query}`)
-              .then(response => response.json())
-              .then(data => {
-                displayClassResults(data.listT);
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
-          }, 500); // Delay in milliseconds
-        }
-        function displayClassResults(results) {
-          classResults.innerHTML = ''
-          results.forEach(result => {
-            const li = document.createElement('li');
-            li.innerText = `${result.id}-${result.name}`;
-            li.addEventListener('click', () => {
-              classSearch.value = li.innerText;
-              $('#modelAdd #classId').val(result.id);
-              classResults.innerHTML = '';
-            });
-            classResults.appendChild(li);
-          });
-        }
-        document.addEventListener("click", function (e) {
-          classResults.innerHTML = '';
-        });
-      </script>
-      <script>
-        const studentSearch2 = document.querySelector('#modelEdit #studentSearch');
-        const studentResults2 = document.querySelector('#modelEdit #studentResults');
-        let timeoutStudentId2;
-        studentSearch2.addEventListener('input', handleStudentInput2);
-        function handleStudentInput2() {
-          clearTimeout(timeoutStudentId2);
-          const searchValue = studentSearch2.value;
-          // Clear previous results
-          studentResults2.innerHTML = '';
-          // Debounce API call
-          timeoutStudentId2 = setTimeout(() => {
-            // Call API to get autocomplete results
-            const query = `id=${Number.parseInt(searchValue) || 0}&name=${searchValue}&email=${searchValue}&currentPage=${1}`;
-            fetch(`/student/search?${query}`)
-              .then(response => response.json())
-              .then(data => {
-                displayStudentResults2(data.listT);
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
-          }, 500); // Delay in milliseconds
-        }
-        function displayStudentResults2(results) {
-          studentResults2.innerHTML = ''
-          results.forEach(result => {
-            const li = document.createElement('li');
-            li.innerText = `${result.id}-${result.name}`;
-            li.addEventListener('click', () => {
-              studentSearch2.value = li.innerText;
-              $('#modelEdit #studentId').val(result.id);
-              studentResults2.innerHTML = '';
-            });
-            studentResults2.appendChild(li);
-          });
-        }
-        document.addEventListener("click", function (e) {
-          studentResults.innerHTML = '';
-        });
-      </script>
-      <script>
-        const classSearch2 = document.querySelector('#modelEdit #classSearch');
-        const classResults2 = document.querySelector('#modelEdit #classResults');
-        let timeoutClassId2;
-        classSearch2.addEventListener('input', handleClassInput2);
-        function handleClassInput2() {
-          clearTimeout(timeoutClassId2);
-          const searchValue = classSearch2.value;
-          // Clear previous results
-          classResults2.innerHTML = '';
-          // Debounce API call
-          timeoutClassId2 = setTimeout(() => {
-            // Call API to get autocomplete results
-            const query = `id=${Number.parseInt(searchValue)}&name=${searchValue}&year=${searchValue}currentPage=${1}`;
-            fetch(`/class/search?${query}`)
-              .then(response => response.json())
-              .then(data => {
-                displayClassResults2(data.listT);
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
-          }, 500); // Delay in milliseconds
-        }
-        function displayClassResults2(results) {
-          classResults2.innerHTML = ''
-          results.forEach(result => {
-            const li = document.createElement('li');
-            li.innerText = `${result.id}-${result.name}`;
-            li.addEventListener('click', () => {
-              classSearch2.value = li.innerText;
-              $('#modelEdit #classId').val(result.id);
-              classResults2.innerHTML = '';
-            });
-            classResults2.appendChild(li);
-          });
-        }
-        document.addEventListener("click", function (e) {
-          classResults.innerHTML = '';
-        });
-      </script>
-      <script>
-        const classTxtSearch = $('.classTxtSearch')
-        classTxtSearch.on("change", e => {
-          const classId = $('.classTxtSearch option:selected').val();
-          const currentUrl = window.location.href;
-          const url = new URL(currentUrl);
-          url.searchParams.set("classId", classId);
-          const newUrl = url.href;
-          window.history.pushState({ path: newUrl }, '', newUrl);
-          location.reload();
-        })
-      </script>
     </div>
   </div>
+
 </body>
 
 </html>

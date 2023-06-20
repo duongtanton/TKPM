@@ -1,6 +1,7 @@
 package com.tkpm.studentsmanagement.service;
 
 import com.tkpm.studentsmanagement.dto.ScoreBoardDTO;
+import com.tkpm.studentsmanagement.dto.StaticAverageByClass;
 
 import org.springframework.data.domain.Pageable;
 import java.util.List;
@@ -23,4 +24,5 @@ public interface IScoreBoardService {
     Boolean delete(Long studentID, Long subjectID);
     Boolean update(ScoreBoardDTO scoreBoard);
     ScoreBoardDTO findByID(Long id);
+    List<StaticAverageByClass> staticAverageByClass(Long classsId);
 }
