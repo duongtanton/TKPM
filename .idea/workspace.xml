@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d021b878-4487-4ce2-861f-bd7a3a7b3cdb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mapstruct_mapstruct_1_5_2_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/log_22-06-2023.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/controller/ReportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/repository/ClassRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/repository/ClassRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/repository/ScoreBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/repository/ScoreBoardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/IClassService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/IClassService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/IScoreBoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/IScoreBoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ClassService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ClassService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ScoreBoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ScoreBoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/templates/fragments/default-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/templates/fragments/default-sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/templates/reports/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/templates/reports/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/dto/mapper/ConfigurationMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/dto/mapper/UserMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ConfigurationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ConfigurationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,11 +102,23 @@
       <workItem from="1687388288601" duration="8762000" />
       <workItem from="1687415586327" duration="15953000" />
       <workItem from="1687475700571" duration="23452000" />
-      <workItem from="1687518594587" duration="4619000" />
+      <workItem from="1687518594587" duration="5948000" />
+      <workItem from="1687526325135" duration="298000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

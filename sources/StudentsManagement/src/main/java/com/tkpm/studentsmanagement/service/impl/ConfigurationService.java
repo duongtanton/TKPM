@@ -1,12 +1,7 @@
 package com.tkpm.studentsmanagement.service.impl;
 
 import com.tkpm.studentsmanagement.constant.Role;
-import com.tkpm.studentsmanagement.dto.ConfigurationDTO;
-import com.tkpm.studentsmanagement.dto.ConfigurationSearchDTO;
-import com.tkpm.studentsmanagement.dto.SimpleResponse;
-import com.tkpm.studentsmanagement.dto.UserDTO;
-import com.tkpm.studentsmanagement.dto.mapper.ConfigurationMapper;
-import com.tkpm.studentsmanagement.dto.mapper.UserMapper;
+import com.tkpm.studentsmanagement.dto.*;
 import com.tkpm.studentsmanagement.entity.Configuration;
 import com.tkpm.studentsmanagement.repository.ConfigurationRepository;
 import com.tkpm.studentsmanagement.repository.RoleRepository;
@@ -36,15 +31,11 @@ public class ConfigurationService implements IConfigurationService {
     private RoleRepository roleRepository;
     @Autowired
     private ModelMapper modelMapper;
-    @Autowired
-    private ConfigurationMapper configurationMapper;
-    @Autowired
-    private UserMapper userMapper;
 
     @Override
     public List<ConfigurationDTO> findAll() {
         List<Configuration> configurations = configurationRepository.findAll();
-        return configurations.stream().map(c -> configurationMapper.toDto(c)).collect(Collectors.toList());
+        return configurations.stream().map(c -> modelMapper.map(c,ConfigurationDTO.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -61,7 +52,7 @@ public class ConfigurationService implements IConfigurationService {
                 configurationSearchDTO.getUpdatedBy(),
                 pageable);
         List<ConfigurationDTO> listT = configurationPage.get()
-                .map(c -> configurationMapper.toDto(c)).collect(Collectors.toList());
+                .map(c -> modelMapper.map(c,ConfigurationDTO.class)).collect(Collectors.toList());
         simpleResponse.setPerPage(pageable.getPageSize());
         simpleResponse.setCurrentPage(pageable.getPageNumber() + 1);
         simpleResponse.setTotalPages(totalPages(pageable));
@@ -71,27 +62,29 @@ public class ConfigurationService implements IConfigurationService {
 
     @Override
     public ConfigurationDTO findById(Long id) {
-        return configurationMapper.toDto(configurationRepository.findById(id).orElse(null));
+        return modelMapper.map(configurationRepository.findById(id).orElse(null),ConfigurationDTO.class);
     }
 
     @Override
     public ConfigurationDTO findByName(String name) {
-        return configurationMapper.toDto(configurationRepository.findByName(name));
+        return modelMapper.map(configurationRepository.findByName(name),ConfigurationDTO.class);
     }
 
     @Override
     public ConfigurationDTO save(ConfigurationDTO configurationDTO) {
         Configuration configurationEntity = modelMapper.map(configurationDTO, Configuration.class);
         Configuration configurationEntityRes = configurationRepository.save(configurationEntity);
-        ConfigurationDTO configurationDTORes = configurationMapper.toDto(configurationEntityRes);
+        ConfigurationDTO configurationDTORes = modelMapper.map(configurationEntityRes,ConfigurationDTO.class);
         update(configurationDTORes,configurationDTO.getUpdatedBy().getId());
         return configurationDTORes;
     }
 
     @Override
     public ConfigurationDTO save(ConfigurationDTO configurationDTO, Long currentUserId) {
-        UserDTO currentUser = userMapper.toDto(userRepository.findById(currentUserId).orElse(null));
-        if(currentUser == null || !currentUser.getRoles().contains(roleRepository.findByName(Role.ADMIN.name()))) {
+        UserDTO currentUser = modelMapper.map(userRepository.findById(currentUserId).orElse(null),UserDTO.class);
+
+        if(currentUser == null || !currentUser.getRoles().stream().map(
+                RoleDTO::getName).toList().contains(Role.ADMIN.name())) {
             throw new RuntimeException(String.format("Invalid role. It should be  %s",
                     Arrays.asList(Role.values())));
         }
