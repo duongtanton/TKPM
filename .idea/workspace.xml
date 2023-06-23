@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d021b878-4487-4ce2-861f-bd7a3a7b3cdb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/controller/ReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/repository/ClassRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/repository/ClassRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/repository/ScoreBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/repository/ScoreBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/IClassService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/IClassService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/IScoreBoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/IScoreBoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ClassService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ClassService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ScoreBoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/java/com/tkpm/studentsmanagement/service/impl/ScoreBoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/templates/fragments/default-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/templates/fragments/default-sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/templates/reports/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sources/StudentsManagement/src/main/resources/templates/reports/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2RXEyufSgjk0eXwEAMXaoIUaWxQ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/LE HOANG PHUC/School Project/TKPM/TKPM-4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;a7438a2483c4b8c4afdc1f208ce90a72&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.tkpm.studentsmanagement.service.impl" />
+      <recent name="com.tkpm.studentsmanagement.service" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.tkpm.studentsmanagement.dto" />
+      <recent name="com.tkpm.studentsmanagement.entity" />
+      <recent name="com.tkpm.studentsmanagement.dto.mapper" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="StudentsManagement" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.tkpm.studentsmanagement.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d021b878-4487-4ce2-861f-bd7a3a7b3cdb" name="Changes" comment="" />
+      <created>1687388287099</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1687388287099</updated>
+      <workItem from="1687388288601" duration="8762000" />
+      <workItem from="1687415586327" duration="15953000" />
+      <workItem from="1687475700571" duration="23452000" />
+      <workItem from="1687518594587" duration="4619000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

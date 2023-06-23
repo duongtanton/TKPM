@@ -1,8 +1,10 @@
 package com.tkpm.studentsmanagement.service;
 
 import com.tkpm.studentsmanagement.dto.ScoreBoardDTO;
+import com.tkpm.studentsmanagement.dto.ScoreBoardSearchDTO;
 import com.tkpm.studentsmanagement.dto.StaticAverageByClass;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
@@ -25,4 +27,8 @@ public interface IScoreBoardService {
     Boolean update(ScoreBoardDTO scoreBoard);
     ScoreBoardDTO findByID(Long id);
     List<StaticAverageByClass> staticAverageByClass(Long classsId);
+    List<ScoreBoardDTO> findAll(ScoreBoardSearchDTO scoreBoardSearchDTO, Pageable pageable);
+    ScoreBoardDTO updateResult(Long scoreBoardId);
+
+    void exportExcel(String scoreboardStr, HttpServletResponse httpServletResponse);
 }
