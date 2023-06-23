@@ -32,4 +32,7 @@ public interface ClassRepository extends CrudRepository<ClassEntity, Long> {
     List<ClassEntity> findByName(@Param("name") String name);
 
     List<ClassEntity> findByIdOrNameContainingOrYear(Long id, String name, String year, Pageable pageable);
+
+    @Query("SELECT DISTINCT c.year FROM class c ORDER BY c.year DESC")
+    List<String> findAllYear();
 }

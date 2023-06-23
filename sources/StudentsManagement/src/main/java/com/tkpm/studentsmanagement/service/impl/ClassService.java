@@ -184,6 +184,11 @@ public class ClassService implements IClassService {
     }
 
     @Override
+    public List<String> getAllYear() {
+        return classRepository.findAllYear();
+    }
+
+    @Override
     public boolean update(ClassDTO classDTO) {
         ClassEntity classEntity = classRepository.findById(classDTO.getId()).orElse(null);
         try {

@@ -30,4 +30,6 @@ public interface IClassService {
     public Boolean delete(List<Long> id);
 
     public List<ClassDTO> findLikeByIdOrNameOrYear(Long id, String name, String year, Pageable pageable);
+
+    public List<String> getAllYear();
 }
