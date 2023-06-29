@@ -146,8 +146,8 @@
                         <td th:text="${report.year}"/>
                         <td th:text="${report.semester}"/>
                         <td th:text="${report.numberOfPupils}"/>
-                        <td th:text="${report.passQuantity}"/>
-                        <td th:text="${report.passPercent}"/>
+                        <td th:text="${report.passQuantity} ? 'Yes' : 'No' "/>
+                        <td th:text="${report.passPercent} + '%'"/>
                         <td th:text="${report.averageScore}"/>
                     </tr>
                     </tbody>

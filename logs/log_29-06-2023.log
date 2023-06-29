@@ -1,0 +1,2 @@
+29-06-2023 21:21:14.258 [restartedMain] INFO  c.t.studentsmanagement.Application.logStarting - Starting Application using Java 17.0.7 with PID 25352 (E:\Desktop\20120449_20120532_20120549_20120598\SourceCode\StudentsManagement\target\classes started by ADMIN in E:\Desktop\20120449_20120532_20120549_20120598)
+29-06-2023 21:21:14.258 [restartedMain] INFO  c.t.studentsmanagement.Application.logStartupProfileInfo - The following 1 profile is active: "prod"

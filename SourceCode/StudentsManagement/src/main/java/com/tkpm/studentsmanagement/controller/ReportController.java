@@ -38,7 +38,7 @@ public class ReportController {
 
     @GetMapping
     public String index(Model model, SimpleRequest simpleRequest,
-                        @RequestParam(required = false, value = "report") String reportStr) {
+            @RequestParam(required = false, value = "report") String reportStr) {
         Pageable pageable = PageRequest.of(simpleRequest.getCurrentPage() - 1, simpleRequest.getPerPage(),
                 Sort.by("createdDate").descending());
         ReportDTO reportDTO = new ReportDTO();
@@ -58,9 +58,9 @@ public class ReportController {
         return "reports/index";
     }
 
-    @GetMapping("/update")
+    @GetMapping(value = { "/update/{type}", "/update" })
     @ResponseBody
-    public Boolean update(@RequestParam(required = false, value = "type") String type) {
+    public Boolean update(@PathVariable(required = false, value = "type") String type) {
         try {
             reportService.update(type);
             return true;
