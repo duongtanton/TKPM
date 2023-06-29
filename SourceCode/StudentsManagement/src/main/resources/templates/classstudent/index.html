@@ -75,7 +75,7 @@
                 <div class="col-md-6 form-group row">
                   <label for="fname" class="col-sm-3 text-end control-label col-form-label">Class</label>
                   <div class="col-sm-9">
-                    <select class="select2 classTxtSearch form-select shadow-none mt-3"
+                    <select class="select2 classTxtSearch form-select shadow-none mt-3 class-select"
                       style="height: 36px; width: 100%">
                       <option th:each="class: ${classes}" th:selected="${class.id} == ${classId}" th:value="${class.id}"
                         th:text="${class.name}"></option>
@@ -134,7 +134,7 @@
               Import (Excel)
             </button>
             <button type="submit" class="btn btn-primary btn-export">
-              Export (.pdf)
+              Export (Excel)
             </button>
           </div>
         </div>
@@ -351,7 +351,7 @@
             <h5 class="modal-title">EXPORT PDF</h5>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-          <div class="modal-body" >
+          <div class="modal-body">
             <div style=" text-align: center;
             font-size: 30px;
             font-weight: 600; ">CLASS LIST</div>
@@ -683,17 +683,32 @@
           });
         });
         $("#modelExport .btn-save").click(function () {
-          window.jsPDF = window.jspdf.jsPDF;
-          window.html2canvas = html2canvas;
-          var classs = /*[[${classs}]]*/'';
-          const doc = new jsPDF('a4');
-          const component = document.querySelector('#modelExport .modal-body');
-          doc.html(component, {
-            callback: function (pdf) {
-              // Trigger PDF download
-              pdf.save(`${classs.year}-${classs.year + 1}_${classs.name}.pdf`);
-            }
-          });
+          // window.jsPDF = window.jspdf.jsPDF;
+          // window.html2canvas = html2canvas;
+          // var classs = /*[[${classs}]]*/'';
+          // const doc = new jsPDF('a4');
+          // const component = document.querySelector('#modelExport .modal-body');
+          // doc.html(component, {
+          //   callback: function (pdf) {
+          //     // Trigger PDF download
+          //     pdf.save(`${classs.year}-${classs.year + 1}_${classs.name}.pdf`);
+          //   }
+          // });
+          const ids = $("#zero_config input:checked:not(#mainCheckbox)").map((index, item) => Number.parseInt(item.getAttribute("name"))).toArray();
+          var classId = $(".class-select option:selected").val();
+          let url = '/class-student/export/' + classId;
+          if (ids?.length != 0) {
+            url += "?ids=" + ids.join(",");
+          }
+          var win = window.open(url, '_blank');
+          if (win) {
+            //Browser has allowed it to be opened
+            win.focus();
+          } else {
+            //Browser has not allowed it to be opened
+            toastr.warning("Please allow popups for this website.", "System Says");
+          }
+
         })
         $(document).ready(function () {
           $(".close").click(function () {
@@ -707,6 +722,7 @@
           });
         });
       </script>
+
       <!-- This Page JS -->
       <script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
       <script src="/dist/js/pages/mask/mask.init.js"></script>

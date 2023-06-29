@@ -143,8 +143,8 @@ public class ClassStudentController {
         return deleted;
     }
 
-    @GetMapping("/export")
-    public void exportExcel(@RequestParam(value = "ids", required = false) Long[] ids,
+    @GetMapping("/export/{classId}")
+    public void exportExcel(@PathVariable("classId") Long classId,
             HttpServletResponse httpServletResponse) {
         httpServletResponse.setContentType("application/octet-stream");
 
@@ -156,45 +156,51 @@ public class ClassStudentController {
         httpServletResponse.setHeader(headerKey, headerValue);
 
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Student");
-        int rowNum = 0;
-        Row _row = sheet.createRow(rowNum++);
+        XSSFSheet sheet = workbook.createSheet("Student in class");
+        ClassDTO classDTO = classService.findById(classId);
+        Row _row = sheet.createRow(0);
         Cell _cell1 = _row.createCell(0);
-        _cell1.setCellValue("id");
+        _cell1.setCellValue("Year");
         Cell _cell2 = _row.createCell(1);
-        _cell2.setCellValue("name");
+        _cell2.setCellValue(classDTO.getYear() + "-" + classDTO.getYear() + 1);
         Cell _cell3 = _row.createCell(2);
-        _cell3.setCellValue("createdDate");
+        _cell3.setCellValue("Numbers");
         Cell _cell4 = _row.createCell(3);
-        _cell4.setCellValue("updatedDate");
+        
         Cell _cell5 = _row.createCell(4);
-        _cell5.setCellValue("createdBy");
+        _cell5.setCellValue("Name");
         Cell _cell6 = _row.createCell(5);
-        _cell6.setCellValue("updatedBy");
-        List<StudentDTO> listStudentDTO;
-        if (ids != null) {
-            listStudentDTO = studentService.findAllById(Arrays.asList(ids));
-        } else {
-            listStudentDTO = studentService.findAll();
-        }
-        for (StudentDTO studentDTO : listStudentDTO) {
+        _cell6.setCellValue(classDTO.getName());
+
+        int rowNum = 1;
+        Row __row = sheet.createRow(rowNum++);
+        Cell __cell1 = __row.createCell(0);
+        __cell1.setCellValue("Stt");
+        Cell __cell2 = __row.createCell(1);
+        __cell2.setCellValue("Fullname");
+        Cell __cell3 = __row.createCell(2);
+        __cell3.setCellValue("Gender");
+        Cell __cell4 = __row.createCell(3);
+        __cell4.setCellValue("Birthday");
+        Cell __cell5 = __row.createCell(4);
+        __cell5.setCellValue("Adresss");
+        List<ClassStudentDTO> listStudentDTO = classStudentService.findByClasssId(classId);
+        _cell4.setCellValue(listStudentDTO.size());
+        for (Integer i = 0; listStudentDTO != null && i < listStudentDTO.size(); i++) {
+            StudentDTO studentDTO = listStudentDTO.get(i).getStudent();
             Row row = sheet.createRow(rowNum++);
             Cell cell1 = row.createCell(0);
-            cell1.setCellValue(studentDTO.getId());
+            cell1.setCellValue(i + 1);
             Cell cell2 = row.createCell(1);
             cell2.setCellValue(studentDTO.getName());
             Cell cell3 = row.createCell(2);
-            cell3.setCellValue(dateFormatter.format(studentDTO.getCreatedDate()));
-            Cell cell4 = row.createCell(3);
-            if (studentDTO.getUpdatedBy() != null) {
-                cell4.setCellValue(dateFormatter.format(studentDTO.getUpdatedBy()));
+            if (studentDTO.getSex().equals(1)) {
+                cell3.setCellValue("Male");
             } else {
-                cell4.setCellValue("");
+                cell3.setCellValue("Femail");
             }
             Cell cell5 = row.createCell(4);
-            cell5.setCellValue("" + studentDTO.getCreatedBy());
-            Cell cell6 = row.createCell(5);
-            cell6.setCellValue("" + NotNullOrT.run(studentDTO.getUpdatedBy(), ""));
+            cell5.setCellValue(studentDTO.getAddress());
         }
 
         try {
@@ -203,7 +209,6 @@ public class ClassStudentController {
             workbook.close();
             outputStream.close();
         } catch (Exception e) {
-            logger.error(listStudentDTO.toString().toString(), e);
             e.printStackTrace();
         }
     }

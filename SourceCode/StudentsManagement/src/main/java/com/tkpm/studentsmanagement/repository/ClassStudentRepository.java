@@ -17,4 +17,7 @@ public interface ClassStudentRepository extends CrudRepository<ClassStudentEntit
             @Param("student") StudentEntity student);
 
     List<ClassStudentEntity> findByClasssId(Long classsId, Pageable pageable);
+
+    List<ClassStudentEntity> findByClasssId(Long classsId);
+
 }

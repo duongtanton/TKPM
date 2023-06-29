@@ -80,4 +80,22 @@ public class ClassStudentService implements IClassStudentService {
             return false;
         }
     }
+
+   
+    @Override
+    public List<ClassStudentDTO> findByClasssId(Long classId) {
+        List<ClassStudentEntity> classStudentEntities = classStudentRepository.findByClasssId(classId);
+
+        List<ClassStudentDTO> classStudentDTOs = modelMapper.map(classStudentEntities,
+                new TypeToken<List<ClassStudentDTO>>() {
+                }.getType());
+        for (int i = 0; i < classStudentDTOs.size(); i++) {
+            classStudentDTOs.get(i)
+                    .setStudent(modelMapper.map(classStudentEntities.get(i).getStudent(), StudentDTO.class));
+            classStudentDTOs.get(i)
+                    .setClasss(modelMapper.map(classStudentEntities.get(i).getClasss(), ClassDTO.class));
+        }
+        return classStudentDTOs;
+    }
+
 }

@@ -11,6 +11,8 @@ public interface IClassStudentService {
 
     public List<ClassStudentDTO> findByClasssId(Long classId, Pageable pageable);
 
+    public List<ClassStudentDTO> findByClasssId(Long classId);
+
     public ClassStudentDTO findById(Long id);
 
     public Boolean delete(List<Long> ids);
