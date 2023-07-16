@@ -124,7 +124,7 @@ public class ClassStudentController {
     @ResponseBody
     public Boolean add(ClassStudentDTO classStudent) {
         try {
-            return classStudentService.update(classStudent);
+            return classStudentService.create(classStudent) != null;
         } catch (Exception e) {
             logger.error(classStudent.toString(), e);
         }
@@ -152,7 +152,7 @@ public class ClassStudentController {
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=Student_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=Classes_" + currentDateTime + ".xlsx";
         httpServletResponse.setHeader(headerKey, headerValue);
 
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -221,11 +221,11 @@ public class ClassStudentController {
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=Student_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=Classes_" + currentDateTime + ".xlsx";
         httpServletResponse.setHeader(headerKey, headerValue);
 
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Student");
+        XSSFSheet sheet = workbook.createSheet("Classes");
         int rowNum = 0;
         Row _row = sheet.createRow(rowNum++);
         Cell _cell1 = _row.createCell(0);

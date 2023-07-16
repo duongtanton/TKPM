@@ -191,15 +191,23 @@ public class StudentController {
             Cell cell3 = row.createCell(2);
             cell3.setCellValue(dateFormatter.format(studentDTO.getCreatedDate()));
             Cell cell4 = row.createCell(3);
-            if (studentDTO.getUpdatedBy() != null) {
-                cell4.setCellValue(dateFormatter.format(studentDTO.getUpdatedBy()));
+            if (studentDTO.getUpdatedDate() != null) {
+                cell4.setCellValue(dateFormatter.format(studentDTO.getUpdatedDate()));
             } else {
                 cell4.setCellValue("");
             }
-            Cell cell5 = row.createCell(4);
-            cell5.setCellValue("" + studentDTO.getCreatedBy());
-            Cell cell6 = row.createCell(5);
-            cell6.setCellValue("" + NotNullOrT.run(studentDTO.getUpdatedBy(), ""));
+            try {
+                Cell cell5 = row.createCell(4);
+                cell5.setCellValue("" + studentDTO.getCreatedBy().getId());
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            try {
+                Cell cell6 = row.createCell(5);
+                cell6.setCellValue("" + studentDTO.getUpdatedBy().getId());
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
         }
 
         try {
@@ -292,13 +300,13 @@ public class StudentController {
                     try {
                         parsedDate = dateFormatter.parse(row.getCell(2).getStringCellValue());
                         studentDTO.setCreatedDate(new Timestamp(parsedDate.getTime()));
-                    } catch (ParseException e) {
+                    } catch (Exception e) {
                         studentDTO.setCreatedDate(null);
                     }
                     try {
                         parsedDate = dateFormatter.parse(row.getCell(3).getStringCellValue());
                         studentDTO.setUpdatedDate(new Timestamp(parsedDate.getTime()));
-                    } catch (ParseException e) {
+                    } catch (Exception e) {
                         studentDTO.setUpdatedDate(null);
                     }
                     try {

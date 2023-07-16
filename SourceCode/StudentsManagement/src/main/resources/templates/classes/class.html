@@ -755,7 +755,7 @@
                   $(".btn-export").click(function () {
                     const ids = $("#zero_config input:checked:not(#mainCheckbox)").map((index, item) => Number.parseInt(item.getAttribute("name"))).toArray();
 
-                    let url = '/student/export';
+                    let url = '/classes/export';
                     if (ids?.length != 0) {
                       url += "?ids=" + ids.join(",");
                     }

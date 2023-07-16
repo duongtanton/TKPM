@@ -15,7 +15,10 @@ import com.tkpm.studentsmanagement.dto.StudentDTO;
 import com.tkpm.studentsmanagement.entity.ClassEntity;
 import com.tkpm.studentsmanagement.entity.ClassStudentEntity;
 import com.tkpm.studentsmanagement.entity.StudentEntity;
+import com.tkpm.studentsmanagement.repository.ClassRepository;
 import com.tkpm.studentsmanagement.repository.ClassStudentRepository;
+import com.tkpm.studentsmanagement.repository.StudentRepositoty;
+
 import com.tkpm.studentsmanagement.service.IClassStudentService;
 
 @Service
@@ -28,9 +31,21 @@ public class ClassStudentService implements IClassStudentService {
     @Autowired
     private ClassStudentRepository classStudentRepository;
 
+    @Autowired
+    private StudentRepositoty studentRepository;
+
+    @Autowired
+    private ClassRepository classRepository;
+
     @Override
     public ClassStudentDTO create(ClassStudentDTO classStudentDTO) {
+        StudentEntity studentEntity = studentRepository.findById(classStudentDTO.getStudent().getId()).orElse(null);
+        ClassEntity classEntity = classRepository.findById(classStudentDTO.getClasss().getId()).orElse(null);
+
         ClassStudentEntity classStudentEntity = modelMapper.map(classStudentDTO, ClassStudentEntity.class);
+        classStudentEntity.setClasss(classEntity);
+        classStudentEntity.setStudent(studentEntity);
+
         return modelMapper.map(classStudentRepository.save(classStudentEntity), ClassStudentDTO.class);
     }
 
@@ -81,7 +96,6 @@ public class ClassStudentService implements IClassStudentService {
         }
     }
 
-   
     @Override
     public List<ClassStudentDTO> findByClasssId(Long classId) {
         List<ClassStudentEntity> classStudentEntities = classStudentRepository.findByClasssId(classId);
