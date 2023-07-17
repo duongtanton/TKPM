@@ -129,7 +129,7 @@ public class StudentController {
     @ResponseBody
     public Boolean add(StudentDTO studentDTO) {
         try {
-            return studentService.update(studentDTO);
+            return studentService.create(studentDTO) != null;
         } catch (Exception e) {
             logger.error(studentDTO.toString(), e);
         }
